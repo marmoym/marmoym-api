@@ -4,7 +4,10 @@
   "description": "tymsai-api",
   "main": "index.js",
   "scripts": {
-    "dev": "tsc -w -p ./internals/typescript/tsconfig.dev.json",
+    "clean": "rm -rf ./lib/*",
+    "copy-config": "mkdir ./lib/config && cp ./src/config/* ./lib/config/",
+    "dev": "npm run clean && npm run copy-config && npm run watch",
+    "watch": "tsc -w -p ./internals/typescript/tsconfig.dev.json",
     "build": "",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
