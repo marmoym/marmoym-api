@@ -151,10 +151,18 @@ fabric.properties
 # Sonarlint plugin
 .idea/sonarlint
 
+### VisualStudioCode ###
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
 # End of https://www.gitignore.io/api/node,macos,webstorm
 
 yarn.lock
 .idea/
 _backup/
 /lib/
+/src/config/
 
