@@ -17,7 +17,7 @@ module.exports = function(sequelize: Sequelize.Sequelize, DataTypes) {
       allowNull: false
     },
     password: {
-      type: DataTypes.STRING(32),
+      type: DataTypes.STRING(128),
       allowNull: false
     },
     status: {

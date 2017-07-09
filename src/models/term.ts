@@ -10,7 +10,13 @@ module.exports = function(sequelize: Sequelize.Sequelize, DataTypes){
     name: {
       type: DataTypes.STRING(32),
       allowNull: false
+    },
+    status: {
+      type: DataTypes.STRING(32),
+      allowNull: false,
+      defaultValue: "NORMAL"
     }
+
   }, {
     timestamps: true,
     underscored: true,

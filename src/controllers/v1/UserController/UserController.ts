@@ -7,69 +7,157 @@
 import * as jwt from 'jsonwebtoken'
 import models from '../../../models'
 import config from '../../../config'
+import * as bcrypt from 'bcrypt'
+
+
+let saltRounds = 10;
+
 
 /**
  * ...
  */
 class UserController {
-
-  public test(input: String){
-    // console.log("hello test"+ input)
-
-    return false;
-
-  }
  
+
   /**
    * ...
    */
-  public getUserInfo(userId: String, userPw: String) {
-    models.user.findAll({
-      where : {
-        username : userId
+  public getUserInfo(param: any) {
+
+    return models.user.findOne({
+                    where : {
+                      username : param.username,
+                      status: {$not: "DELETED"}
+                    }
+                  }).then((user) => {
+                      return user;
+                  })
+  }
+
+  /**
+   * ...
+   */
+  public getUserToken(param: any) {
+
+    var token;
+
+    return this.getUserInfo(param).then( (user) => {
+   
+      if(bcrypt.compareSync(param.pw, user.password)) {
+        token = jwt.sign(
+                {
+                  id : user.username
+                },
+               config.server.jwtKey,
+                {
+                  expiresIn: '7d',
+                  subject: 'userInfo'
+                }
+              );
       }
-    }).then(function(user){
-      // console.log(1, user.length)
-      // console.log(2, user)
+      return token;
 
-    })
+  })
 
-    return true;
-  }
-
-  /**
-   * ...
-   */
-  public getUserToken(userId: String) {
-    console.log(1, 'getuserToken' + userId)
-    var token = jwt.sign(
-        {
-          id : userId
-        },
-        config.server.jwtKey,
-        {
-          expiresIn: '7d',
-          issuer: 'kweb.korea.ac.kr',
-          subject: 'userInfo'
-        }
-      );
-    console.log(3, token)
-    return token;
-
-  }
+}
 
 /**
  * ...
  * @param userId 
  * @param userPw 
  */
-  public registerUser(userId: String, userPw: String) {
-    models.user.create({
-      username: 'test1',
-      password: 'test1',
-      email: "test1"
-    })
+  public registerUser(param: any) {
+    
+    if(!this.checkUsernameExist(param.username)) {
+      return false;
+    }
+
+    if(!this.checkUserEmailExist(param.email)) {
+      return false;
+    }
+
+    let encodedPw = bcrypt.hashSync(param.pw, saltRounds);
+
+    if(models.user.create({
+          username: param.username,
+          password: encodedPw,
+          email: param.email
+        }).then(
+          (result) => {
+            return true;
+          }
+        ).catch(
+          (err) => {
+            return false;
+          }
+        )
+      ){
+      return true;
+    }
+    return false;
   }
+
+  /**
+   * ...
+   */
+  public checkUsernameExist(input: String) {
+    if(models.user.count({
+          where: {
+            status: {$not: "DELETED"},
+            username: input    
+          }
+        }).then(
+          (result) => {
+            if(result == 0){  
+              console.log('아이디중복없음')
+              return true;
+            }else{
+              return false;
+            }
+          }
+        )
+        .catch(
+          (err) => {
+            console.log(err)
+            return false;
+          }
+        )
+      ){
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * ...
+   */
+  public checkUserEmailExist(input: String) {
+    if(models.user.count({
+          where: {
+            status: {$not: "DELETED"},
+            email: input    
+          }
+        }).then(
+          (result) => {
+            if(result == 0){
+              console.log('이메일중복없음')
+              return true;
+            }else{
+              return false;
+            }
+          }
+        ).catch(
+          (err) => {
+            console.log(err)
+            return false;
+          }
+        )
+      ){
+      return true;
+    }
+    return false;
+  }
+
 
 }
 

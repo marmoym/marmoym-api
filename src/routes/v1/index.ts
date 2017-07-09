@@ -16,4 +16,6 @@ router.get('/power', (req: Request, res: Response) => {
 
 router.use('/user', userRoute)
 
+router.use('/term', termRoute)
+
 export default router;
