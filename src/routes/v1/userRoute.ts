@@ -3,19 +3,21 @@
  * 
  */
 import { Router, Request, Response, NextFunction } from 'express'
-import UserController from '../../controllers/v1/UserController/UserController'
+import * as UserController from '../../controllers/v1/UserController/UserController'
 
 /**
  * Request Mapping: /api/v1/user/
  */
 let router: Router = Router();
 
+
 /**
  * ...
  */
-router.get('/check_username_exist', (req: Request, res: Response) => {
-  console.log(1, req.params)
-  var result = UserController.checkUsernameExist(req.params.username)
+router.get('/check_username_exist', async (req: Request, res: Response) => {
+  
+  var result = await UserController.checkUsernameExist(req.params.username)
+  
   if(result){
     res.status(200).json({message: 'User Exist'})
   }else{
@@ -26,42 +28,40 @@ router.get('/check_username_exist', (req: Request, res: Response) => {
 /**
  * ...
  */
-router.get('/check_useremail_exist', (req: Request, res: Response) => {
-  console.log(1, req.params)
-  var result = UserController.checkUserEmailExist(req.params.useremail)
+router.get('/check_useremail_exist', async (req: Request, res: Response) => {
+  
+  var result = await UserController.checkUserEmailExist(req.params.useremail)
+  
   if(result){
     res.status(200).json({message: 'UserEmail Exist'})
   }else{
     res.status(404).json({code: 0, message: 'UserEmail Not Exist'});
   }
+
 })
 
 /**
  * ...
  */
-router.post('/login', (req: Request, res: Response) => {
+router.post('/login', async (req: Request, res: Response) => {
  
-  console.log(req.body)
-
-  var result = UserController.getUserToken(req.body);
+  var result = await UserController.getUserToken(req.body);
   
-  result.then(function(value){
-      if(value == undefined){
-        res.status(404).json({code: 0, message: 'Login Fail'})
-      }else{
-        res.status(200).json({code: 1, token: value})
-      }
-  })
+  if(result == undefined){
+    res.status(404).json({code: 0, message: 'Login Fail'})
+  }else{
+    res.status(200).json({code: 1, token: result})
+  }
 
 })
 
 /**
  * ...
  */
-router.post('/join', (req: Request, res: Response) => {
-  console.log(req.body)
-  var result = UserController.registerUser(req.body) 
-  console.log(1, result) 
+router.post('/join', async (req: Request, res: Response) => {
+  
+  var result = await UserController.registerUser(req.body) 
+  
   if(result == 'JoinSuccess'){
     res.status(200).json({code: 0, message: 'Join Success'})
   }else if(result == 'UsernameExist'){
@@ -74,16 +74,26 @@ router.post('/join', (req: Request, res: Response) => {
 
 })
 
-router.use('/update', (req: Request, res: Response, next: NextFunction ) => {
-  if(UserController.verifyUserToken(req.headers['x-access-token']) == 'Verify'){
+router.use('/update', async (req: Request, res: Response, next: NextFunction ) => {
+ 
+  var result = await UserController.verifyUserToken(req.headers['x-access-token'], req.body)
+  
+  if(result == 'Authorized'){
     next();
-  }else{
-    res.status(401).json({code: 0, message: 'Token Valid Fail'})
+  }else if(result == 'NotAuthorized'){
+    res.status(401).json({code: 0, message: 'Not Authorized'})
+  }else if(result == 'TokenValidError'){
+    res.status(401).json({code: 0, message: "Token Valid Fail"})
+  }else {
+    res.send(500).json({code: 0, message: 'Internal Server Error'})
   }
+
 });
 
-router.put('/update', (req: Request, res: Response) => {
-  var result = UserController.updateUserInfo(req.body)
+router.put('/update', async (req: Request, res: Response) => {
+  
+  var result = await UserController.updateUserInfo(req.body)
+  
   if(result == 'UpdateSuccess'){
     res.status(200).json({code: 0, message: 'Update Success'})
   }else if(result == 'UserEmailExist'){
@@ -91,23 +101,35 @@ router.put('/update', (req: Request, res: Response) => {
   }else{
     res.status(500).json({code: 0, message: 'Update Fail'})
   }
+
 })
 
-router.use('/delete', (req: Request, res: Response, next : NextFunction ) => {
-  if(UserController.verifyUserToken(req.headers['x-access-token'])){
+router.use('/delete', async (req: Request, res: Response, next : NextFunction ) => {
+  
+  var result = await UserController.verifyUserToken(req.headers['x-access-token'], req.body)
+  
+  if(result == 'Authorized'){
     next();
-  }else{
-    res.status(401).json({code: 0, message: 'Token Valid Fail'})
+  }else if(result == 'NotAuthorized'){
+    res.status(401).json({code: 0, message: 'Not Authorized'})
+  }else if(result == 'TokenValidError'){
+    res.status(401).json({code: 0, message: "Token Valid Fail"})
+  }else {
+    res.send(500).json({code: 0, message: 'Internal Server Error'})
   }
+
 });
 
-router.delete('delete', (req: Request, res: Response) => {
-  var result = UserController.deleteUser(req.body)
+router.delete('delete', async (req: Request, res: Response) => {
+  
+  var result = await UserController.deleteUser(req.body)
+  
   if(result == 'DeleteSuccess'){
     res.status(200).json({code: 0, message: 'Delete Success'})
   }else{
     res.status(500).json({code: 0, message: 'Delete Fail'})
   }
+  
 })
 
 export default router;

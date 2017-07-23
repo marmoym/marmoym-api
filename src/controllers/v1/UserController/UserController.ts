@@ -11,70 +11,73 @@ import * as bcrypt from 'bcrypt'
 
 
 const saltRounds = 10;
+
+
 /**
  * ...
  */
-class UserController {
- 
+export async function getUserInfo(params: any) {
+  var userInfo = await models.user.findOne({
+                  where : {
+                    username : params.username,
+                    status: {$not: "DELETED"}
+                  }
+                }).then((user) => {
+                    console.log(3, user)
+                    return user;
+                })
+  return userInfo
+}
 
-  /**
-   * ...
-   */
-  public getUserInfo(param: any) {
 
-    return models.user.findOne({
-                    where : {
-                      username : param.username,
-                      status: {$not: "DELETED"}
-                    }
-                  }).then((user) => {
-                      console.log(3, user)
-                      return user;
-                  })
+/**
+ * ...
+ */
+export async function getUserToken(params: any) {
+  var token;
+
+  var userInfo = await getUserInfo(params);
+
+  if(userInfo != null){
+
+    if(bcrypt.compareSync(params.pw, userInfo.password)) {
+      token = jwt.sign(
+                {
+                  username : userInfo.username
+                },
+              config.server.jwtKey,
+                {
+                  expiresIn: '7d',
+                  subject: 'userInfo'
+                }
+              );
+    }
+
   }
 
-  /**
-   * ...
-   */
-  public getUserToken(param: any) {
+  return token;
 
-    var token;
-
-    return this.getUserInfo(param).then( (user) => {
-      if(user != null){
-
-        if(bcrypt.compareSync(param.pw, user.password)) {
-          token = jwt.sign(
-                  {
-                    id : user.username
-                  },
-                config.server.jwtKey,
-                  {
-                    expiresIn: '7d',
-                    subject: 'userInfo'
-                  }
-                );
-        }
-
-      }
-      return token;
-
-  })
 
 }
+
 
 /**
    * ...
 */
-public verifyUserToken(input_token: string) {
+export async function verifyUserToken(input_token: string, params: any) {
+  
   try {
     var decoded = jwt.verify(input_token, config.server.jwtKey);
   } catch(err) {
-    return "Error";
+    return "TokenValidError";
   }
-  console.log(1, decoded)
-  //TODO 사용자권한 체크
-  return "Verify";
+
+  if(decoded.username == params.username){ //본인
+    return "Authorized"
+  }else{ //본인아님
+    return "NotAuthorized"
+  }
+
 }
 
 /**
@@ -82,159 +85,154 @@ public verifyUserToken(input_token: string) {
  * @param userId 
  * @param userPw 
  */
-  public registerUser(param: any) {
+export async function registerUser(params: any) {
  
-    //TODO 중복체크 순서대로 작동후 등록으로넘어가게
-    if(!this.checkUsernameExist(param.username)) {
-      return "UsernameExist";
-    }
-
-    if(!this.checkUserEmailExist(param.email)) {
-      return "UserEmailExist";
-    }
-    
-    let encodedPw = bcrypt.hashSync(param.pw, saltRounds);
-    console.log(1, encodedPw)
-    if(models.user.create({
-          username: param.username,
-          password: encodedPw,
-          email: param.email
-        }).then(
-          (result) => {
-            return true;
-          }
-        ).catch(
-          (err) => {
-            return false;
-          }
-        )
-      ){
-      return "JoinSuccess";
-    }
-    return "Error";
+  if(!await checkUsernameExist(params.username)) {
+    return "UsernameExist";
   }
 
-  /**
-   * ...
-   */
-  public checkUsernameExist(input: String) {
-    //TODO Promise 나 async 적용 
-    if(models.user.count({
-          where: {
-            status: {$not: "DELETED"},
-            username: input    
-          }
-        }).then(
-          (result) => {
-            if(result == 0){  
-              return true;
-            }else{
-              return false;
-            }
-          }
-        )
-        .catch(
-          (err) => {
-            console.log(err)
-            return false;
-          }
-        )
-      ){
-      return true;
-    }
-    return false;
+  if(!await checkUserEmailExist(params.email)) {
+    return "UserEmailExist";
   }
-
-  /**
-   * ...
-   */
-  public checkUserEmailExist(input: String) {
-     //TODO Promise 나 async 적용 
-    if(models.user.count({
-          where: {
-            status: {$not: "DELETED"},
-            email: input    
-          }
-        }).then(
-          (result) => {
-            if(result == 0){
-              return true;
-            }else{
-              return false;
-            }
-          }
-        ).catch(
-          (err) => {
-            console.log(err)
-            return false;
-          }
-        )
-      ){
-      return true;
-    }
-    return false;
+  let encodedPw = bcrypt.hashSync(params.pw, saltRounds);
+  console.log(1, encodedPw)
+  if(models.user.create({
+        username: params.username,
+        password: encodedPw,
+        email: params.email
+      }).then(
+        (result) => {
+          return true;
+        }
+      ).catch(
+        (err) => {
+          return false;
+        }
+      )
+    ){
+    return "JoinSuccess";
   }
-
-  /**
-   * ...
-   */
-  public updateUserInfo(param: any) {
-
-    //TODO 중복체크후 밑에 수정 작동하도록
-    if(!this.checkUserEmailExist(param.email)) {
-      return "UserEmailExist";
-    }
-
-    let encodedPw = bcrypt.hashSync(param.pw, saltRounds);
-
-    if(models.user.update({
-          password: encodedPw,
-          email: param.email
-        },{
-          where : {
-            username : param.username
-          }
-        }).then(
-          (result) => {
-            return true;
-          }
-        ).catch(
-          (err) => {
-            return false;
-          }
-        )
-      ){
-      return "UpdateSuccess";
-    }
-    return "Error";
-  }
-
-  /**
-   * ...
-   */
-  public deleteUser(param: any) {
-    
-    if(models.user.update({
-        status: 'DELETE'
-        },{
-          where : {
-            username : param.username
-          }
-        }).then(
-          (result) => {
-            return true;
-          }
-        ).catch(
-          (err) => {
-            return false;
-          }
-        )
-      ){
-      return "DeleteSuccess";
-    }
-    return "Error";
-  }
-
+  return "Error";
 }
 
-export default new UserController()
+/**
+  * ...
+  */
+export async function checkUsernameExist(input: String) {
+
+  var check = await models.user.count({
+        where: {
+          status: {$not: "DELETED"},
+          username: input    
+        }
+      }).then(
+        (result) => {
+          if(result == 0){  
+            return true;
+          }else{
+            return false;
+          }
+        }
+      )
+      .catch(
+        (err) => {
+          console.log(err)
+          return false;
+        }
+      )
+
+  if(check){
+    return true;
+  }
+  return false;
+}
+
+/**
+ * ...
+ */
+export async function checkUserEmailExist(input: String) {
+
+  var check = await models.user.count({
+        where: {
+          status: {$not: "DELETED"},
+          email: input    
+        }
+      }).then(
+        (result) => {
+          if(result == 0){
+            console.log(1, 'result not 0')
+            return true;
+          }else{
+            console.log(1, 'result 0')
+            return false;
+          }
+        }
+      ).catch(
+        (err) => {
+          console.log(err)
+          return false;
+        }
+      )
+
+  if(check){
+    return true;
+  }
+  return false;
+}
+
+/**
+ * ...
+ */
+export async function updateUserInfo(params: any) {
+  
+  if(!await checkUserEmailExist(params.email)) {
+    return "UserEmailExist";
+  }
+
+  let encodedPw = bcrypt.hashSync(params.pw, saltRounds);
+  var updateResult = await models.user.update({
+                                password: encodedPw,
+                                email: params.email
+                              },{
+                                where : {
+                                  username : params.username
+                                }
+                              }).then(
+                                (result) => {
+                                  return true;
+                                }
+                              ).catch(
+                                (err) => {
+                                  return false;
+                                }
+                              )
+  if(updateResult){
+    return "UpdateSuccess";
+  }
+  return "Error";
+}
+
+/**
+ * ...
+ */
+export async function deleteUser(params: any) {
+  var deleteResult = await models.user.update({
+                                status: 'DELETE'
+                                },{
+                                  where : {
+                                    username : params.username
+                                  }
+                                }).then(
+                                  (result) => {
+                                    return true;
+                                  }
+                                ).catch(
+                                  (err) => {
+                                    return false;
+                                  }
+                                )
+  if(deleteResult){
+    return "DeleteSuccess";
+  }
+  return "Error";
+}
