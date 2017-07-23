@@ -9,10 +9,6 @@ import userRoute from './userRoute';
 
 let router: Router = Router();
 
-router.get('/power', (req: Request, res: Response) => {
-  res.send("power")
-})
-
 
 router.use('/user', userRoute)
 

@@ -4,28 +4,43 @@
  * Term routes
  */
 
-const URI = "/terms/"
+import { Router, Request, Response } from 'express'
+import TermController from '../../controllers/v1/TermController/TermController'
 
-const resolveUrl = (segment) => {
-  return `${URI}${segment}`
-}
 
-export default (router) => {
+/**
+ * Request Mapping: /api/v1/term/
+ */
+let router: Router = Router();
 
-  /**
-   * ...
-   *
-   *
-   */
-  router.get(resolveUrl('x'), () => {
 
-  });
+/**
+ * ...
+ */
+router.get('/:name', (req: Request, res: Response) => {
+  
+})
 
-  /**
-   * ...
-   */
-  router.get("/terms/y", () => {
+/**
+ * ...
+ */
+router.post('/register', (req: Request, res: Response) => {
 
-  })
+})
 
-}
+/**
+ * ...
+ */
+router.put('/update/:id', (req: Request, res: Response) => {
+
+})
+
+/**
+ * ...
+ */
+router.delete('/delete/:id', (req: Request, res: Response) => {
+
+})
+
+
+export default router;
