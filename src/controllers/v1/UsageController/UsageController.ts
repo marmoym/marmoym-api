@@ -1,15 +1,15 @@
 /**
  * ...
  */
-import models from '../../../models'
+import models from '../../../models/db'
 
-export async function getUsageByUsageId(usageId : any) {
+export async function getUsageByDefinitionId(definitionId : any) {
 
-   var list = await models.usage.findAll({
+  var list = await models.usage.findAll({
                       where : {
                         status : {$not: "DELETED"},
                         $or : [
-                          {id : usageId}
+                          {def_id : definitionId}
                         ]
                       },
                       order : 'no asc'
@@ -48,7 +48,8 @@ export async function getUsageIdByDefinitionId(definitionId : number) {
 export async function registerUsage(params : any, definitionId : number) {
   var result = await models.usage.create({
                   contents : params.usageContents, 
-                  no : '1'//TODO 순서처리
+                  no : '1',//TODO 순서처리
+                  def_id : definitionId
                 }).then(
                   (result) => {
                     console.log(1000, result.dataValues)

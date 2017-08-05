@@ -26,11 +26,13 @@ router.get('/test', (req: Request, res: Response) => {
  */
 router.get('/', async(req: Request, res: Response) => {
   //텀가져오기
-  console.log(1, req.query.q)
-  var termList = await TermController.getTermByName(req.query.q);
-  console.log(10000, termList);
+  var q = req.query.q;
+  if(q==undefined){
+    q = ""
+  }
+  var termList = await TermController.getTermByName(q);
+
   var termIdList = termList.map(list => {
-    console.log(100, list.id)
     return list.id;
   })
   var definitionList = await DefinitionController.getDefinitionByTermId(termIdList);
@@ -38,35 +40,31 @@ router.get('/', async(req: Request, res: Response) => {
   var definitionIdList = definitionList.map(list => {
     return list.id;
   })
-  var usageIdList = await UsageController.getUsageIdByDefinitionId(definitionIdList)
-  var usageList = await UsageController.getUsageByUsageId(usageIdList);
-  console.log(10000, termList);
-  console.log(4321, definitionList)
-  console.log(112412414, usageList)
+  // var usageIdList = await UsageController.getUsageIdByDefinitionId(definitionIdList)
+  var usageList = await UsageController.getUsageByDefinitionId(definitionIdList);
 
-  var result = [];
-  
-  termList.map(list => {
-    var temp = [];
-    definitionList.map(defList => {
-      var usage = usageList.map(usageList => {
-        if(defList.id == usageList.id){
-          return usageList;
+  const result = termList.map(term => {
+    term['defList'] = []
+
+    definitionList.map(def => {
+      def['usageList'] = []
+      // usage
+      usageList.map(usage => {
+        if(usage['def_id'] == def['id']) {
+          def['usageList'].push(usage)
         }
       })
-      if(defList.term_id == list.id){
-        temp.push(defList);
-        temp.push(usageList);
+      // add def
+      if (def['term_id'] == term['id']) {
+        term['defList'].push(def)
       }
-      
+
     })
-    console.log(5151515151515151515, temp);
+    return term;
+  });
 
-  
-  })
-  console.log(1512515151, result);
-
-  res.status(200).json({code: 1, mesage: 'Success'});
+  console.log(123, result);
+  res.status(200).json({code: 1, mesage: 'Success', data: result});
 })
 /**
  * ...
@@ -89,13 +87,14 @@ router.post('/', async (req: Request, res: Response) => {
       if(definitionId > 0){//def를 등록했으니 usage를 등록하자
         var usageId = await UsageController.registerUsage(req.body, definitionId)
         if(usageId > 0){
-          var result = await UsageController.connectUsageIdAndDefionitionId(usageId, definitionId)
-          if(result >0){
-            res.status(200).json({code: 1, mesage: 'Success'});
-          }else{
-            //TODO 롤백처리필요
-            res.status(500).json({code: 2, message: 'Internal Server Error'});
-          }
+          res.status(200).json({code: 1, mesage: 'Success'});
+          // var result = await UsageController.connectUsageIdAndDefionitionId(usageId, definitionId)
+          // if(result >0){
+          //   res.status(200).json({code: 1, mesage: 'Success'});
+          // }else{
+          //   //TODO 롤백처리필요
+          //   res.status(500).json({code: 2, message: 'Internal Server Error'});
+          // }
         }else{
           //TODO 롤백처리필요
           res.status(500).json({code: 3, message: 'Internal Server Error'});
