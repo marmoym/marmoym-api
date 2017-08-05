@@ -26,10 +26,10 @@ export async function getUsageByUsageId(usageId : any) {
   
 }
 
-export async function getUsageIdByDefinitionId(defintionId : number) {
+export async function getUsageIdByDefinitionId(definitionId : number) {
   var list = await models.definition_usage.findAll(  {
                   where : {
-                    def_id : defintionId
+                    def_id : definitionId
                   }
                 }).then((usageIdList) => {
                   return usageIdList;
@@ -41,4 +41,16 @@ export async function getUsageIdByDefinitionId(defintionId : number) {
   })
   return result;
 }
-              
+
+
+export async function registerUsage(params : any, definitionId : number) {
+//TODO usage등록처리
+
+  return -1;
+}
+
+export async function connectUsageIdAndDefionitionId(usageId : number, definitionId : number ) {
+//TODO definitio_usage 테이블에 usageid def id 등록처리
+
+  return -1;
+}

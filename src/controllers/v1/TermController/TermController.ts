@@ -12,30 +12,25 @@ export async function getTermByName(input_name: String){
                 }).then((term) => {
                   return term;
                 })
-  return termInfo;
+  
+  return termInfo.dataValues;
 }
 
 export async function registerTerm(params: any){
-
-  if(!await checkTermNameExist(params.username)) {
-    return false;
-  }
   
-  if(await models.term.create({
-      name: params.name, 
-    }).then(
-      (result) => {
-        return true;
-      }
-    ).catch(
-      (err) => {
-        return false;
-      }
-    )
-  ){
-    return true;
-  }
-  return false;
+  var result = await models.term.create({
+                  name: params.name, 
+                }).then(
+                  (result) => {
+                    console.log(1000, result.dataValues)
+                    return result.dataValues.id;
+                  }
+                ).catch(
+                  (err) => {
+                    return -1;
+                  }
+                )
+  return result;
 
 }
 
@@ -59,9 +54,9 @@ export async function checkTermNameExist(input_name: String){
       }
     )
   ){
-    return true;
+    return false;
   }
-  return false;
+  return true;
 }
 
 

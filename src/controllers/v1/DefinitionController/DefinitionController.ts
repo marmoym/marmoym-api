@@ -19,21 +19,21 @@ export async function getDefinitionByTermId(termId: number) {
   return result;
 }
 
-export async function registerDefinition(params: any) {
-  if(await models.defintion.create({
-      term_id : params.termId,
-      contents : params.contents,
+export async function registerDefinition(params: any, termId: number) {
+  console.log(1, 'iamhere')
+  var result = await models.definition.create({
+      term_id : termId,
+      contents : params.definitionContents,
     }).then(
       (result) =>{
-        return true;
+        return result.dataValues.id;
       }
     ).catch(
       (err) => {
-        return false;
+        return -1;
       }
     )
-  ){
-    return true;
-  }
-  return false;
+
+return await result;
+  
 }
