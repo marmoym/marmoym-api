@@ -29,7 +29,9 @@ export async function getUsageByUsageId(usageId : any) {
 export async function getUsageIdByDefinitionId(definitionId : number) {
   var list = await models.definition_usage.findAll(  {
                   where : {
-                    def_id : definitionId
+                    $or : [
+                      {def_id : definitionId}
+                    ]
                   }
                 }).then((usageIdList) => {
                   return usageIdList;
@@ -46,6 +48,7 @@ export async function getUsageIdByDefinitionId(definitionId : number) {
 export async function registerUsage(params : any, definitionId : number) {
   var result = await models.usage.create({
                   contents : params.usageContents, 
+                  no : '1'//TODO 순서처리
                 }).then(
                   (result) => {
                     console.log(1000, result.dataValues)
@@ -53,6 +56,7 @@ export async function registerUsage(params : any, definitionId : number) {
                   }
                 ).catch(
                   (err) => {
+                    console.log(1, err)
                     return -1;
                   }
                 )
@@ -71,6 +75,7 @@ export async function connectUsageIdAndDefionitionId(usageId : number, definitio
                   }
                 ).catch(
                   (err) => {
+                    console.log(1, err)
                     return -1;
                   }
                 )

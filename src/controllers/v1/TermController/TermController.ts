@@ -4,22 +4,24 @@
 import models from '../../../models'
 
 export async function getTermByName(input_name: String){
-  var termInfo = await models.term.findOne({
+  var list = await models.term.findAll({
                   where : {
-                    status: {$not: "DELETED"},
-                    name : input_name
+                    status: {$not : "DELETED"},
+                    name : {$like : '%'+input_name+'%'}
                   }
                 }).then((term) => {
                   return term;
                 })
-  
-  return termInfo.dataValues;
+  var result = list.map(info => {
+    return info.dataValues;
+  })
+  return result;
 }
 
 export async function registerTerm(params: any){
   
   var result = await models.term.create({
-                  name: params.name, 
+                  name: params.termName, 
                 }).then(
                   (result) => {
                     console.log(1000, result.dataValues)
