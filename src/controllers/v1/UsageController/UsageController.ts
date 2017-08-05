@@ -44,13 +44,35 @@ export async function getUsageIdByDefinitionId(definitionId : number) {
 
 
 export async function registerUsage(params : any, definitionId : number) {
-//TODO usage등록처리
+  var result = await models.usage.create({
+                  contents : params.usageContents, 
+                }).then(
+                  (result) => {
+                    console.log(1000, result.dataValues)
+                    return result.dataValues.id;
+                  }
+                ).catch(
+                  (err) => {
+                    return -1;
+                  }
+                )
+  return result;
 
-  return -1;
 }
 
 export async function connectUsageIdAndDefionitionId(usageId : number, definitionId : number ) {
-//TODO definitio_usage 테이블에 usageid def id 등록처리
-
-  return -1;
+  var result = await models.definition_usage.create({
+                  def_id : definitionId,
+                  usage_id : usageId
+                }).then(
+                  (result) => {
+                    console.log(1000, result.dataValues)
+                    return result.dataValues.id;
+                  }
+                ).catch(
+                  (err) => {
+                    return -1;
+                  }
+                )
+  return result;
 }
