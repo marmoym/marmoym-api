@@ -54,10 +54,7 @@ export async function getUserToken(params: any) {
     }
 
   }
-
   return token;
-
-
 }
 
 
