@@ -3,15 +3,22 @@
  */
 import models from '../../../models'
 
-export async function getDefinitionByTermId(termId: number) {
-  var list = await models.definiton.findAll({
+export async function getDefinitionByTermId(termId: any) {
+  console.log(5, termId);
+  var list = await models.definition.findAll({
                         where : {
                           status : {$not: "DELETED"},
-                          term_id : termId
+                          $or : [
+                            {term_id : termId}
+                          ]
                         }
   
                       }).then((definitions) => {
+                        console.log(6, definitions)
                         return definitions;
+                      })
+                      .catch((err) =>{
+                        console.log(err)
                       })
   var result = list.map(info => {
     return info.dataValues;
@@ -19,21 +26,24 @@ export async function getDefinitionByTermId(termId: number) {
   return result;
 }
 
-export async function registerDefinition(params: any) {
-  if(await models.defintion.create({
-      term_id : params.termId,
-      contents : params.contents,
+export async function registerDefinition(params: any, termId: number) {
+  console.log(1, 'iamhere'+params.definitionContents+termId)
+  var result = await models.definition.create({
+      term_id : termId,
+      contents : params.definitionContents,
+      user_id : "1" //고카톤용 
     }).then(
-      (result) =>{
-        return true;
+      (result) => {
+        console.log(4, result.dataValues)
+        return result.dataValues.id;
       }
     ).catch(
       (err) => {
-        return false;
+        console.log(4141, err)
+        return -1;
       }
     )
-  ){
-    return true;
-  }
-  return false;
+
+return await result;
+  
 }

@@ -7,6 +7,7 @@ import * as express from 'express';
 import config from './config'
 import models from './models';
 import ModelService from './services/ModelService';
+import * as cors from 'cors';
 
 // import cors from 'cors';
 // import morgan from 'morgan';
@@ -21,6 +22,9 @@ const app: express.Application = express();
 
 // port
 const port: number = process.env.PORT || config.server.port;
+
+//CORS
+app.use(cors())
 
 /**
  * Parses http post request body

@@ -4,38 +4,35 @@
 import models from '../../../models'
 
 export async function getTermByName(input_name: String){
-  var termInfo = await models.term.findOne({
+  var list = await models.term.findAll({
                   where : {
-                    status: {$not: "DELETED"},
-                    name : input_name
+                    status: {$not : "DELETED"},
+                    name : {$like : '%'+input_name+'%'}
                   }
                 }).then((term) => {
                   return term;
                 })
-  return termInfo;
+  var result = list.map(info => {
+    return info.dataValues;
+  })
+  return result;
 }
 
 export async function registerTerm(params: any){
-
-  if(!await checkTermNameExist(params.username)) {
-    return false;
-  }
   
-  if(await models.term.create({
-      name: params.name, 
-    }).then(
-      (result) => {
-        return true;
-      }
-    ).catch(
-      (err) => {
-        return false;
-      }
-    )
-  ){
-    return true;
-  }
-  return false;
+  var result = await models.term.create({
+                  name: params.termName, 
+                }).then(
+                  (result) => {
+                    console.log(1000, result.dataValues)
+                    return result.dataValues.id;
+                  }
+                ).catch(
+                  (err) => {
+                    return -1;
+                  }
+                )
+  return result;
 
 }
 
@@ -59,9 +56,9 @@ export async function checkTermNameExist(input_name: String){
       }
     )
   ){
-    return true;
+    return false;
   }
-  return false;
+  return true;
 }
 
 
