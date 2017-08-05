@@ -5,7 +5,7 @@
 import * as http from 'http';
 import * as express from 'express';
 import config from './config'
-import models from './models';
+import models from './models/db';
 import ModelService from './services/ModelService';
 import * as cors from 'cors';
 

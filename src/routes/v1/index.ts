@@ -2,7 +2,6 @@
  * Copyright Marmoym 2017
  */
 
-import models from '../../models';
 import { Router, Request, Response } from 'express';
 import termRoute from './termRoute';
 import userRoute from './userRoute';

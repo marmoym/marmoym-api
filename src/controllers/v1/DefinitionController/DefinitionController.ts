@@ -1,7 +1,7 @@
 /**
  * ...
  */
-import models from '../../../models'
+import models from '../../../models/db'
 
 export async function getDefinitionByTermId(termId: any) {
   console.log(5, termId);

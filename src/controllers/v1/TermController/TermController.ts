@@ -1,7 +1,7 @@
 /**
  * ...
  */
-import models from '../../../models'
+import models from '../../../models/db'
 
 export async function getTermByName(input_name: String){
   var list = await models.term.findAll({
