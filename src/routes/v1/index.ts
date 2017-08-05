@@ -10,8 +10,8 @@ import userRoute from './userRoute';
 let router: Router = Router();
 
 
-router.use('/user', userRoute)
+router.use('/users', userRoute)
 
-router.use('/term', termRoute)
+router.use('/terms', termRoute)
 
 export default router;
