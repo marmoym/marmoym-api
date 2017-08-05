@@ -3,8 +3,8 @@
  */
 import models from '../../../models'
 
-export async function getDefinitionByTermId(termId: number){
-  var definitionInfo = await models.definiton.find({
+export async function getDefinitionByTermId(termId: number) {
+  var list = await models.definiton.findAll({
                         where : {
                           status : {$not: "DELETED"},
                           term_id : termId
@@ -13,11 +13,13 @@ export async function getDefinitionByTermId(termId: number){
                       }).then((definitions) => {
                         return definitions;
                       })
-
-  return definitionInfo;
+  var result = list.map(info => {
+    return info.dataValues;
+  })
+  return result;
 }
 
-export async function registerDefinition(params: any){
+export async function registerDefinition(params: any) {
   if(await models.defintion.create({
       term_id : params.termId,
       contents : params.contents,
