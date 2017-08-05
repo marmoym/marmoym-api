@@ -3,45 +3,44 @@
  */
 import models from '../../../models'
 
-class TermController {
+export async function getTermByName(input_name: String){
+  var termInfo = await models.term.findOne({
+                  where : {
+                    status: {$not: "DELETED"},
+                    name : input_name
+                  }
+                }).then((term) => {
+                  return term;
+                })
+  return termInfo;
+}
 
-  public getTermByName(input_name: String) {
-    return models.term.findOne({
-        where : {
-          status: {$not: "DELETED"},
-          name : input_name
-        }
-    }).then((term) => {
-      return term;
-    })
-  }
+export async function registerTerm(params: any){
 
-  public registerTerm(param: any) {
-     
-    if(!this.checkTermNameExist(param.username)) {
-      return false;
-    }
-    
-    if(models.term.create({
-        name: param.name, 
-      }).then(
-        (result) => {
-          return true;
-        }
-      ).catch(
-        (err) => {
-          return false;
-        }
-      )
-    ){
-      return true;
-    }
+  if(!await checkTermNameExist(params.username)) {
     return false;
-
   }
+  
+  if(await models.term.create({
+      name: params.name, 
+    }).then(
+      (result) => {
+        return true;
+      }
+    ).catch(
+      (err) => {
+        return false;
+      }
+    )
+  ){
+    return true;
+  }
+  return false;
 
-  public checkTermNameExist(input_name : String){
-    if(models.term.count({
+}
+
+export async function checkTermNameExist(input_name: String){
+  if(await models.term.count({
       where: {
         status : {$not: "DELETED"},
         name : input_name   
@@ -63,11 +62,9 @@ class TermController {
     return true;
   }
   return false;
-  }
-
-
-
-
 }
 
-export default new TermController()
+
+
+
+
