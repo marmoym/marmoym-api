@@ -5,7 +5,7 @@
  */
 
 import * as jwt from 'jsonwebtoken'
-import models from '../../../models'
+import models from '../../../models/db'
 import config from '../../../config'
 import * as bcrypt from 'bcrypt'
 

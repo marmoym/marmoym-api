@@ -2,7 +2,7 @@
  * Copyright Marmoym 2017
  */
 
-import models from '../models'
+import models from '../models/db'
 
 /**
  * ...

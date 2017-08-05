@@ -11,6 +11,10 @@ module.exports = function(sequelize: Sequelize.Sequelize, DataTypes){
       type: DataTypes.INTEGER,
       allowNull: false
     },
+    def_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
     contents: {
       type: DataTypes.STRING(512),
       allowNull: false
