@@ -15,4 +15,4 @@ class ModelService {
 
 }
 
-export default new ModelService;
+export default new ModelService();
