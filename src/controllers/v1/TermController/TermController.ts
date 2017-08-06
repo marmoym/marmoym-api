@@ -1,67 +1,47 @@
+import models from '../../../models/db'
+
 /**
  * ...
  */
-import models from '../../../models/db'
-
-export async function getTermByName(input_name: String){
+export const getTermByName = async function getTermByName(input_name: String) {
   var list = await models.term.findAll({
-                  where : {
-                    status: {$not : "DELETED"},
-                    name : {$like : '%'+input_name+'%'}
-                  }
-                }).then((term) => {
-                  return term;
-                })
-  var result = list.map(info => {
-    return info.dataValues;
+    where : {
+      status: {$not : "DELETED"},
+      name : {$like : '%'+input_name+'%'}
+    }
   })
-  return result;
+    .then(term => term);
+
+  return list.map(info => info.dataValues);
 }
 
-export async function registerTerm(params: any){
-  
+/**
+ * ...
+ */
+export const registerTerm = async function registerTerm(params: any) {
   var result = await models.term.create({
-                  name: params.termName, 
-                }).then(
-                  (result) => {
-                    console.log(1000, result.dataValues)
-                    return result.dataValues.id;
-                  }
-                ).catch(
-                  (err) => {
-                    return -1;
-                  }
-                )
+    name: params.termName, 
+  })
+    .then(result => result.dataValues.id)
+    .catch(err => -1);
+  
   return result;
-
 }
 
-export async function checkTermNameExist(input_name: String){
-  if(await models.term.count({
-      where: {
-        status : {$not: "DELETED"},
-        name : input_name   
-      }
-    }).then(
-      (result) => {
-        if(result == 0){
-          return true;
-        }else {
-          return false;
-        }
-      }
-    ).catch(
-      (err) => {
-        return false;
-      }
-    )
-  ){
+/**
+ * ...
+ */
+export const checkTermNameExist = async function checkTermNameExist(input_name: String) {
+  if (await models.term.count({
+    where: {
+      status : {$not: "DELETED"},
+      name : input_name   
+    }
+  })
+    .then(result => result == 0 ? true : false)
+    .catch(err => false)
+  ) {
     return false;
   }
   return true;
 }
-
-
-
-
-
