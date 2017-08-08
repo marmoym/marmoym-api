@@ -1,27 +1,26 @@
 /**
  * Copyright Marmoym 2017
  */
-import * as jwt from 'jsonwebtoken'
-import * as bcrypt from 'bcrypt'
+import * as jwt from 'jsonwebtoken';
+import * as bcrypt from 'bcrypt';
 
-import models from '../../../models/db'
-const User = require('../../../models/db')['user'];
-import config from '../../../config'
+import models from '../../models/db';
+import config from '../../config';
 
-const salt = 10;
+const saltRounds = 10;
 
 /**
  * ...
  */
 export const getUserInfo = async function getUserInfo(params: any) {
   var userInfo = await models.user.findOne({
-    where : {
-      username : params.username,
-      status: {$not: "DELETED"}
-    }
-  })
+      where : {
+        username : params.username,
+        status: {$not: "DELETED"}
+      }
+    })
     .then((user) => user)
-  return userInfo
+  return userInfo;
 }
 
 /**
@@ -36,7 +35,7 @@ export const getUserToken = async function getUserToken(params: any) {
         {
           username : userInfo.username
         },
-        config.auth.JWT_SECRET,
+        config.server.jwtKey,
         {
           expiresIn: '7d',
           subject: 'userInfo'
@@ -47,47 +46,48 @@ export const getUserToken = async function getUserToken(params: any) {
   return token;
 }
 
-// /**
-//  * ...
-//  */
-// export const verifyUserToken = async function verifyUserToken(input_token: string, params: any) {
-//   try {
-//     var decoded = jwt.verify(input_token, config.server.jwtKey);
-//   } catch(err) {
-//     return "TokenValidError";
-//   }
-
-//   if (decoded.username == params.username) { //본인
-//     return "Authorized";
-//   } else { //본인아님
-//     return "NotAuthorized";
-//   }
-// }
-
 /**
  * ...
  */
-export const registerUser = async (username: string, password: string, email: string) => {
-  // todo Validation
-  // ...
+export const verifyUserToken = async function verifyUserToken(input_token: string, params: any) {
+  try {
+    var decoded = jwt.verify(input_token, config.server.jwtKey);
+  } catch(err) {
+    return "TokenValidError";
+  }
 
-  let passwordEncoded = bcrypt.hashSync(password, salt);
-  return models.user.create({
-    username,
-    password: passwordEncoded,
-    email
+  if (decoded.username == params.username) { //본인
+    return "Authorized";
+  } else { //본인아님
+    return "NotAuthorized";
+  }
+}
+
+/**
+ * ...
+ * @param userId 
+ * @param userPw 
+ */
+export const registerUser = async function registerUser(params: any) {
+  if (!await checkUsernameExist(params.username)) {
+    return "UsernameExist";
+  }
+
+  if (!await checkUserEmailExist(params.email)) {
+    return "UserEmailExist";
+  }
+
+  let encodedPw = bcrypt.hashSync(params.pw, saltRounds);
+  if (models.user.create({
+    username: params.username,
+    password: encodedPw,
+    email: params.email
   })
-    .then((res) => {
-      return Promise.resolve(res);
-    })
-    .catch((err) => {
-      return Promise.reject(err);
-    });
-  // models.user.create({
-  //   username: username,
-  //   password: passwordEncoded,
-  //   email: email
-  // })
+    .then((result) => true)
+    .catch(err => false)) {
+      return "JoinSuccess";
+    }
+  return "Error";
 }
 
 /**
@@ -136,7 +136,7 @@ export const updateUserInfo = async function updateUserInfo(params: any) {
     return "UserEmailExist";
   }
 
-  let encodedPw = bcrypt.hashSync(params.pw, salt);
+  let encodedPw = bcrypt.hashSync(params.pw, saltRounds);
   var updateResult = await models.user.update({
     password: encodedPw,
     email: params.email

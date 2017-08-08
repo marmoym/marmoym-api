@@ -8,6 +8,7 @@ import * as path from 'path';
 import * as Sequelize from 'sequelize';
 import config from '../../config';
 
+
 /**
  * Models of database.
  */
