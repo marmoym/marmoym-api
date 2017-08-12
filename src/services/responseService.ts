@@ -9,13 +9,18 @@ let response = {
 /**
  * ...
  */
-<<<<<<< Updated upstream
-export const respond = (res, result) => {
-=======
-export const respond = async (res, result) => {
->>>>>>> Stashed changes
-  res.status(200).json({
-    code: 1,
-    payload: result
-  });
+export const respond = (response, result) => { 
+  result
+    .then(payload => {
+      response.status(200).json({
+        code: 1,
+        payload: result
+      });    
+    })
+    .catch(err => {
+      err = err || {code: 0}
+      response.status(200).json({
+        code: err.code
+      });
+    });
 };

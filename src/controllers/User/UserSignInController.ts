@@ -1,20 +1,38 @@
-import * as UserController from './UserController';
+import * as jwt from 'jsonwebtoken';
+import * as bcrypt from 'bcrypt';
+
+import config from '../../config';
+import models from '../../models/db';
 
 export const signInUser = async (userInfo) => {
-  // if (userInfo != null) {
-  //   if (bcrypt.compareSync(params.pw, userInfo.password)) {
-  //     token = jwt.sign(
-  //       {
-  //         username : userInfo.username
-  //       },
-  //       config.server.jwtKey,
-  //       {
-  //         expiresIn: '7d',
-  //         subject: 'userInfo'
-  //       }
-  //     );
-  //   }
-  // } else {
-  //   return Promise.reject('No user info')
-  // }
+  const User =  models.user;
+
+  return await User
+    .findOne({
+      where: {
+        username: userInfo.username
+      }
+    })
+    .catch(res => {
+      throw new Error(`302000, Not found ${userInfo.username}`);
+    })
+    .then(res => {
+      const user = res.dataValues;
+      if (bcrypt.compareSync(userInfo.password, user.password)) {
+        return jwt.sign(
+          {
+            id: user.id,
+            username: user.username,
+            email: user.email
+          },
+          config.auth.JWT_SECRET,
+          {
+            expiresIn: config.auth.TOKEN_EXPIRE_DURATION
+          }
+        );
+      } else {
+        console.log('302')
+        throw new Error('302');
+      }
+    });
 }

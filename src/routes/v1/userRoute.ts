@@ -53,7 +53,8 @@ let router: Router = Router();
  * ...
  */
 router.post('/signin', async (req: Request, res: Response) => {
-  respond(res, await UserSignInController.signInUser(req.body));
+  const a = UserSignInController.signInUser(req.body)
+  respond(res, a);
 });
 
 /**
