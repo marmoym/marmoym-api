@@ -3,12 +3,12 @@
  */
 import { Router, Request, Response, NextFunction } from 'express'
 
-import * as UserController from '../../controllers/v1/UserController/UserController'
 import { respond } from '../../services/responseService';
 import { tokenAuthHandler } from '../../services/authService';
 import UserUpdateController from '../../controllers/User/UserUpdateController';
 import * as UserSignUpController from '../../controllers/User/UserSignUpController';
 import * as UserSignInController from '../../controllers/User/UserSignInController';
+import * as UserDeleteController from '../../controllers/User/UserDeleteController';
 
 /**
  * Request Mapping: /api/v1/user/
@@ -79,7 +79,7 @@ router.put('/update', tokenAuthHandler, async (req: Request, res: Response) => {
  */
 router.delete('/delete', tokenAuthHandler, async (req: Request, res: Response) => {
   // todo
-  respond(res, await UserController.deleteUser(req.body));
+  respond(res, await UserDeleteController.deleteUser(req.body));
 });
 
 export default router;
