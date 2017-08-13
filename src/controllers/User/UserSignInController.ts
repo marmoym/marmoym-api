@@ -14,7 +14,7 @@ export const signInUser = async (userInfo) => {
       }
     })
     .catch(res => {
-      throw new Error(`302000, Not found ${userInfo.username}`);
+      throw new Error(`401000, Not found ${userInfo.username}`);
     })
     .then(res => {
       const user = res.dataValues;
@@ -31,8 +31,7 @@ export const signInUser = async (userInfo) => {
           }
         );
       } else {
-        console.log('302')
-        throw new Error('302');
+        throw new Error('401001, Incorrect password');
       }
     });
 }

@@ -12,7 +12,7 @@ const _verifyUserToken = (token: string, username: any) => {
     decoded = jwt.verify(token, config.auth.JWT_SECRET);
     console.log('decoded', decoded);
   } catch(err) {
-    throw new Error('invalid token');
+    throw new Error('401002, invalid token');
   }
 
   if (decoded.username == username) {
