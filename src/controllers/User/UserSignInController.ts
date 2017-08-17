@@ -13,7 +13,7 @@ export const signInUser = async (userInfo) => {
         username: userInfo.username
       }
     })
-    .catch(res => {
+    .catch(() => {  // TODO: 이 catch 문은 차후 에러 오브젝트를 디자인하고 수정해야함
       throw new Error(`401000, Not found ${userInfo.username}`);
     })
     .then(res => {
