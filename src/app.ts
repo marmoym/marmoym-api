@@ -1,21 +1,21 @@
 /**
  * ...
  */
-
 import * as http from 'http';
 import * as express from 'express';
-import config from './config'
-import models from './models/db';
-import ModelService from './services/ModelService';
 import * as cors from 'cors';
+import * as bodyParser from 'body-parser';
 
 // import cors from 'cors';
 // import morgan from 'morgan';
-import * as bodyParser from 'body-parser';
+
+import config from './config'
+import * as errorHandleService from './services/errorHandleService';
 // import initializeDb from './db';
 // import middleware from './middleware';
 
-import routes from './routes'
+import routes from './routes';
+import * as modelService from './services/modelService';
 
 // Express Application
 const app: express.Application = express();
@@ -45,15 +45,17 @@ app.use("/", routes);
 //   exposedHeaders: config.corsHeaders
 // }));
 
+app.use(errorHandleService.handleError);
+
 /**
  * ...
  */
-ModelService
-  .init()
+modelService
+  .initializeDB()
   .then(() => {
     app.listen(port, () => {
       console.log(`Server started on port ${port}`);
-    })
-  })
+    });
+  });
 
 export default app;

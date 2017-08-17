@@ -1,11 +1,11 @@
 /**
  * Copyright Marmoym 2017
  */
-import * as jwt from 'jsonwebtoken'
-import * as bcrypt from 'bcrypt'
+import * as jwt from 'jsonwebtoken';
+import * as bcrypt from 'bcrypt';
 
-import models from '../../../models/db'
-import config from '../../../config'
+import models from '../../models/db';
+import config from '../../config';
 
 const saltRounds = 10;
 
@@ -14,13 +14,13 @@ const saltRounds = 10;
  */
 export const getUserInfo = async function getUserInfo(params: any) {
   var userInfo = await models.user.findOne({
-    where : {
-      username : params.username,
-      status: {$not: "DELETED"}
-    }
-  })
+      where : {
+        username : params.username,
+        status: {$not: "DELETED"}
+      }
+    })
     .then((user) => user)
-  return userInfo
+  return userInfo;
 }
 
 /**

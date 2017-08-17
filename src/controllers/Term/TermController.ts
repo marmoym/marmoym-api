@@ -1,4 +1,4 @@
-import models from '../../../models/db'
+import models from '../../models/db'
 
 /**
  * ...

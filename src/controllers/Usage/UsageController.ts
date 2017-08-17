@@ -1,4 +1,4 @@
-import models from '../../../models/db'
+import models from '../../models/db';
 
 /**
  * ...
@@ -37,7 +37,7 @@ export const getUsageIdByDefinitionId = async (definitionId: number) => {
 /**
  * ...
  */
-export const registeUsage = async function registerUsage(params: any, definitionId: number) {
+export const registerUsage = async (params: any, definitionId: number) => {
   var result = await models.usage.create({
     contents : params.usageContents, 
     no : '1',//TODO 순서처리
