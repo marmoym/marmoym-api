@@ -21,7 +21,7 @@ import * as modelService from './services/modelService';
 const app: express.Application = express();
 
 // port
-const port: number = process.env.PORT || config.server.port;
+const port: number = process.env.PORT || config.server.PORT;
 
 //CORS
 app.use(cors())

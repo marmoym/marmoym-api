@@ -53,14 +53,14 @@ function _bootstrapModels() {
  */
 function _connectToDB() {
   return new Sequelize(
-    config.db.database,
-    config.db.username,
-    config.db.password,
+    config.db.DATABASE,
+    config.db.USERNAME,
+    config.db.PASSWORD,
     {
-      host: config.db.host,
-      port: config.db.port,
-      dialect: config.db.dialect,
-      timezone: config.db.timezone
+      host: config.db.HOST,
+      port: config.db.PORT,
+      dialect: config.db.DIALECT,
+      timezone: config.db.TIMEZONE
     }
   );
 }

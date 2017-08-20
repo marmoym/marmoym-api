@@ -5,7 +5,7 @@ import { Router, Request, Response, NextFunction } from 'express'
 
 import { respond } from '../../services/responseService';
 import { tokenAuthHandler } from '../../services/authService';
-import UserUpdateController from '../../controllers/User/UserUpdateController';
+import * as UserUpdateController from '../../controllers/User/UserUpdateController';
 import * as UserSignUpController from '../../controllers/User/UserSignUpController';
 import * as UserSignInController from '../../controllers/User/UserSignInController';
 import * as UserDeleteController from '../../controllers/User/UserDeleteController';

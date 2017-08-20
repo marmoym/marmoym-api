@@ -23,45 +23,45 @@ export const getUserInfo = async function getUserInfo(params: any) {
   return userInfo;
 }
 
-/**
- * ...
- */
-export const getUserToken = async function getUserToken(params: any) {
-  var token;
-  var userInfo = await getUserInfo(params);
-  if (userInfo != null) {
-    if (bcrypt.compareSync(params.pw, userInfo.password)) {
-      token = jwt.sign(
-        {
-          username : userInfo.username
-        },
-        config.server.jwtKey,
-        {
-          expiresIn: '7d',
-          subject: 'userInfo'
-        }
-      );
-    }
-  }
-  return token;
-}
+// /**
+//  * ...
+//  */
+// export const getUserToken = async function getUserToken(params: any) {
+//   var token;
+//   var userInfo = await getUserInfo(params);
+//   if (userInfo != null) {
+//     if (bcrypt.compareSync(params.pw, userInfo.password)) {
+//       token = jwt.sign(
+//         {
+//           username : userInfo.username
+//         },
+//         config.server.jwtKey,
+//         {
+//           expiresIn: '7d',
+//           subject: 'userInfo'
+//         }
+//       );
+//     }
+//   }
+//   return token;
+// }
 
 /**
  * ...
  */
-export const verifyUserToken = async function verifyUserToken(input_token: string, params: any) {
-  try {
-    var decoded = jwt.verify(input_token, config.server.jwtKey);
-  } catch(err) {
-    return "TokenValidError";
-  }
+// export const verifyUserToken = async function verifyUserToken(input_token: string, params: any) {
+//   try {
+//     var decoded = jwt.verify(input_token, config.server.jwtKey);
+//   } catch(err) {
+//     return "TokenValidError";
+//   }
 
-  if (decoded.username == params.username) { //본인
-    return "Authorized";
-  } else { //본인아님
-    return "NotAuthorized";
-  }
-}
+//   if (decoded.username == params.username) { //본인
+//     return "Authorized";
+//   } else { //본인아님
+//     return "NotAuthorized";
+//   }
+// }
 
 /**
  * ...

@@ -3,9 +3,6 @@
  */
 import { Router, Request, Response } from 'express'
 
-import * as TermController from '../../controllers/v1/TermController/TermController'
-import * as DefinitionController from '../../controllers/v1/DefinitionController/DefinitionController'
-import * as UsageController from '../../controllers/v1/UsageController/UsageController'
 import * as TermGetController from '../../controllers/Term/TermGetController';
 import * as TermAddController from '../../controllers/Term/TermAddController';
 import { respond } from '../../services/responseService';
