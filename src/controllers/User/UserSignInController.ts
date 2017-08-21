@@ -3,6 +3,8 @@ import * as bcrypt from 'bcrypt';
 
 import config from '../../config';
 import models from '../../models/db';
+import MarmoymError from '../../models/MarmoymError';
+import ErrorType from '../../constants/ErrorType';
 
 export const signInUser = async (userInfo) => {
   const User =  models.user;
@@ -14,7 +16,7 @@ export const signInUser = async (userInfo) => {
       }
     })
     .catch(() => {  // TODO: 이 catch 문은 차후 에러 오브젝트를 디자인하고 수정해야함
-      throw new Error(`401000, Not found ${userInfo.username}`);
+      throw new MarmoymError(ErrorType.USER_NOT_FOUND);
     })
     .then(res => {
       const user = res.dataValues;
@@ -31,7 +33,7 @@ export const signInUser = async (userInfo) => {
           }
         );
       } else {
-        throw new Error('401001, Incorrect password');
+        throw new MarmoymError(ErrorType.USER_INCORRECT_PASSWORD);
       }
     });
 }
