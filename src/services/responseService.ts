@@ -1,20 +1,10 @@
-/**
- * Example
- */
-let response = {
-  code: 'SOME_CODE',
-  payload: 'DATA'
-}
-
-/**
- * ...
- */
 export const respond = (response, result) => {
-  result
+  if (result && result.then) {
+    result
     .then(payload => {
       response.status(200).json({
         code: 1,
-        payload: payload
+        payload
       });    
     })
     .catch(err => {
@@ -24,4 +14,12 @@ export const respond = (response, result) => {
         code: err.code
       });
     });
+  } 
+  
+  else {
+    response.status(200).json({
+      code: 1,
+      payload: result
+    })
+  }
 };
