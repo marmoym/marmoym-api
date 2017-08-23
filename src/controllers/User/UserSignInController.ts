@@ -2,12 +2,12 @@ import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcrypt';
 
 import config from '../../config';
-import models from '../../models/db';
+import { db1 } from '../../database';
 import MarmoymError from '../../models/MarmoymError';
 import ErrorType from '../../constants/ErrorType';
 
 export const signInUser = async (userInfo) => {
-  const User =  models.user;
+  const User =  db1.user;
 
   return await User
     .findOne({

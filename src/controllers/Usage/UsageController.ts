@@ -1,10 +1,10 @@
-import models from '../../models/db';
+import { db1 } from '../../database';
 
 /**
  * ...
  */
 export const getUsageByDefinitionId = async function getUsageByDefinitionId(definitionId: any) {
-  var list = await models.usage.findAll({
+  var list = await db1.usage.findAll({
     where : {
       status : {$not: "DELETED"},
       $or : [
@@ -22,7 +22,7 @@ export const getUsageByDefinitionId = async function getUsageByDefinitionId(defi
  * ...
  */
 export const getUsageIdByDefinitionId = async (definitionId: number) => {
-  var list = await models.definition_usage.findAll({
+  var list = await db1.definition_usage.findAll({
     where : {
       $or : [
         {def_id : definitionId}
@@ -38,7 +38,7 @@ export const getUsageIdByDefinitionId = async (definitionId: number) => {
  * ...
  */
 export const registerUsage = async (params: any, definitionId: number) => {
-  var result = await models.usage.create({
+  var result = await db1.usage.create({
     contents : params.usageContents, 
     no : '1',//TODO 순서처리
     def_id : definitionId
@@ -53,7 +53,7 @@ export const registerUsage = async (params: any, definitionId: number) => {
  * ...
  */
 export const connectUsageIdAndDefinitionId = async (usageId: number, definitionId: number ) => {
-  var result = await models.definition_usage.create({
+  var result = await db1.definition_usage.create({
     def_id : definitionId,
     usage_id : usageId
   })

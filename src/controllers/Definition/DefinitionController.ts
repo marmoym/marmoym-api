@@ -1,10 +1,10 @@
-import models from '../../models/db';
+import { db1 } from '../../database';
 
 /**
  * ...
  */
 export async function getDefinitionByTermId(termId: any) {
-  var list = await models.definition.findAll({
+  var list = await db1.definition.findAll({
     where : {
       status : {$not: "DELETED"},
       $or : [
@@ -23,7 +23,7 @@ export async function getDefinitionByTermId(termId: any) {
  * ...
  */
 export const registerDefinition = async function registerDefinition(params: any, termId: number) {
-  var result = await models.definition.create({
+  var result = await db1.definition.create({
     term_id : termId,
     contents : params.definitionContents,
     user_id : "1" //고카톤용 
