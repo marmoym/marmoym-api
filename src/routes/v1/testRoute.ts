@@ -26,7 +26,7 @@ router.get("/a", (req, res) => {
 })
 
 router.get("/b", (req, res) => {
-  db1.user.findOne({
+  db1.User.findOne({
     where : {
       username : 'test',
     }

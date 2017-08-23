@@ -7,7 +7,7 @@ import MarmoymError from '../../models/MarmoymError';
 import ErrorType from '../../constants/ErrorType';
 
 export const signInUser = async (userInfo) => {
-  const User =  db1.user;
+  const User =  db1.User;
 
   return await User
     .findOne({

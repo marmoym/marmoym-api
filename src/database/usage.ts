@@ -1,7 +1,7 @@
 import * as Sequelize from 'sequelize';
 
-module.exports = function(sequelize: Sequelize.Sequelize, DataTypes){
-  let usage = sequelize.define('usage', {
+module.exports = function(sequelize: Sequelize.Sequelize, DataTypes) {
+  const Usage = sequelize.define('Usage', {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
       primaryKey: true,
@@ -29,6 +29,5 @@ module.exports = function(sequelize: Sequelize.Sequelize, DataTypes){
     underscored: true,
     freezeTableName: true
   });
-
-  return usage;
+  return Usage;
 }
