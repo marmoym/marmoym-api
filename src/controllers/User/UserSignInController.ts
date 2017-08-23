@@ -27,9 +27,9 @@ export const signInUser = async (userInfo) => {
             username: user.username,
             email: user.email
           },
-          config.auth.JWT_SECRET,
+          config.auth.jwtSecret,
           {
-            expiresIn: config.auth.TOKEN_EXPIRE_DURATION
+            expiresIn: config.auth.tokenExpireDuration
           }
         );
       } else {

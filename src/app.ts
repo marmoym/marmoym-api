@@ -15,7 +15,7 @@ import routes from './routes';
 import database from './database';
 
 const app: express.Application = express();
-const port: number = process.env.PORT || config.server.PORT;
+const port: number = process.env.PORT || config.server.port;
 
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }));

@@ -9,7 +9,7 @@ import config from '../config';
 const _verifyUserToken = (token: string, username: any) => {
   let decoded;
   try {
-    decoded = jwt.verify(token, config.auth.JWT_SECRET);
+    decoded = jwt.verify(token, config.auth.jwtSecret);
     console.log('decoded', decoded);
   } catch(err) {
     throw new Error('401002, invalid token');

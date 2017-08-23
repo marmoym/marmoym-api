@@ -8,7 +8,7 @@ import { db1 } from '../../database';
 
 export const updateUserInfo = async (req) => {
   let params = req.body;
-  let encodedPw = bcrypt.hashSync(params.pw, config.auth.JWT_SECRET);
+  let encodedPw = bcrypt.hashSync(params.pw, config.auth.jwtSecret);
   return await db1.user.update(
     {
       password: encodedPw,
