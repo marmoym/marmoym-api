@@ -15,7 +15,7 @@ import routes from './routes';
 import database from './database';
 
 const app: express.Application = express();
-const port: number = process.env.PORT || config.server.port;
+const port: number = process.env.PORT || config.server['marmoym-dev1'].port;
 
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }));
