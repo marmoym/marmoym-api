@@ -1,26 +1,21 @@
 import * as Sequelize from 'sequelize';
 
 module.exports = function(sequelize: Sequelize.Sequelize, DataTypes) {
-  let comment = sequelize.define('comment', {
+  const Usage = sequelize.define('Usage', {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
       primaryKey: true,
       autoIncrement: true
     },
-    user_id: {
+    no: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: false
     },
-    target_type: {
-      type: DataTypes.STRING(16),
-      allowNull: false,
-      defaultValue: "D",
-    },
-    target_id: {
+    def_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: false
     },
-     contents: {
+    contents: {
       type: DataTypes.STRING(512),
       allowNull: false
     },
@@ -34,6 +29,5 @@ module.exports = function(sequelize: Sequelize.Sequelize, DataTypes) {
     underscored: true,
     freezeTableName: true
   });
-
-  return comment;
+  return Usage;
 }

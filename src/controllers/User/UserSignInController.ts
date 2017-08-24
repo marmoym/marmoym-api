@@ -2,12 +2,12 @@ import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcrypt';
 
 import config from '../../config';
-import models from '../../models/db';
+import { db1 } from '../../database';
 import MarmoymError from '../../models/MarmoymError';
 import ErrorType from '../../constants/ErrorType';
 
 export const signInUser = async (userInfo) => {
-  const User =  models.user;
+  const User =  db1.User;
 
   return await User
     .findOne({
@@ -27,9 +27,9 @@ export const signInUser = async (userInfo) => {
             username: user.username,
             email: user.email
           },
-          config.auth.JWT_SECRET,
+          config.auth.jwtSecret,
           {
-            expiresIn: config.auth.TOKEN_EXPIRE_DURATION
+            expiresIn: config.auth.tokenExpireDuration
           }
         );
       } else {

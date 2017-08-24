@@ -4,7 +4,7 @@
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcrypt';
 
-import models from '../../models/db';
+import { db1 } from '../../database';
 import config from '../../config';
 
 const saltRounds = 10;
@@ -13,7 +13,7 @@ const saltRounds = 10;
  * ...
  */
 export const getUserInfo = async function getUserInfo(params: any) {
-  var userInfo = await models.user.findOne({
+  var userInfo = await db1.user.findOne({
       where : {
         username : params.username,
         status: {$not: "DELETED"}
@@ -78,7 +78,7 @@ export const registerUser = async function registerUser(params: any) {
   }
 
   let encodedPw = bcrypt.hashSync(params.pw, saltRounds);
-  if (models.user.create({
+  if (db1.user.create({
     username: params.username,
     password: encodedPw,
     email: params.email
@@ -94,7 +94,7 @@ export const registerUser = async function registerUser(params: any) {
  * ...
  */
 export const checkUsernameExist = async function checkUsernameExist(input: String) {
-  var check = await models.user.count({
+  var check = await db1.user.count({
     where: {
       status: {$not: "DELETED"},
       username: input    
@@ -116,7 +116,7 @@ export const checkUsernameExist = async function checkUsernameExist(input: Strin
  * ...
  */
 export const checkUserEmailExist = async function checkUserEmailExist(input: String) {
-  var check = await models.user.count({
+  var check = await db1.user.count({
     where: {
       status: {$not: "DELETED"},
       email: input    
@@ -137,7 +137,7 @@ export const updateUserInfo = async function updateUserInfo(params: any) {
   }
 
   let encodedPw = bcrypt.hashSync(params.pw, saltRounds);
-  var updateResult = await models.user.update({
+  var updateResult = await db1.user.update({
     password: encodedPw,
     email: params.email
   }, {
@@ -155,7 +155,7 @@ export const updateUserInfo = async function updateUserInfo(params: any) {
  * ...
  */
 export const deleteUser = async function deleteUser(params: any) {
-  var deleteResult = await models.user.update({
+  var deleteResult = await db1.user.update({
     status: 'DELETE'
   }, {
     where : {

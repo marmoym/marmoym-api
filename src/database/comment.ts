@@ -1,7 +1,7 @@
 import * as Sequelize from 'sequelize';
 
 module.exports = function(sequelize: Sequelize.Sequelize, DataTypes) {
-  let vote = sequelize.define('vote', {
+  const Comment = sequelize.define('Comment', {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
       primaryKey: true,
@@ -20,6 +20,10 @@ module.exports = function(sequelize: Sequelize.Sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+     contents: {
+      type: DataTypes.STRING(512),
+      allowNull: false
+    },
     status: {
       type: DataTypes.STRING(32),
       allowNull: false,
@@ -30,6 +34,5 @@ module.exports = function(sequelize: Sequelize.Sequelize, DataTypes) {
     underscored: true,
     freezeTableName: true
   });
-
-  return vote;
-}
+  return Comment;
+};
