@@ -1,26 +1,27 @@
 import * as jwt from 'jsonwebtoken';
-
+import * as winston from 'winston';
+import MarmoymError from '../models/MarmoymError'
 import config from '../config';
-
+import ErrorType from '../constants/ErrorType';
 
 /**
  * ...
  */
-const _verifyUserToken = (token: string, username: any) => {
+const _verifyUserToken = async (token: string, username: any) => {
   let decoded;
   try {
     decoded = jwt.verify(token, config.auth.jwtSecret);
-    console.log('decoded', decoded);
+    winston.debug('JWT decoded: ', decoded);
   } catch(err) {
-    throw new Error('401002, invalid token');
+    throw new MarmoymError(ErrorType.TOKEN_INVALID);
   }
 
   if (decoded.username == username) {
-    return Promise.resolve(decoded);
+    return decoded;
   } else {
-    return Promise.reject(null);
+    throw new MarmoymError(ErrorType.USERNAME_NOT_EQUAL);
   }
-}
+};
 
 /**
  * ...
@@ -33,9 +34,5 @@ export const tokenAuthHandler = (req, res, next) => {
     .then(result => {
       req['_token'] = result;
       next();
-    })
-    .catch(err => {
-      next();
-      // throw new Error();
     });
-}
+};

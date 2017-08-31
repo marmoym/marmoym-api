@@ -31,6 +31,7 @@
     "jsonwebtoken": "^7.4.0",
     "mysql": "^2.13.0",
     "scrypt": "^6.0.3",
-    "sequelize": "^3.30.4"
+    "sequelize": "^3.30.4",
+    "winston": "^2.3.1"
   }
 }

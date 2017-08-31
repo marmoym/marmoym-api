@@ -1,3 +1,5 @@
+import * as winston from 'winston';
+
 export const respond = (response, result) => {
   if (result && result.then) {
     result
@@ -8,7 +10,7 @@ export const respond = (response, result) => {
       });    
     })
     .catch(err => {
-      console.error(err);
+      winston.error(err);
       err = err || {code: 0};
       response.status(200).json({
         code: err.code

@@ -1,15 +1,17 @@
+import * as winston from 'winston';
+
 export const handleError = (err, req, res, next) => {
   if (err.constructor.name == 'MarmoymError') {
-    console.log(err);
+    winston.warn(err);
     res.send({
       code: err.code,
       msg: err.msg
     });
   } else {
-    console.log(err);
+    winston.error(err);
     res.send({
       code: '000000',
       msg: 'Internal Error'
     });
   }
-}
+};

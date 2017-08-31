@@ -36,4 +36,4 @@ export const signInUser = async (userInfo) => {
         throw new MarmoymError(ErrorType.USER_INCORRECT_PASSWORD);
       }
     });
-}
+};
