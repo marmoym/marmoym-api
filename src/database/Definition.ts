@@ -7,14 +7,6 @@ module.exports = function(sequelize: Sequelize.Sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-    term_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
     contents: {
       type: DataTypes.STRING(512),
       allowNull: false
@@ -37,7 +29,14 @@ module.exports = function(sequelize: Sequelize.Sequelize, DataTypes) {
   }, { 
     timestamps: true,
     underscored: true,
-    freezeTableName: true
+    freezeTableName: true,
+    classMethods: {
+      associate: function (models) {
+        Definition.belongsTo(models.Term, {as: "term"});
+        Definition.belongsTo(models.User, {as: "user"});
+      }
+    }
   });
+
   return Definition;
 };

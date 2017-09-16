@@ -7,10 +7,6 @@ module.exports = function(sequelize: Sequelize.Sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
     target_type: {
       type: DataTypes.STRING(16),
       allowNull: false,
@@ -32,7 +28,12 @@ module.exports = function(sequelize: Sequelize.Sequelize, DataTypes) {
   }, {
     timestamps: true,
     underscored: true,
-    freezeTableName: true
+    freezeTableName: true,
+    classMethods: {
+      associate: function (models) {
+        Comment.belongsTo(models.User, {as: "user"});
+      }
+    }
   });
   return Comment;
 };

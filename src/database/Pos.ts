@@ -1,7 +1,7 @@
 import * as Sequelize from 'sequelize';
 
 module.exports = function(sequelize: Sequelize.Sequelize, DataTypes) {
-  const Pov = sequelize.define('Pov', {
+  const Pos = sequelize.define('Pos', {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
       primaryKey: true,
@@ -14,7 +14,12 @@ module.exports = function(sequelize: Sequelize.Sequelize, DataTypes) {
   }, {
     timestamps: true,
     underscored: true,
-    freezeTableName: true
+    freezeTableName: true,
+    classMethods: {
+      associate: function (models) {
+        Pos.belongsToMany(models.Definition, {through: "DefinitionPos", as: "definitions"});
+      }
+    }
   });
-  return Pov;
+  return Pos;
 }

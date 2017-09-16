@@ -1,22 +1,14 @@
 import * as Sequelize from 'sequelize';
 
 module.exports = function(sequelize: Sequelize.Sequelize, DataTypes) {
-  const Usage = sequelize.define('Usage', {
+  const Term = sequelize.define('Term', {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
       primaryKey: true,
       autoIncrement: true
     },
-    no: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    def_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    contents: {
-      type: DataTypes.STRING(512),
+    name: {
+      type: DataTypes.STRING(32),
       allowNull: false
     },
     status: {
@@ -24,10 +16,12 @@ module.exports = function(sequelize: Sequelize.Sequelize, DataTypes) {
       allowNull: false,
       defaultValue: "NORMAL"
     }
+
   }, {
     timestamps: true,
     underscored: true,
-    freezeTableName: true
+    freezeTableName: true,
   });
-  return Usage;
+
+  return Term;
 }

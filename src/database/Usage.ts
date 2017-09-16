@@ -1,14 +1,18 @@
 import * as Sequelize from 'sequelize';
 
 module.exports = function(sequelize: Sequelize.Sequelize, DataTypes) {
-  const Term = sequelize.define('Term', {
+  const Usage = sequelize.define('Usage', {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
       primaryKey: true,
       autoIncrement: true
     },
-    name: {
-      type: DataTypes.STRING(32),
+    no: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    contents: {
+      type: DataTypes.STRING(512),
       allowNull: false
     },
     status: {
@@ -16,11 +20,18 @@ module.exports = function(sequelize: Sequelize.Sequelize, DataTypes) {
       allowNull: false,
       defaultValue: "NORMAL"
     }
-
   }, {
     timestamps: true,
     underscored: true,
-    freezeTableName: true
+    freezeTableName: true,
+    classMethods: {
+      associate: function (models) {
+        Usage.belongsToMany(models.Definition, {
+          as: "definitions",
+          through: "DefinitionUsage"
+        });
+      }
+    }
   });
-  return Term;
+  return Usage;
 }

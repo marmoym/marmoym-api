@@ -13,7 +13,7 @@ module.exports = function(sequelize: Sequelize.Sequelize, DataTypes) {
     },
     email: {
       type: DataTypes.STRING(64),
-      primaryKey: true,
+      unique: "email",
       allowNull: false
     },
     password: {
