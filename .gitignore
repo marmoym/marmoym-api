@@ -164,5 +164,5 @@ yarn.lock
 .idea/
 _backup/
 /lib/
-/src/config/
+/src/config/marmoym-config
 
