@@ -5,17 +5,17 @@ import * as express from 'express';
 import * as cors from 'cors';
 import * as bodyParser from 'body-parser';
 import * as winston from 'winston';
-import config from './config'
+import { serverConfig, logConfig } from './config/marmoym-config'
 import * as errorHandleService from './services/errorHandleService';
 import routes from './routes';
-import database from './database';
+import db from './database';
 
 const app: express.Application = express();
-const port: number = process.env.PORT || config.server['marmoym-dev1'].port;
+const port: number = process.env.PORT || serverConfig['marmoym-dev1'].port;
 
 winston.configure({
   transports: [
-    new winston.transports.Console({level: config.log['marmoym-dev1'].logLevel})
+    new winston.transports.Console({level: logConfig['marmoym-dev1'].logLevel})
   ]
 });
 
@@ -23,14 +23,10 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use("/", routes);
-app.use(errorHandleService.handleError); // Should sit at the end of app.xxx calls.
+app.use(errorHandleService.handleError);
 
-database
-  .init()
-  .then(() => {
-    app.listen(port, () => {
-        winston.info(`Server started on port ${port}`);
-    });
-  });
+app.listen(4000, () => {
+  winston.debug("Listening on 4000");
+})
 
 export default app;

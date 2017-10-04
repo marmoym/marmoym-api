@@ -1,0 +1,3 @@
+{
+  "extends": "./internals/typescript/tsconfig.dev.json"
+}

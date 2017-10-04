@@ -1,13 +1,13 @@
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcrypt';
 
-import config from '../../config';
-import { db1 } from '../../database';
+import { authConfig } from '../../config/marmoym-config';
+import db from '../../database';
 import MarmoymError from '../../models/MarmoymError';
 import ErrorType from '../../constants/ErrorType';
 
 export const signInUser = async (userInfo) => {
-  const User =  db1.User;
+  const User =  db.User;
 
   return await User
     .findOne({
