@@ -7,5 +7,5 @@ export const addUsage = (trx, label: string, no: number) => {
       label: label,
       no : no,
       status: 'N',
-    })
+    });
 };

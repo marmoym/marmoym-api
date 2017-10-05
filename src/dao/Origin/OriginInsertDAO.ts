@@ -7,5 +7,5 @@ export const insertOrigin = (trx, label: string, defId: number) => {
       label: label,
       def_id : defId,
       status: 'N',
-    })
+    });
 };

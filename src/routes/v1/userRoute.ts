@@ -10,6 +10,7 @@ import { respond } from '../../services/responseService';
 import * as URL from '../URL';
 import { UserRequest } from '../RequestTypes';
 import * as UserSignUpController from "../../controllers/User/UserSignUpController";
+import * as UserSignInController from "../../controllers/User/UserSignInController";
 
 function userRoute(router) {
   
@@ -25,7 +26,7 @@ function userRoute(router) {
      */
     .post((request: Request, response: Response) => {
       const req: UserRequest.SignUp = request.body;
-      const payload = UserSignUpController.addUser(req);
+      const payload = UserSignUpController.signUpUser(req);
       
       respond(response, payload);
     })
@@ -47,7 +48,10 @@ function userRoute(router) {
      * 로그인
      */
     .post((request: Request, response: Response) => {
-      //TODO
+      const req: UserRequest.SignIn = request.body;
+      const payload = UserSignInController.signInUser(req);
+      
+      respond(response, payload);
     })
 
 } 

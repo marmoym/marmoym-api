@@ -19,14 +19,19 @@ export default {
     code: 401003,
     msg: 'Not equal username'
   },
-  'USERNAME_EXIST': {
-    type: 'USERNAME_EXIST',
+  'USERNAME_ALREADY_USED': {
+    type: 'USERNAME_ALREADY_USED',
     code: 401004,
-    msg: 'username exit'
+    msg: 'username already used'
   },
-  'EMAIL_EXIST': {
-    type: 'EMAIL_EXIST',
+  'EMAIL_ALREADY_USED': {
+    type: 'EMAIL_ALREADY_USED',
     code: 401005,
-    msg: 'email exit'
+    msg: 'email already used'
+  },
+  'USER_STATUS_PENDING': {
+    type: 'USER_STATUS_PENDING',
+    code: 401006,
+    msg: 'User Status is Pending'
   }
 }

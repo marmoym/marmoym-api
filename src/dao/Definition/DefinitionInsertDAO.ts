@@ -1,5 +1,4 @@
 import db from '../../database';
-import { createDefinition } from '../../models/common/Definition'; 
 
 export const insertDefinition = (trx, data: any, termId: number) => {
   return db.transacting(trx)
@@ -9,7 +8,7 @@ export const insertDefinition = (trx, data: any, termId: number) => {
       status: 'N',
       term_id: termId,
       user_id: '1', //TODO user 정보추가
-      vote_id: '1', //vote 정보넣고 업데이트
+      vote_id: '1', //TODO vote 정보넣고 업데이트
     });
 };
 
@@ -21,7 +20,7 @@ export const insertDefinitionPos = (trx, defId: number, posIds: Array<number>) =
   });
   return db.transacting(trx)
     .into('DefinitionPos')
-    .insert(input)
+    .insert(input);
 }
 
 export const insertDefinitionUsage = (trx, defId: number, usageId: number) => {
@@ -31,5 +30,5 @@ export const insertDefinitionUsage = (trx, defId: number, usageId: number) => {
       def_id: defId,
       usage_id: usageId,
       status: 'N'
-    })
+    });
 }
