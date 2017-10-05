@@ -1,85 +1,55 @@
 /**
  * Copyright Marmoym 2017
  */
-import { Router, Request, Response, NextFunction } from 'express'
+import { Router, Request, Response } from 'express'
 
+import db from '../../database';
 import { respond } from '../../services/responseService';
-import { tokenAuthHandler } from '../../services/authService';
-import * as UserUpdateController from '../../controllers/User/UserUpdateController';
-import * as UserSignUpController from '../../controllers/User/UserSignUpController';
-import * as UserSignInController from '../../controllers/User/UserSignInController';
-import * as UserDeleteController from '../../controllers/User/UserDeleteController';
+// import { Definition } from '../../models/ModelTypes';
+// import { DefinitionStatus } from '../../models/common/DefinitionStatus';
+import * as URL from '../URL';
+import { UserRequest } from '../RequestTypes';
+import * as UserSignUpController from "../../controllers/User/UserSignUpController";
 
-/**
- * Request Mapping: /api/v1/user/
- */
-let router: Router = Router();
+function userRoute(router) {
+  
+  router.route(URL.USER_ROUTE)
+    /**
+     * 회원정보가져오기
+     */
+    .get((request: Request, response: Response) => {
+      //TODO
+    })
+    /**
+     * 회원가입
+     */
+    .post((request: Request, response: Response) => {
+      const req: UserRequest.SignUp = request.body;
+      const payload = UserSignUpController.addUser(req);
+      
+      respond(response, payload);
+    })
+    /**
+     * 회원정보수정
+     */
+    .put((request: Request, response: Response) => {
+      //TODO
+    })
+    /**
+     * 회원정보삭제
+     */
+    .delete((request: Request, response: Response) => {
+      //TODO
+    })
+  
+  router.route(URL.USER_SIGNIN_ROUTE)
+    /**
+     * 로그인
+     */
+    .post((request: Request, response: Response) => {
+      //TODO
+    })
 
-/**
- * Deprecated
- */
-// router.get('/check_username_exist', async (req: Request, res: Response) => {
-//   var result = await UserController.checkUsernameExist(req.params.username);
-//   if (result) {
-//     res.status(200).json({
-//       message: 'User Exist'
-//     });
-//   } else {
-//     res.status(404).json({
-//       code: 0, 
-//       message: 'User Not Exist'
-//     });
-//   }
-// });
+} 
 
-/**
- * Deprecated
- */
-// router.get('/check_useremail_exist', async (req: Request, res: Response) => {
-//   var result = await UserController.checkUserEmailExist(req.params.useremail);
-//   if (result) {
-//     res.status(200).json({
-//       message: 'UserEmail Exist'
-//     });
-//   } else {
-//     res.status(404).json({
-//       code: 0, 
-//       message: 'UserEmail Not Exist'
-//     });
-//   }
-// });
-
-/**
- * ...
- */
-router.post('/signin', async (req: Request, res: Response) => {
-  const a = UserSignInController.signInUser(req.body)
-  respond(res, a);
-});
-
-/**
- * ...
- */
-router.post('/signup', async (req: Request, res: Response) => {
-  respond(res, await UserSignUpController.signUpUser(
-    req.body.username,
-    req.body.password,
-    req.body.email));
-});
-
-/**
- * ...
- */
-router.put('/update', tokenAuthHandler, async (req: Request, res: Response) => {
-  respond(res, await UserUpdateController.updateUserInfo(req.body));
-});
-
-/**
- * ...
- */
-router.delete('/delete', tokenAuthHandler, async (req: Request, res: Response) => {
-  // todo
-  respond(res, await UserDeleteController.deleteUser(req.body));
-});
-
-export default router;
+export default userRoute;

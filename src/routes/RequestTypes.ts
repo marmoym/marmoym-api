@@ -50,3 +50,11 @@ export namespace DefinitionRequest {
     defs: Definition[];
   }
 }
+
+export namespace UserRequest {
+  export interface SignUp {
+    username: string;
+    password: string;
+    email: string;
+  }
+} 
