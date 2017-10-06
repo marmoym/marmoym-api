@@ -25,8 +25,8 @@ app.use(bodyParser.json());
 app.use("/", routes);
 app.use(errorHandleService.handleError);
 
-app.listen(4000, () => {
-  winston.debug("Listening on 4000");
-})
+app.listen(serverConfig['marmoym-dev1'].port, () => {
+  winston.debug(`Listening on ${serverConfig['marmoym-dev1'].port}`);
+});
 
 export default app;
