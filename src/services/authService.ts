@@ -28,11 +28,14 @@ const _verifyUserToken = async (token: string, userId: number) => {
  */
 export const tokenAuthHandler = (req, res, next) => {
   const token = req.headers['x-access-token'];
-  const userId = req.body.userId;
-
+  const userId = req.body.userId ? req.body.userId : req.params.userId;
+  
   _verifyUserToken(token, userId)
     .then(result => {
       req['_token'] = result;
       next();
+    })
+    .catch(err => {
+      next(err);
     });
 };

@@ -1,4 +1,4 @@
-import { DefinitionStatus } from './common/DefinitionStatus';
+import { DefinitionStatus } from './DefinitionStatus';
 
 export interface Definition {
   id?: number;

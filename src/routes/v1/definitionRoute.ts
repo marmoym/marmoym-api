@@ -5,15 +5,13 @@ import { Router, Request, Response } from 'express'
 
 import db from '../../database';
 import { respond } from '../../services/responseService';
-import { Definition } from '../../models/ModelTypes';
-import { DefinitionStatus } from '../../models/common/DefinitionStatus';
 import * as URL from '../URL';
 import { DefinitionRequest } from '../RequestTypes';
 import * as DefinitionAddController from '../../controllers/Definition/DefinitionAddController';
 
 
 function definitionRoute(router) {
-  router.route(URL.DEFINITION_ROUTE)
+  router.route(URL.DEFINITION)
     //TODO
     // .get((req: Request, res: Response) => {
     //   db.transaction((trx) => {

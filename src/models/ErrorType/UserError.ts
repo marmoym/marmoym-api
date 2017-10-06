@@ -9,15 +9,15 @@ export default {
     code: 401000,
     msg: 'text' // TODO: to be changed soon
   },
-  'TOKEN_INVALID': {
-    type: 'TOKEN_INVALID',
+  'USER_UPDATE_VALUES_EMPTY': {
+    type: 'USER_UPDATE_VALUES_EMPTY',
     code: 401002,
-    msg: 'Invalid token'
+    msg: 'user update values are empty'
   },
-  'USERNAME_NOT_EQUAL': {
-    type: 'USERNAME_NOT_EQUAL',
+  'USER_DELETE_FAIL': {
+    type: 'USER_DELETE_FAIL',
     code: 401003,
-    msg: 'Not equal username'
+    msg: 'no user deleted'
   },
   'USERNAME_ALREADY_USED': {
     type: 'USERNAME_ALREADY_USED',

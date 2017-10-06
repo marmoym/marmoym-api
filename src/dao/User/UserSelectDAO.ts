@@ -20,3 +20,13 @@ export const selectUserByUsername = (username: string) => {
     })
     .select();
 };
+
+export const selectUserByUserId = (userId: number) => {
+  return db('User').where({
+    id: userId
+  })
+  .whereNot({
+    status: UserStatus.DELETED
+  })
+  .select('id', 'username', 'email', 'karma', 'created_at', 'updated_at');
+}

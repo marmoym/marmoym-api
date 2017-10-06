@@ -9,5 +9,5 @@ export const insertUser = (trx, data: any, encodedPw: string) => {
       password: encodedPw,
       email: data.email,
       status: UserStatus.PENDING
-    })
+    });
 };
