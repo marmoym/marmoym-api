@@ -8,7 +8,7 @@
     "copy-config": "mkdir ./lib/config && cp ./src/config/* ./lib/config/",
     "dev": "npm run clean && npm run watch",
     "watch": "tsc -w -p ./internals/typescript/tsconfig.dev.json",
-    "build": "",
+    "build": "tsc -p ./internals/typescript/tsconfig.dev.json",
     "test": "echo \"Error: no test specified\"",
     "start": "nodemon ./lib/app.js",
     "migrate:dev": "NODE_ENV=development node ./src/database/migrate.js",
