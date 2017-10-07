@@ -7,11 +7,11 @@ import * as UsageInsertDAO from '../../dao/Usage/UsageInsertDAO';
 import * as OriginInsertDAO from '../../dao/Origin/OriginInsertDAO';
 import { transaction } from '../../database/databaseUtils';
 
-export const addDefinition = (req) => {
+export function addDefinition(req) {
   return transaction(async trx => {
-    let term = await TermSelectDAO.getTermByLabel(req.term);
+    let term = await TermSelectDAO.selectTermByLabel(req.term);
 
-    if(term.length != 0) {
+    if (term.length != 0) {
       //Definition이 등록될때마다 Term의 UpdatedAt을 갱신함
       const termUpdated = await TermUpdateDAO.updateTermOnlyUpdatedAt(trx, term[0].id);
     }
@@ -27,13 +27,13 @@ export const addDefinition = (req) => {
 
       let i = 0;
       for (const usage of def.usages) {
-        const usageInserted = await UsageInsertDAO.addUsage(trx, usage, i++);
+        const usageInserted = await UsageInsertDAO.insertUsage(trx, usage, ++i);
         const defUsage = await DefinitionInsertDAO.insertDefinitionUsage(
           trx, 
           defInserted[0], 
           usageInserted[0]);
-
       };
+
       for (const origin of def.origins) {
         const originInserted = await OriginInsertDAO.insertOrigin(trx, origin, defInserted[0]);
       }

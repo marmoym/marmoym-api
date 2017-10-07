@@ -1,11 +1,12 @@
 import db from '../../database';
+import { OriginStatus } from '../../models/Status/OriginStatus';
 
-export const insertOrigin = (trx, label: string, defId: number) => {
+export function insertOrigin(trx, label: string, defId: number) {
   return db.transacting(trx)
     .into('Origin')
     .insert({
       label: label,
       def_id : defId,
-      status: 'N',
+      status: OriginStatus.NORMAL
     });
 };

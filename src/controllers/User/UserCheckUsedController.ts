@@ -9,7 +9,7 @@ import { authConfig } from '../../config/marmoym-config';
 import MarmoymError from "../../models/MarmoymError";
 import ErrorType from '../../models/ErrorType';
 
-export const checkUsernameUsed = async (req) => {
+export async function checkUsernameUsed(req) {
   const userSelected = await UserSelectDAO.selectUserByUsername(req.username);
 
   if (userSelected.length == 0) {
@@ -20,7 +20,7 @@ export const checkUsernameUsed = async (req) => {
   }
 }
 
-export const checkEmailUsed = async (req) => {
+export async function checkEmailUsed(req) {
   const userSelected = await UserSelectDAO.selectUserByEmail(req.email);
 
   if (userSelected.length == 0) {

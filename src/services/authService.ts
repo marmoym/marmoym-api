@@ -7,7 +7,7 @@ import ErrorType from '../models/ErrorType';
 /**
  * ...
  */
-const _verifyUserToken = async (token: string, userId: number) => {
+ async function _verifyUserToken(token: string, userId: number) {
   let decoded;
   try {
     decoded = jwt.verify(token, authConfig.jwtSecret);
@@ -26,7 +26,7 @@ const _verifyUserToken = async (token: string, userId: number) => {
 /**
  * ...
  */
-export const tokenAuthHandler = (req, res, next) => {
+export function tokenAuthHandler(req, res, next) {
   const token = req.headers['x-access-token'];
   const userId = req.body.userId ? req.body.userId : req.params.userId;
   

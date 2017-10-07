@@ -9,8 +9,9 @@ import { authConfig } from '../../config/marmoym-config';
 import MarmoymError from "../../models/MarmoymError";
 import ErrorType from '../../models/ErrorType';
 
-export const signInUser = async (req) => {
+export async function signInUser(req) {
   const userSelected = await UserSelectDAO.selectUserByEmail(req.email);
+  
   if (userSelected.length == 0) {
     throw new MarmoymError(ErrorType.User.USER_NOT_FOUND);
   } else {

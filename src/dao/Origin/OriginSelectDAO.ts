@@ -1,9 +1,10 @@
 import db from '../../database';
+import { OriginStatus } from '../../models/Status/OriginStatus';
 
-export function getOriginByDefinitionId (defId: number) {
+export function selectOriginByDefinitionId (defId: number) {
   return db('Origin').where({
     def_id: defId,
-    status: 'N'
+    status: OriginStatus.NORMAL
   })
   .select('label')
   .orderBy('created_at', 'desc');

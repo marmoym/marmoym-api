@@ -1,14 +1,14 @@
 import db from '../../database';
-import { TermStatus } from '../../models/TermStatus';
+import { TermStatus } from '../../models/Status/TermStatus';
 
-export function getTermByLabel (label: string) {
+export function selectTermByLabel(label: string) {
   return db('Term').select()
     .where({
       label: label
     });
 };
 
-export function getRecentUpdatedTerm (offset: number) {
+export function selectRecentlyUpdatedTerm(offset: number) {
   // return db('Term').orderBy('Term.updated_at', 'desc')
   //   .innerJoin(db('Definition').orderBy('Definition.created_at','desc').as('Definition'), function () {
   //     this.on('Definition.term_id', '=', 'Term.id')

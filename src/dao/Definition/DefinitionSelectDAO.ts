@@ -1,15 +1,18 @@
 import db from '../../database';
+import { DefinitionStatus } from '../../models/Status/DefinitionStatus';
 
-export function getDefinitionsByTermId (termId: number) {
+export function selectDefinitionsByTermId(termId: number) {
   return db('Definition').where({
-      term_id: termId
+      term_id: termId,
+      status: DefinitionStatus.NORMAL
     })
     .select();
 };
 
-export function getRecentCreatedDefinitionsByTermId (termId: number, offset: number, limit: number) {
+export function selectRecentlyCreatedDefinitionsByTermId(termId: number, offset: number, limit: number) {
   return db('Definition').where({
-      term_id: termId
+      term_id: termId,
+      status: DefinitionStatus.NORMAL
     })
     .orderBy('created_at', 'desc')
     .limit(limit)

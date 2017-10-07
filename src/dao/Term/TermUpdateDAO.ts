@@ -1,7 +1,7 @@
 import db from '../../database';
-import { TermStatus } from "../../models/TermStatus";
+import { TermStatus } from "../../models/Status/TermStatus";
 
-export const updateTermOnlyUpdatedAt = (trx, termId: number) => {
+export function updateTermOnlyUpdatedAt(trx, termId: number) {
   return db.transacting(trx)
     .into('Term')
     .where({

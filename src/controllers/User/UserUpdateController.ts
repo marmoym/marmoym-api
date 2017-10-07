@@ -8,7 +8,7 @@ import { authConfig } from '../../config/marmoym-config';
 import MarmoymError from "../../models/MarmoymError";
 import ErrorType from '../../models/ErrorType';
 
-export const updateUser = (req) => {
+export function updateUser(req) {
   return transaction(async trx => {
     let encodedPw = undefined;
     let inputUsername = undefined;

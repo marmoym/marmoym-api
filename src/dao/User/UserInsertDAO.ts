@@ -1,7 +1,7 @@
 import db from '../../database';
-import { UserStatus } from "../../models/UserStatus";
+import { UserStatus } from "../../models/Status/UserStatus";
 
-export const insertUser = (trx, data: any, encodedPw: string) => {
+export function insertUser(trx, data: any, encodedPw: string) {
   return db.transacting(trx)
     .into('User')
     .insert({

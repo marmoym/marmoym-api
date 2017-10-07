@@ -6,7 +6,7 @@ import { transaction } from '../../database/databaseUtils';
 import MarmoymError from "../../models/MarmoymError";
 import ErrorType from '../../models/ErrorType';
 
-export const deleteUser = (req) => {
+export function deleteUser(req) {
   return transaction(async trx => {
     const userDeleted = await UserDeleteDAO.deleteUserByUserId(trx, req.userId);
 

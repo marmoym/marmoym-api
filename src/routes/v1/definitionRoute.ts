@@ -8,7 +8,6 @@ import { respond } from '../../services/responseService';
 import * as URL from '../URL';
 import { DefinitionRequest } from '../RequestTypes';
 import * as DefinitionAddController from '../../controllers/Definition/DefinitionAddController';
-import * as DefinitionGetController from '../../controllers/Definition/DefinitionGetController';
 
 function definitionRoute(router) {
   router.route(URL.DEFINITION)

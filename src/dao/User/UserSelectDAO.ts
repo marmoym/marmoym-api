@@ -1,7 +1,7 @@
 import db from '../../database';
-import { UserStatus } from "../../models/UserStatus";
+import { UserStatus } from "../../models/Status/UserStatus";
 
-export const selectUserByEmail = (email: string) => {
+export function selectUserByEmail(email: string) {
   return db('User').where({
       email: email
     })
@@ -11,7 +11,7 @@ export const selectUserByEmail = (email: string) => {
     .select();
 };
 
-export const selectUserByUsername = (username: string) => {
+export function selectUserByUsername(username: string) {
   return db('User').where({
       username: username
     })
@@ -21,7 +21,7 @@ export const selectUserByUsername = (username: string) => {
     .select();
 };
 
-export const selectUserByUserId = (userId: number) => {
+export function selectUserByUserId(userId: number) {
   return db('User').where({
     id: userId
   })

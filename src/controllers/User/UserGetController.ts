@@ -8,7 +8,7 @@ import { authConfig } from '../../config/marmoym-config';
 import MarmoymError from "../../models/MarmoymError";
 import ErrorType from '../../models/ErrorType';
 
-export const getUserInfo = async (req) => {
+export async function getUserInfo(req) {
   const userSelected = await UserSelectDAO.selectUserByUserId(req.userId);
 
   if (userSelected.length == 0) {

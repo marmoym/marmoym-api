@@ -1,11 +1,12 @@
 import db from '../../database';
+import { UsageStatus } from '../../models/Status/UsageStatus';
 
-export const addUsage = (trx, label: string, no: number) => {
+export function insertUsage(trx, label: string, no: number) {
   return db.transacting(trx)
     .into('Usage')
     .insert({
       label: label,
       no : no,
-      status: 'N',
+      status: UsageStatus.NORMAL,
     });
 };

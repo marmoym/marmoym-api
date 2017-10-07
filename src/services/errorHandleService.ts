@@ -1,6 +1,6 @@
 import * as winston from 'winston';
 
-export const handleError = (err, req, res, next) => {
+export function handleError(err, req, res, next) {
   winston.debug(err);
   
   if (err.constructor.name === 'MarmoymError') {
