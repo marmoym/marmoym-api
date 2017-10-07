@@ -1,7 +1,5 @@
 export namespace TermRequest {
-  // {
-  //    "offset": "5"
-  // }
+
   export interface Get {
     offset: number;
   }
@@ -57,6 +55,11 @@ export namespace DefinitionRequest {
     term: string;
     roman: string;
     defs: Definition[];
+  }
+  
+  export interface Get {
+    termId: number;
+    offset: number;
   }
 }
 

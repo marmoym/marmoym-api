@@ -1,6 +1,7 @@
 export const TERM_LIST = `/terms`;
 
 export const DEFINITION = `/definitions`;
+export const DEFINITION_GETLIST_BY_TERMID = `/definitions/:termId`;
 
 export const USER = `/users`;
 export const USER_USERID = `/users/:userId`;

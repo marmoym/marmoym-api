@@ -16,7 +16,7 @@ export function selectRecentlyCreatedDefinitionsByTermId(termId: number, offset:
     })
     .orderBy('created_at', 'desc')
     .limit(limit)
-    .offset(offset)
+    .offset(Number(offset))
     .select('id', 'label', 'vote_id', 'user_id');
 };
 
