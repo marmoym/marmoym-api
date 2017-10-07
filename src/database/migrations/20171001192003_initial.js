@@ -65,7 +65,6 @@ exports.up = function(knex, Promise) {
       table.increments('id').primary();
       table.string('label', 512).notNullable();
       table.string('labelEn', 512).notNullable();
-      table.integer('def_id').notNullable();
       table.string('status', 1).defaultTo('N');
 
       table.timestamps(true, true);

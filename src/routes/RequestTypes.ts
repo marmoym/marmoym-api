@@ -1,3 +1,12 @@
+export namespace TermRequest {
+  // {
+  //    "offset": "5"
+  // }
+  export interface Get {
+    offset: number;
+  }
+}
+
 export namespace DefinitionRequest {
   interface Definition {
     label: string;

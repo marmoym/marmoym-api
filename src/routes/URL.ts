@@ -1,5 +1,6 @@
+export const TERM_LIST = `/terms`;
+
 export const DEFINITION = `/definitions`;
-export const DEFINIITON_TERMID = `/definitions/termId/:termId`;
 
 export const USER = `/users`;
 export const USER_USERID = `/users/:userId`;
