@@ -5,16 +5,16 @@
   "main": "index.js",
   "scripts": {
     "clean": "rm -rf ./lib/*",
-    "copy-config": "mkdir ./lib/config && cp ./src/config/* ./lib/config/",
     "dev": "yarn run clean && yarn run watch",
-    "watch": "tsc -w -p ./internals/typescript/tsconfig.dev.json",
-    "build": "tsc -p ./internals/typescript/tsconfig.dev.json",
-    "test": "echo \"Error: no test specified\"",
+    "watch": "./node_modules/typescript/bin/tsc -w -p ./internals/typescript/tsconfig.dev.json",
+    "build": "./node_modules/typescript/bin/tsc -p ./internals/typescript/tsconfig.dev.json",
     "start": "nodemon ./lib/app.js",
     "migrate:dev": "NODE_ENV=development node ./src/database/migrate.js",
     "migrate:prod": "NODE_ENV=production node ./src/database/migrate.js",
     "rollback:dev": "node ./src/database/rollback.js",
-    "reload:dev": "yarn run build && ./node_modules/.bin/pm2 reload ./internals/pm2/pm2.config.js --env development"
+    "setup:dev": "./internals/shell/setup.sh",
+    "deploy:dev": "pm2 deploy ./internals/pm2/pm2.config.js development",
+    "test": "echo \"Error: no test specified\""
   },
   "author": "",
   "license": "ISC",
@@ -23,12 +23,14 @@
     "@types/mocha": "^2.2.41",
     "@types/node": "^7.0.14",
     "@types/sequelize": "^4.0.51",
-    "chai": "^4.0.2",
-    "mocha": "^3.4.2"
-  },
-  "dependencies": {
     "@types/express": "^4.0.35",
     "@types/winston": "^2.3.6",
+    "chai": "^4.0.2",
+    "mocha": "^3.4.2",
+    "pm2": "^2.7.1",
+    "typescript": "^2.5.3"
+  },
+  "dependencies": {
     "bcrypt": "^1.0.3",
     "body-parser": "^1.17.1",
     "cors": "^2.8.4",
@@ -38,8 +40,6 @@
     "mariasql": "^0.2.6",
     "mysql": "^2.14.1",
     "mysql2": "^1.4.2",
-    "node-gyp": "^3.6.2",
-    "pm2": "^2.7.1",
     "sequelize": "^3.30.4",
     "winston": "^2.3.1"
   }

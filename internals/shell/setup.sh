@@ -1,21 +1,20 @@
 #!/bin/bash
 
-# parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+get_config() {
+  marmoym_config_repo="git@github.com:tymsai/marmoym-config.git"
+  parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+  config_path="${parent_path}/../../src/config"
 
-# repos=( 
-#   "${parent_path}/../../projects/project-1"
-#   "/c/projects/project-2"
-#   "/c/projects/project-3"
-# )
+  if [ -d "${config_path}/marmoym-config/.git" ]; then
+    echo "Rebasing marmoym-config";
+    cd ${config_path}/marmoym-config;
+    git pull --rebase;
+  else
+    echo "Configuration is missing. It is either you are not permitted
+to access the source or have not installed it yet.";
+    cd ${config_path}; 
+    git clone "${marmoym_config_repo}";
+  fi
+}
 
-# echo ""
-# echo "Getting latest for" ${#repos[@]} "repositories using pull --rebase"
-
-# for repo in "${repos[@]}"
-# do
-#   echo ""
-#   echo "****** Getting latest for" ${repo} "******"
-#   cd "${repo}"
-#   git pull --rebase
-#   echo "******************************************"
-# done
+get_config
