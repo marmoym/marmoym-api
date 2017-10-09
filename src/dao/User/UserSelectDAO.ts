@@ -30,3 +30,12 @@ export function selectUserByUserId(userId: number) {
   })
   .select('id', 'username', 'email', 'karma', 'created_at', 'updated_at');
 }
+
+export function selectUserByIds(userIds: number[]) {
+  return db('User')
+  .whereNot({
+    status: UserStatus.DELETED
+  })
+  .whereIn('id', userIds)
+  .select('id', 'username', 'email', 'karma');
+}

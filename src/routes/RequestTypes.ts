@@ -1,6 +1,7 @@
 export namespace TermRequest {
 
   export interface Get {
+    defId: number[];
     offset: number;
   }
 }
@@ -58,7 +59,11 @@ export namespace DefinitionRequest {
   }
   
   export interface Get {
-    termId: number;
+    defId: number[];
+    offset: number;
+  }
+
+  export interface idGet {
     offset: number;
   }
 }

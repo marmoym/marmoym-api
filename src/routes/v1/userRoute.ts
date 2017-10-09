@@ -59,7 +59,7 @@ function userRoute(router) {
       respond(response, payload);
     })
 
-  router.route(URL.USER_USERID)
+  router.route(URL.USER_GET_BY_USERID)
     /**
     * 회원정보가져오기
     */

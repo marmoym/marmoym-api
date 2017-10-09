@@ -25,10 +25,11 @@ export function selectRecentlyUpdatedTerm(offset: number) {
     .offset(Number(offset));
 };
 
-export function selectTermByTermId(termId: number) {
+export function selectTermByIds(termIds: number[]) {
   return db('Term').select('Term.id  as termId', 'Term.label as term', 'Term.roman as termRoman')
     .where({
-      id: termId,
       status: TermStatus.NORMAL
-    });
+    })
+    .whereIn('id', termIds)
+    .select('id', 'label', 'updated_at as updatedAt');
 }
