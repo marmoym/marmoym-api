@@ -19,7 +19,7 @@ import * as UserCheckUsedController from "../../controllers/User/UserCheckUsedCo
 
 function userRoute(router) {
   
-  router.route(URL.USER)
+  router.route(URL.USERS)
     /**
      * 회원가입
      */
@@ -48,7 +48,7 @@ function userRoute(router) {
       respond(response, payload);
     })
   
-  router.route(URL.USER_SIGNIN)
+  router.route(URL.USERS_SIGNED_IN)
     /**
      * 로그인
      */
@@ -59,7 +59,7 @@ function userRoute(router) {
       respond(response, payload);
     })
 
-  router.route(URL.USER_GET_BY_USERID)
+  router.route(URL.USERS_USERID)
     /**
     * 회원정보가져오기
     */
@@ -70,22 +70,24 @@ function userRoute(router) {
       respond(response, payload);
     })
 
-  router.route(URL.USER_CHECK_USERNAME_USED)
+  router.route(URL.USERS_USERNAME_VALIDATED)
     /**
     * Username 사용여부 확인
     */
-    .get((request: Request, response: Response) => {
+    .post((request: Request, response: Response) => {
+      // should be changed to POST
       const req: UserRequest.CheckUsed = request.params;
       const payload = UserCheckUsedController.checkUsernameUsed(req);
 
       respond(response, payload);
     })
 
-  router.route(URL.USER_CHECK_EMAIL_USED)
+  router.route(URL.USERS_EMAIL_VALIDATED)
     /**
     * Email 사용여부 확인
     */
-    .get((request: Request, response: Response) => {
+    .post((request: Request, response: Response) => {
+      // will be changed to POST
       const req: UserRequest.CheckUsed = request.params;
       const payload = UserCheckUsedController.checkEmailUsed(req);
 

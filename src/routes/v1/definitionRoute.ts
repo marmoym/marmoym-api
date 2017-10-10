@@ -13,7 +13,7 @@ import * as DefinitionGetController from '../../controllers/Definition/Definitio
 
 function definitionRoute(router) {
 
-  router.route(URL.DEFINITION)
+  router.route(URL.DEFINITIONS)
     /**
      * Definitions 가져오기
      */
@@ -24,7 +24,7 @@ function definitionRoute(router) {
 
       respond(response, payload);
     })
-  router.route(URL.DEFINITION_ADD)
+  router.route(URL.NEW_DEFINITIONS)
     /**
      * Definition 등록
      */
@@ -35,7 +35,7 @@ function definitionRoute(router) {
       respond(response, payload);
     })
 
-  router.route(URL.DEFINITION_GET_RECENTLY_UPDATED)
+  router.route(URL.DEFINITIONS_IDS)
     /**
      * 최신 Definitions 가져오기
      */
