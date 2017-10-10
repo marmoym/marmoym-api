@@ -9,8 +9,10 @@ import MarmoymError from '../../models/MarmoymError';
 import ErrorType from '../../models/ErrorType';
 import { transaction } from '../../database/databaseUtils';
 import { DefinitionResponse } from '../../routes/ResponseTypes';
+import { DefinitionRequest } from '../../routes/RequestTypes'; 
 
-export async function getDefinitionByDefIds(req) {
+
+export async function getDefinitionByDefIds(req: DefinitionRequest.Get) {
   let result ={};
   result['terms'] = [];
   result['definitions'] = [];
@@ -70,7 +72,7 @@ export async function getDefinitionByDefIds(req) {
 
 };
 
-export async function getRecentlyUpdatedDefinitionIds(req) {
+export async function getRecentlyUpdatedDefinitionIds(req: DefinitionRequest.idGet) {
   const definitionIds = await DefinitionSelectDAO.selectIdsOfRecentlyAdded(req.offset, 10);
   await Promise.all(definitionIds.map(defObj => {
     defObj.updatedAt = defObj.updatedAt.getTime();
@@ -78,7 +80,7 @@ export async function getRecentlyUpdatedDefinitionIds(req) {
   return definitionIds;
 };
 
-export async function getDefinitionIdsBySearch(req) {
+export async function getDefinitionIdsBySearch(req: DefinitionRequest.Search) {
   const definitionIds = await DefinitionSelectDAO.selectIdsByTerm(req.query,0,10);
   await Promise.all(definitionIds.map(defObj => {
    defObj.updatedAt = defObj.updatedAt.getTime();

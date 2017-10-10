@@ -59,7 +59,7 @@ export namespace DefinitionRequest {
   }
   
   export interface Get {
-    defId: number[];
+    defIds: number[];
     offset: number;
   }
 
