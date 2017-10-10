@@ -44,7 +44,19 @@ function definitionRoute(router) {
       const payload: Promise<DefinitionResponse.idGet> 
         = DefinitionGetController.getRecentlyUpdatedDefinitionIds(req);
       
-      respond(response, payload);
+      respond(response, payload, 'defIds');
+    })
+
+
+  router.route(URL.SEARCH)
+    /**
+     * Definition 검색
+     */
+    .get((request: Request, response: Response) => {
+      const req: DefinitionRequest.Search = request.query;
+      const payload = DefinitionGetController.getDefinitionIdsBySearch(req);
+
+      respond(response, payload, 'defIds');
     })
 }
 

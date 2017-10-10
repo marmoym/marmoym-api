@@ -71,10 +71,18 @@ export async function getDefinitionByDefIds(req) {
 };
 
 export async function getRecentlyUpdatedDefinitionIds(req) {
-  const definitionIds = await DefinitionSelectDAO.selectRecentlyCreatedDefinitionIds(req.offset, 10);
+  const definitionIds = await DefinitionSelectDAO.selectIdsOfRecentlyAdded(req.offset, 10);
   await Promise.all(definitionIds.map(defObj => {
     defObj.updatedAt = defObj.updatedAt.getTime();
   }));
   return definitionIds;
 };
 
+export async function getDefinitionIdsBySearch(req) {
+  const definitionIds = await DefinitionSelectDAO.selectIdsByTerm(req.query,0,10);
+  await Promise.all(definitionIds.map(defObj => {
+   defObj.updatedAt = defObj.updatedAt.getTime();
+  }))
+
+  return definitionIds;
+};

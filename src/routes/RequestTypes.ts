@@ -66,6 +66,10 @@ export namespace DefinitionRequest {
   export interface idGet {
     offset: number;
   }
+
+  export interface Search {
+    query: string;
+  }
 }
 
 export namespace UserRequest {

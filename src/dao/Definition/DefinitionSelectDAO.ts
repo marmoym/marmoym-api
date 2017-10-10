@@ -1,5 +1,6 @@
 import db from '../../database';
 import { DefinitionStatus } from '../../models/Status/DefinitionStatus';
+import { TermStatus } from '../../models/Status/TermStatus';
 
 export function selectDefinitionsByIds(ids: number[]) {
   return db('Definition').where({
@@ -9,24 +10,42 @@ export function selectDefinitionsByIds(ids: number[]) {
     .select('id','label','term_id','user_id','vote_id','updated_at as updatedAt');
 };
 
-// export function selectRecentlyCreatedDefinitionsByTermId(termId: number, offset: number, limit: number) {
-//   return db('Definition').where({
-//       term_id: termId,
-//       status: DefinitionStatus.NORMAL
-//     })
-//     .orderBy('created_at', 'desc')
-//     .limit(limit)
-//     .offset(Number(offset))
-//     .select('id', 'label', 'vote_id', 'user_id');
-// };
-
-export function selectRecentlyCreatedDefinitionIds(offset: number, limit:number) {
+export function selectIdsOfRecentlyAdded(offset: number, limit:number) {
   return db('Definition').where({
-    status: DefinitionStatus.NORMAL
-  })
-  .select('id', 'updated_at as updatedAt')
-  .limit(limit)
-  .offset(Number(offset))
+      status: DefinitionStatus.NORMAL
+    })
+    .select('id', 'updated_at as updatedAt')
+    .orderBy('created_at', 'desc')
+    .limit(limit)
+    .offset(Number(offset));
  
 }
 
+export function selectIdsByTermExact(label: string, offset: number, limit: number) {
+  return db('Definition')
+    .leftJoin('Term', function() {
+      this.on('Term.id', '=', 'Definition.term_id')
+    })
+    .where('Definition.status',DefinitionStatus.NORMAL)
+    .where('Term.status', TermStatus.NORMAL)
+    .where('Term.label', label)
+    .select('Definition.id', 'Definition.updated_at as updatedAt')
+    .offset(offset)
+    .limit(limit);
+};
+
+export function selectIdsByTerm(query: string, offset: number, limit: number) {
+  let search_query = query.replace(' ', '%');
+
+  return db('Definition')
+    .leftJoin('Term', function() {
+      this.on('Term.id', '=','Definition.term_id')
+    })
+    .where('Definition.status',DefinitionStatus.NORMAL)
+    .where('Term.status', TermStatus.NORMAL)
+    .where('Term.label', '%'+search_query+'%')
+    .select('Definition.id', 'Definition.updated_at as updatedAt')
+    .orderBy('Definition.created_at', 'desc')
+    .offset(offset)
+    .limit(limit);
+};
