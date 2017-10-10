@@ -1,11 +1,15 @@
 import * as winston from 'winston';
 
-export function respond(response, result) {
+import ResponseCode from '../models/ResponseCode';
+
+export function respond(response, result, name?: string) {
   if (result && result.then) {
     result.then(payload => {
       response.status(200).json({
-        code: 1,
-        payload
+        code: ResponseCode.SUCCESS,
+        payload: name ?
+          { [name]: payload }
+          : { ...payload }
       });    
     })
       .catch(err => {
