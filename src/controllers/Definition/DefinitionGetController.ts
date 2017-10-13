@@ -9,68 +9,43 @@ import MarmoymError from '../../models/MarmoymError';
 import ErrorType from '../../models/ErrorType';
 import { transaction } from '../../database/databaseUtils';
 import { DefinitionResponse } from '../../routes/ResponseTypes';
-import { DefinitionRequest } from '../../routes/RequestTypes'; 
+import { DefinitionRequest } from '../../routes/RequestTypes';
 
-
-export async function getDefinitionByDefIds(req: DefinitionRequest.Get) {
-  let result ={};
-  result['terms'] = [];
-  result['definitions'] = [];
-  result['users']= [];
+export async function getDefinitionByDefIds(req: DefinitionRequest.Get)
+  : Promise<DefinitionResponse.Get> {
+    
+  let result: DefinitionResponse.Get = {
+    terms: [],
+    definitions: [],
+    users: []
+  };  
 
   let termIds = [];
   let userIds = [];
 
-  //get definitions
-  const defSelected = await DefinitionSelectDAO.selectDefinitionsByIds(req.defIds)
+  const defSelected = await DefinitionSelectDAO.selectDefinitionsByIds(req.defIds);
+  
   await Promise.all(defSelected.map(async defObj => {
-    if (termIds.indexOf(defObj.term_id) == -1) {
-      termIds.push(defObj.term_id);
-    }
-    if (userIds.indexOf(defObj.user_id) == -1) {
-      userIds.push(defObj.user_id);
-    }
+    termIds = _appendIfNotPresent(termIds, defObj, 'term_id');
+    termIds = _appendIfNotPresent(userIds, defObj, 'user_id');
 
     defObj.updatedAt = defObj.updatedAt.getTime();
+    defObj.poss = await PosSelectDAO.selectPosByDefinitionId(defObj.id);
+    defObj.usages = await UsageSelectDAO.selectUsageByDefinitionId(defObj.id);
+    defObj.origins = await OriginSelectDAO.selectOriginByDefinitionId(defObj.id);
 
-    //get Pos
-    const posSelected = await PosSelectDAO.selectPosByDefinitionId(defObj.id);
-    defObj['poss'] = [];
-    await Promise.all(posSelected.map(posObj => {
-      defObj['poss'].push(posObj);
-    }));
-
-    //get usages
-    const usageSelected = await UsageSelectDAO.selectUsageByDefinitionId(defObj.id);
-    defObj['usages'] = [];
-    await Promise.all(usageSelected.map(usageObj => {
-      defObj['usages'].push(usageObj);
-    }));
-
-    //get origins
-    const originSelected = await OriginSelectDAO.selectOriginByDefinitionId(defObj.id);
-    defObj['origins'] = [];
-    await Promise.all(originSelected.map(originObj => {
-      defObj['origins'].push(originObj);
-    }));
-
-    result['definitions'].push(defObj);
+    result.definitions.push(defObj);
   }));
 
   const termSelected = await TermSelectDAO.selectTermByIds(termIds);
-  await Promise.all(termSelected.map(termObj => {
-    termObj.updatedAt = termObj.updatedAt.getTime();
-    result['terms'].push(termObj);
-  }));
+  termSelected.map(term => {
+    term.updatedAt = term.updatedAt.getTime();
+    result.terms.push(term);
+  });
 
-  const userSelected = await UserSelectDAO.selectUserByIds(termIds);
-  await Promise.all(userSelected.map(userObj => {
-    result['users'].push(userObj);
-  }))
-
+  result.users.push(await UserSelectDAO.selectUserByIds(termIds));
   return result;
-
-};
+}
 
 export async function getRecentlyUpdatedDefinitionIds(req: DefinitionRequest.idGet) {
   const definitionIds = await DefinitionSelectDAO.selectIdsOfRecentlyAdded(req.offset, 10);
@@ -78,13 +53,20 @@ export async function getRecentlyUpdatedDefinitionIds(req: DefinitionRequest.idG
     defObj.updatedAt = defObj.updatedAt.getTime();
   }));
   return definitionIds;
-};
+}
 
 export async function getDefinitionIdsBySearch(req: DefinitionRequest.Search) {
   const definitionIds = await DefinitionSelectDAO.selectIdsByTerm(req.query,0,10);
   await Promise.all(definitionIds.map(defObj => {
    defObj.updatedAt = defObj.updatedAt.getTime();
-  }))
+  }));
 
   return definitionIds;
-};
+}
+
+function _appendIfNotPresent(arr, elem, key) {
+  if (arr.indexOf(elem[key]) == -1) {
+    arr.push(elem[key]);
+  }
+  return arr;
+}

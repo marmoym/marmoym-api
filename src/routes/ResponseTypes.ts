@@ -12,10 +12,8 @@ interface Definition {
   poss: string[];
   usages: string[];
   origins: string[];
-  vote: {
-    upvote: number;
-    downvote: number;
-  }
+  upvote: number;
+  downvote: number;
   createdAt: number;
   updatedAt: number;
 }

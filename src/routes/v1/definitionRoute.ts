@@ -24,6 +24,7 @@ function definitionRoute(router) {
 
       respond(response, payload);
     })
+    
   router.route(URL.NEW_DEFINITIONS)
     /**
      * Definition 등록
