@@ -11,6 +11,7 @@
     "start": "nodemon ./lib/app.js",
     "migrate:dev": "NODE_ENV=development node ./src/database/migrate.js",
     "migrate:prod": "NODE_ENV=production node ./src/database/migrate.js",
+    "seed:dev": "NODE_ENV=production node ./src/database/seed.js",
     "rollback:dev": "node ./src/database/rollback.js",
     "setup:dev": "./internals/shell/setup.sh",
     "deploy:dev": "pm2 deploy ./internals/pm2/pm2.config.js development",
