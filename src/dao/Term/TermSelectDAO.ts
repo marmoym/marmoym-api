@@ -2,7 +2,7 @@ import db from '../../database';
 import { TermStatus } from '../../models/Status/TermStatus';
 
 export function selectTermByLabel(label: string, offset?: number , limit?: number) {
-  return db('Term').select('id', 'created_at as createdAt')
+  return db('Term').select('id', 'created_at')
     .where({
       status: TermStatus.NORMAL,
       label: label
@@ -17,5 +17,5 @@ export function selectTermByIds(termIds: number[]) {
       status: TermStatus.NORMAL
     })
     .whereIn('id', termIds)
-    .select('id', 'label', 'updated_at as updatedAt');
+    .select('id', 'label', 'updated_at');
 }

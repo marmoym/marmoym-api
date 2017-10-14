@@ -7,18 +7,17 @@ export function selectDefinitionsByIds(ids: number[]) {
       status: DefinitionStatus.NORMAL
     })
     .whereIn('id', ids)
-    .select('id','label','term_id','user_id','vote_id','updated_at as updatedAt');
+    .select('id','label','term_id','user_id','vote_id','updated_at');
 };
 
 export function selectIdsOfRecentlyAdded(offset: number, limit:number) {
   return db('Definition').where({
       status: DefinitionStatus.NORMAL
     })
-    .select('id', 'updated_at as updatedAt')
+    .select('id', 'updated_at')
     .orderBy('created_at', 'desc')
     .limit(limit)
     .offset(Number(offset));
- 
 }
 
 export function selectIdsByTermExact(label: string, offset: number, limit: number) {
@@ -29,7 +28,7 @@ export function selectIdsByTermExact(label: string, offset: number, limit: numbe
     .where('Definition.status',DefinitionStatus.NORMAL)
     .where('Term.status', TermStatus.NORMAL)
     .where('Term.label', label)
-    .select('Definition.id', 'Definition.updated_at as updatedAt')
+    .select('Definition.id', 'Definition.updated_at')
     .offset(offset)
     .limit(limit);
 };
@@ -44,7 +43,7 @@ export function selectIdsByTerm(query: string, offset: number, limit: number) {
     .where('Definition.status',DefinitionStatus.NORMAL)
     .where('Term.status', TermStatus.NORMAL)
     .where('Term.label', '%'+search_query+'%')
-    .select('Definition.id', 'Definition.updated_at as updatedAt')
+    .select('Definition.id', 'Definition.updated_at')
     .orderBy('Definition.created_at', 'desc')
     .offset(offset)
     .limit(limit);

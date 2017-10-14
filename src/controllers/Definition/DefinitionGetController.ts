@@ -27,9 +27,9 @@ export async function getDefinitionByDefIds(req: DefinitionRequest.Get)
   
   await Promise.all(defSelected.map(async defObj => {
     termIds = _appendIfNotPresent(termIds, defObj, 'term_id');
-    termIds = _appendIfNotPresent(userIds, defObj, 'user_id');
+    userIds = _appendIfNotPresent(userIds, defObj, 'user_id');
 
-    defObj.updatedAt = defObj.updatedAt.getTime();
+    defObj.updated_at = defObj.updated_at.getTime();
     defObj.poss = await PosSelectDAO.selectPosByDefinitionId(defObj.id);
     defObj.usages = await UsageSelectDAO.selectUsageByDefinitionId(defObj.id);
     defObj.origins = await OriginSelectDAO.selectOriginByDefinitionId(defObj.id);
@@ -39,7 +39,7 @@ export async function getDefinitionByDefIds(req: DefinitionRequest.Get)
 
   const termSelected = await TermSelectDAO.selectTermByIds(termIds);
   termSelected.map(term => {
-    term.updatedAt = term.updatedAt.getTime();
+    term.updated_at = term.updated_at.getTime();
     result.terms.push(term);
   });
 
@@ -50,7 +50,7 @@ export async function getDefinitionByDefIds(req: DefinitionRequest.Get)
 export async function getRecentlyUpdatedDefinitionIds(req: DefinitionRequest.idGet) {
   const definitionIds = await DefinitionSelectDAO.selectIdsOfRecentlyAdded(req.offset, 10);
   await Promise.all(definitionIds.map(defObj => {
-    defObj.updatedAt = defObj.updatedAt.getTime();
+    defObj.updated_at = defObj.updated_at.getTime();
   }));
   return definitionIds;
 }
@@ -58,9 +58,8 @@ export async function getRecentlyUpdatedDefinitionIds(req: DefinitionRequest.idG
 export async function getDefinitionIdsBySearch(req: DefinitionRequest.Search) {
   const definitionIds = await DefinitionSelectDAO.selectIdsByTerm(req.query,0,10);
   await Promise.all(definitionIds.map(defObj => {
-   defObj.updatedAt = defObj.updatedAt.getTime();
+   defObj.updated_at = defObj.updated_at.getTime();
   }));
-
   return definitionIds;
 }
 
