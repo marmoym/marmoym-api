@@ -12,10 +12,10 @@ export function selectTermByLabel(label: string, offset?: number , limit?: numbe
 };
 
 export function selectTermByIds(termIds: number[]) {
-  return db('Term').select('Term.id as termId', 'Term.label as term', 'Term.roman as termRoman')
+  return db('Term')
     .where({
       status: TermStatus.NORMAL
     })
     .whereIn('id', termIds)
-    .select('id', 'label', 'updated_at');
+    .select('id', 'label', 'roman', 'updated_at');
 }
