@@ -14,7 +14,6 @@
     "seed:dev": "NODE_ENV=production node ./src/database/seed.js",
     "rollback:dev": "node ./src/database/rollback.js",
     "setup:dev": "./internals/shell/setup.sh",
-    "deploy:dev": "pm2 deploy ./internals/pm2/pm2.config.js development",
     "test": "echo \"Error: no test specified\""
   },
   "author": "",
