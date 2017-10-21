@@ -43,7 +43,7 @@ export async function getDefinitionByDefIds(req: DefinitionRequest.Get)
     result.terms.push(term);
   });
 
-  result.users.push(await UserSelectDAO.selectUserByIds(termIds));
+  result.users = await UserSelectDAO.selectUserByIds(userIds);
   return result;
 }
 
