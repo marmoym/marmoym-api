@@ -163,6 +163,7 @@ fabric.properties
 yarn.lock
 .idea/
 _backup/
-/lib/
+ts_out/
+dist/
 /src/config/marmoym-config
 

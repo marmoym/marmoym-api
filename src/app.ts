@@ -8,15 +8,17 @@ import * as winston from 'winston';
 import { serverConfig, logConfig } from './config/marmoym-config'
 import * as errorHandleService from './services/errorHandleService';
 import routes from './routes';
-import db from './database';
+import db from '@src/database';
 
 const app: express.Application = express();
 const port: number = process.env.PORT || serverConfig['marmoym-dev1'].port;
 
 winston.configure({
   transports: [
-    new winston.transports.Console({level: logConfig['marmoym-dev1'].logLevel})
-  ]
+    new winston.transports.Console({
+      level: logConfig['marmoym-dev1'].logLevel,
+    }),
+  ],
 });
 
 app.use(cors());

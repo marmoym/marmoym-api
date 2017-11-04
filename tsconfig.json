@@ -1,3 +1,25 @@
 {
-  "extends": "./internals/typescript/tsconfig.dev.json"
+  "compilerOptions": {
+    "allowJs": true,
+    "target": "es6",
+    "module": "commonjs",  
+    "moduleResolution": "node",
+    "outDir": "./ts_out/",
+    "baseUrl": "./",
+    "paths": {
+      "@src/*": [
+        "src/*"
+      ]
+    },
+    "lib": [
+      "es6",
+      "es7"
+    ]
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
