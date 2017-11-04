@@ -9,9 +9,9 @@ import MarmoymError from '../../models/MarmoymError';
 import ErrorType from '../../models/ErrorType';
 import { transaction } from '../../database/databaseUtils';
 import { DefinitionResponse } from '../../routes/ResponseTypes';
-import { DefinitionRequest } from '../../routes/RequestTypes';
+import * as RequestTypes from '../../routes/RequestTypes';
 
-export async function getDefinitionByDefIds(req: DefinitionRequest.Get)
+export async function getDefinitionByDefIds(req: RequestTypes.GetDefinitions)
   : Promise<DefinitionResponse.Get> {
     
   let result: DefinitionResponse.Get = {
@@ -47,7 +47,7 @@ export async function getDefinitionByDefIds(req: DefinitionRequest.Get)
   return result;
 }
 
-export async function getRecentlyUpdatedDefinitionIds(req: DefinitionRequest.idGet) {
+export async function getRecentlyUpdatedDefinitionIds(req: RequestTypes.idGet) {
   const definitionIds = await DefinitionSelectDAO.selectIdsOfRecentlyAdded(req.offset, 10);
   await Promise.all(definitionIds.map(defObj => {
     defObj.updated_at = defObj.updated_at.getTime();
@@ -55,7 +55,7 @@ export async function getRecentlyUpdatedDefinitionIds(req: DefinitionRequest.idG
   return definitionIds;
 }
 
-export async function getDefinitionIdsBySearch(req: DefinitionRequest.Search) {
+export async function getDefinitionIdsBySearch(req: RequestTypes.Search) {
   const definitionIds = await DefinitionSelectDAO.selectIdsByTerm(req.query,0,10);
   await Promise.all(definitionIds.map(defObj => {
    defObj.updated_at = defObj.updated_at.getTime();

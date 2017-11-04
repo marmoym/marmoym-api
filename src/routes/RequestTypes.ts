@@ -1,130 +1,56 @@
-export namespace TermRequest {
-
-  export interface Get {
-    defId: number[];
-    offset: number;
-  }
+interface Definition {
+  label: string;
+  posIds: number[];
+  usages: string[];
+  extResources: string[];
+  origins: string[];
 }
 
-export namespace DefinitionRequest {
-  interface Definition {
-    label: string;
-    posIds: number[];
-    usages: string[];
-    extResources: string[];
-    origins: string[]; 
-  }
-
-  // {
-  //   "term": "실화니",
-  //   "roman": "sirhoani",
-  //   "defs": [{
-  //     "label": "진짜야라고 묻는 말이다.",
-  //     "posIds": [ 
-  //       1, 
-  //       3 
-  //     ],
-  //     "usages": [
-  //       "철수 얼굴 실화니", 
-  //       "철수 자동차 실화니"
-  //     ],
-  //     "extResources": [
-  //       "https://youtube.com"
-  //     ],
-  //     "origins": [
-  //       "아프리카방송에서 유래되었다."
-  //     ]
-  //   }, {
-  //     "label": "진짜야라고 묻는 말이다.",
-  //     "posIds": [ 
-  //       1, 
-  //       3 
-  //     ],
-  //     "usages": [
-  //       "철수 얼굴 실화니", 
-  //       "철수 자동차 실화니"
-  //     ],
-  //     "extResources": [
-  //       "https://youtube.com"
-  //     ],
-  //     "origins": [
-  //       "아프리카방송에서 유래되었다."
-  //     ]
-  //   }]
-  // }
-  export interface Add {
-    term: string;
-    roman: string;
-    defs: Definition[];
-  }
-  
-  export interface Get {
-    defIds: number[];
-    offset: number;
-  }
-
-  export interface idGet {
-    offset: number;
-  }
-
-  export interface Search {
-    query: string;
-  }
+export interface GetDefinitions {
+  defIds: number[];
+  offset: number;
 }
 
-export namespace UserRequest {
+export interface NewDefinitions {
+  term: string;
+  roman: string;
+  defs: Definition[];
+}
 
-  // {
-  //   "userId": "1"
-  // }
-  export interface Get {
-    userId: number;
-  }
+export interface idGet {
+  offset: number;
+}
 
-  // {
-  //   "username": "gimochi",
-  //   "password": "123qwe",
-  //   "email": "test@test.com"
-  // }
-  export interface SignUp {
-    username: string;
-    password: string;
-    email: string;
-  }
+export interface Search {
+  query: string;
+}
 
-  // {
-  //   "email": "test@test.com"
-  //   "password": "123qwe",
-  // }
-  export interface SignIn {
-    email: string;
-    password: string;
-  }
+export interface GetUser {
+  userId: number;
+}
 
-  // {
-  //   "userId": "1",
-  //   "username": "gimochi",
-  //   "password": "123qwe"
-  // }
-  export interface Update {
-    userId: number;
-    username: string;
-    password: string;
-  }
+export interface SignUpUser {
+  username: string;
+  password: string;
+  email: string;
+}
 
-  // {
-  //   "userId": "1",
-  // }
-  export interface Delete {
-    userId: number;
-  }
+export interface SignInUser {
+  email: string;
+  password: string;
+}
 
-  // {
-  //   "username": "gimochi",
-  //   "email": "123qwe"
-  // }
-  export interface CheckUsed {
-    username?: string,
-    email?: string
-  }
-} 
+export interface UpdateUser {
+  userId: number;
+  username: string;
+  password: string;
+}
+
+export interface DeleteUser {
+  userId: number;
+}
+
+export interface CheckUsedUser {
+  username?: string,
+  email?: string
+}

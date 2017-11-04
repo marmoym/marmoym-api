@@ -8,7 +8,7 @@ import { respond } from '../../services/responseService';
 // import { Definition } from '../../models/ModelTypes';
 // import { DefinitionStatus } from '../../models/common/DefinitionStatus';
 import * as URL from '../URL';
-import { UserRequest } from '../RequestTypes';
+import * as RequestTypes from '../RequestTypes';
 import { tokenAuthHandler } from '../../services/authService';
 import * as UserSignUpController from "../../controllers/User/UserSignUpController";
 import * as UserSignInController from "../../controllers/User/UserSignInController";
@@ -24,7 +24,7 @@ function userRoute(router) {
      * 회원가입
      */
     .post((request: Request, response: Response) => {
-      const req: UserRequest.SignUp = request.body;
+      const req: RequestTypes.SignUpUser = request.body;
       const payload = UserSignUpController.signUpUser(req);
       
       respond(response, payload);
@@ -33,7 +33,7 @@ function userRoute(router) {
      * 회원정보수정
      */
     .put(tokenAuthHandler, (request: Request, response: Response) => {
-      const req: UserRequest.Update = request.body;
+      const req: RequestTypes.UpdateUser = request.body;
       const payload = UserUpdateController.updateUser(req);
 
       respond(response, payload);
@@ -42,7 +42,7 @@ function userRoute(router) {
      * 회원정보삭제
      */
     .delete(tokenAuthHandler, (request: Request, response: Response) => {
-      const req: UserRequest.Delete = request.body;
+      const req: RequestTypes.DeleteUser = request.body;
       const payload = UserDeleteController.deleteUser(req);
 
       respond(response, payload);
@@ -53,7 +53,7 @@ function userRoute(router) {
      * 로그인
      */
     .post((request: Request, response: Response) => {
-      const req: UserRequest.SignIn = request.body;
+      const req: RequestTypes.SignInUser = request.body;
       const payload = UserSignInController.signInUser(req);
       
       respond(response, payload);
@@ -64,7 +64,7 @@ function userRoute(router) {
     * 회원정보가져오기
     */
     .get(tokenAuthHandler, (request: Request, response: Response) => {
-      const req: UserRequest.Get = request.params;
+      const req: RequestTypes.GetUser = request.params;
       const payload = UserGetController.getUserInfo(req);
 
       respond(response, payload);
@@ -76,7 +76,7 @@ function userRoute(router) {
     */
     .post((request: Request, response: Response) => {
       // should be changed to POST
-      const req: UserRequest.CheckUsed = request.params;
+      const req: RequestTypes.CheckUsedUser = request.params;
       const payload = UserCheckUsedController.checkUsernameUsed(req);
 
       respond(response, payload);
@@ -88,7 +88,7 @@ function userRoute(router) {
     */
     .post((request: Request, response: Response) => {
       // will be changed to POST
-      const req: UserRequest.CheckUsed = request.params;
+      const req: RequestTypes.CheckUsedUser = request.params;
       const payload = UserCheckUsedController.checkEmailUsed(req);
 
       respond(response, payload);
