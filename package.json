@@ -25,14 +25,14 @@
     "@types/mocha": "^2.2.41",
     "@types/node": "^7.0.14",
     "@types/sequelize": "^4.0.51",
-    "@types/winston": "^2.3.6",
     "babel-cli": "^6.26.0",
     "babel-plugin-module-resolver": "^2.7.1",
     "babel-preset-env": "^1.6.1",
     "chai": "^4.0.2",
     "mocha": "^3.4.2",
     "pm2": "^2.7.1",
-    "typescript": "^2.5.3"
+    "typescript": "^2.5.3",
+    "winston-daily-rotate-file": "^1.7.2"
   },
   "dependencies": {
     "bcrypt": "^1.0.3",
@@ -45,6 +45,6 @@
     "mysql": "^2.14.1",
     "mysql2": "^1.4.2",
     "sequelize": "^3.30.4",
-    "winston": "^2.3.1"
+    "winston": "^2.4.0"
   }
 }
