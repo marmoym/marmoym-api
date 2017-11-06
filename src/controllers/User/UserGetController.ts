@@ -12,7 +12,7 @@ export async function getUserInfo(req) {
   const userSelected = await UserSelectDAO.selectUserByUserId(req.userId);
 
   if (userSelected.length == 0) {
-    throw new MarmoymError(ErrorType.User.USER_NOT_FOUND);
+    throw new MarmoymError(ErrorType.USER.USER_NOT_FOUND);
   } else {
     return userSelected;
   }

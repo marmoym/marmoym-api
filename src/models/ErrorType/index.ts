@@ -1,11 +1,11 @@
-import User from './UserError';
-import Definition from './DefinitionError';
-import Auth from './AuthError';
-import Term from './TermError';
+import USER from './UserErrorType';
+import DEF from './DefinitionErrorType';
+import AUTH from './AuthErrorType';
+import TERM from './TermErrorType';
 
 export default {
-  User,
-  Definition,
-  Auth,
-  Term
+  USER,
+  DEF,
+  AUTH,
+  TERM
 }

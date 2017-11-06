@@ -6,8 +6,7 @@ import * as UserInsertDAO from '../../dao/User/UserInsertDAO';
 import * as UserSelectDAO from '../../dao/User/UserSelectDAO';
 import { transaction } from '../../database/databaseUtils';
 import { authConfig } from '../../config/marmoym-config';
-import MarmoymError from "../../models/MarmoymError";
-import ErrorType from '../../models/ErrorType';
+import MarmoymError from "@models/MarmoymError";
 
 export async function checkUsernameUsed(req) {
   const userSelected = await UserSelectDAO.selectUserByUsername(req.username);

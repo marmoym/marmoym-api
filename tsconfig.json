@@ -1,20 +1,26 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "target": "es6",
-    "module": "commonjs",  
-    "moduleResolution": "node",
-    "outDir": "./ts_out/",
     "baseUrl": "./",
-    "paths": {
-      "@src/*": [
-        "src/*"
-      ]
-    },
     "lib": [
       "es6",
       "es7"
-    ]
+    ],
+    "module": "commonjs",  
+    "moduleResolution": "node",
+    "outDir": "./ts_out/",
+    "paths": {
+      "@src/*": [
+        "src/*"
+      ],
+      "@models/*": [
+        "src/models/*"
+      ],
+      "@controllers/*": [
+        "src/controllers/*"
+      ]
+    },
+    "target": "es6"
   },
   "include": [
     "src/**/*"

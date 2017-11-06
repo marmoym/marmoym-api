@@ -19,9 +19,9 @@ export function signUpUser(req) {
 
       return 'UserSignUpSuccess'
     } else if (userSelectedByEmail.length == 0) {
-      throw new MarmoymError(ErrorType.User.EMAIL_ALREADY_USED);
+      throw new MarmoymError(ErrorType.USER.EMAIL_ALREADY_USED);
     } else {
-      throw new MarmoymError(ErrorType.User.USERNAME_ALREADY_USED);
+      throw new MarmoymError(ErrorType.USER.USERNAME_ALREADY_USED);
     }
   });
 }
