@@ -1,11 +1,13 @@
-import USER from './UserErrorType';
-import DEF from './DefinitionErrorType';
-import AUTH from './AuthErrorType';
-import TERM from './TermErrorType';
+import UserErrorType from './UserErrorType';
+import DefinitionErrorType from './DefinitionErrorType';
+import AuthErrorType from './AuthErrorType';
+import TermErrorType from './TermErrorType';
+import MiscErrorType from './MiscErrorType';
 
 export default {
-  USER,
-  DEF,
-  AUTH,
-  TERM
+  ATH: AuthErrorType,
+  DEF: DefinitionErrorType,
+  MSC: MiscErrorType,
+  TRM: TermErrorType,
+  USR: UserErrorType,
 }

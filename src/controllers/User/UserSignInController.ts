@@ -13,12 +13,12 @@ export async function signInUser(req) {
   const userSelected = await UserSelectDAO.selectUserByEmail(req.email);
   
   if (userSelected.length == 0) {
-    throw new MarmoymError(ErrorType.USER.USER_NOT_FOUND);
+    throw new MarmoymError(ErrorType.USR.USER_NOT_FOUND);
   } else {
     const userInfo = userSelected[0];
     
     if (userInfo.status == 'P') {
-      throw new MarmoymError(ErrorType.USER.USER_STATUS_PENDING);
+      throw new MarmoymError(ErrorType.USR.USER_STATUS_PENDING);
     }
 
     if (bcrypt.compareSync(req.password, userInfo.password)) {
@@ -34,7 +34,7 @@ export async function signInUser(req) {
         }
       );
     } else {
-      throw new MarmoymError(ErrorType.USER.USER_INCORRECT_PASSWORD);
+      throw new MarmoymError(ErrorType.USR.USER_INCORRECT_PASSWORD);
     }
   }
 }

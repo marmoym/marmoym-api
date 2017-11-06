@@ -23,12 +23,12 @@ export function updateUser(req) {
       if (userSelectedByUsername.length == 0) {
         inputUsername = req.username;
       } else {
-        throw new MarmoymError(ErrorType.USER.USERNAME_ALREADY_USED);
+        throw new MarmoymError(ErrorType.USR.USERNAME_ALREADY_USED);
       }
     }
 
     if (encodedPw == undefined && inputUsername == undefined) {
-      throw new MarmoymError(ErrorType.USER.USER_UPDATE_VALUES_EMPTY);
+      throw new MarmoymError(ErrorType.USR.USER_UPDATE_VALUES_EMPTY);
     } else {
       const userUpdated = await UserUpdateDAO.updateUserByUserId(trx, encodedPw, inputUsername, req.userId);
     }

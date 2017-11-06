@@ -13,7 +13,7 @@ export function deleteUser(req) {
     if (userDeleted == 1) {
       return 'UserDeleteSuccess';
     } else {
-      throw new MarmoymError(ErrorType.USER.USER_DELETE_FAIL);
+      throw new MarmoymError(ErrorType.USR.USER_DELETE_FAIL);
     }
     
   });
