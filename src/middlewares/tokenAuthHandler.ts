@@ -27,7 +27,7 @@ import ErrorType from '@models/ErrorType';
 /**
  * ...
  */
-export function tokenAuthHandler(req, res, next) {
+export default function tokenAuthHandler(req, res, next) {
   const token = req.headers['x-access-token'];
   const userId = req.body.userId ? req.body.userId : req.params.userId;
   

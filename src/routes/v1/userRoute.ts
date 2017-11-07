@@ -4,12 +4,12 @@
 import { Router, Request, Response } from 'express'
 
 import db from '../../database';
-import { respond } from '../../services/responseService';
+import respond from '@src/modules/respond';
 // import { Definition } from '../../models/ModelTypes';
 // import { DefinitionStatus } from '../../models/common/DefinitionStatus';
-import * as URL from '../URL';
+import * as URL from '@models/ApiURL';
 import * as RequestTypes from '../RequestTypes';
-import { tokenAuthHandler } from '../../services/authService';
+import tokenAuthHandler from '@src/middlewares/tokenAuthHandler';
 import * as UserSignUpController from "../../controllers/User/UserSignUpController";
 import * as UserSignInController from "../../controllers/User/UserSignInController";
 import * as UserUpdateController from "../../controllers/User/UserUpdateController";

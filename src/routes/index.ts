@@ -1,9 +1,8 @@
-import * as express from 'express';
-import { IRouter, NextFunction, Router } from "express-serve-static-core";
+import { Router, Request, Response } from 'express';
 
 import v1 from './v1'
 
-let router: Router = express.Router();
+let router: Router = Router();
 router.use("/api/v1", v1);
 
 export default router;

@@ -1,4 +1,4 @@
-export const DEFINITIONS = `/definitions/`; 
+export const DEFINITIONS = `/definitions`; 
 export const NEW_DEFINITIONS = `/newDefinitions`;
 export const DEFINITIONS_IDS = `/definitions/ids`
 

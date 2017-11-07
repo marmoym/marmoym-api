@@ -1,8 +1,8 @@
 import { Router, Request, Response } from 'express'
 
 import db from '../../database';
-import { respond } from '../../services/responseService';
-import * as URL from '../URL';
+import respond from '@src/modules/respond';
+import * as ApiURL from '@models/ApiURL';
 import * as RequestTypes from '../RequestTypes';
 import { DefinitionResponse } from '../ResponseTypes';
 import * as DefinitionAddController from '../../controllers/Definition/DefinitionAddController';
@@ -10,11 +10,12 @@ import * as DefinitionGetController from '../../controllers/Definition/Definitio
 
 function definitionRoute(router) {
 
-  router.route(URL.DEFINITIONS)
+  router.route(ApiURL.DEFINITIONS)
     /**
      * Definitions 가져오기
      */
     .post((request: Request, response: Response) => {
+      console.log('def post', request['$param']);
       const req: RequestTypes.GetDefinitions = request.body;
       req.offset = request.query.offset;
       const payload = DefinitionGetController.getDefinitionByDefIds(req);
@@ -22,7 +23,7 @@ function definitionRoute(router) {
       respond(response, payload);
     })
     
-  router.route(URL.NEW_DEFINITIONS)
+  router.route(ApiURL.NEW_DEFINITIONS)
     /**
      * Definition 등록
      */
@@ -33,7 +34,7 @@ function definitionRoute(router) {
       respond(response, payload);
     })
 
-  router.route(URL.DEFINITIONS_IDS)
+  router.route(ApiURL.DEFINITIONS_IDS)
     /**
      * 최신 Definitions 가져오기
      */
@@ -46,7 +47,7 @@ function definitionRoute(router) {
     })
 
 
-  router.route(URL.SEARCH)
+  router.route(ApiURL.SEARCH)
     /**
      * Definition 검색
      */

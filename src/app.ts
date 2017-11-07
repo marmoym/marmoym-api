@@ -6,7 +6,7 @@ import * as cors from 'cors';
 import * as bodyParser from 'body-parser';
 
 import { serverConfig, logConfig } from './config/marmoym-config'
-import * as errorHandleService from './services/errorHandleService';
+import * as errorHandleService from './middlewares/errorHandler';
 import routes from './routes';
 import db from '@src/database';
 import * as logger from '@src/modules/logger';

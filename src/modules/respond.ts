@@ -2,7 +2,7 @@ import * as winston from 'winston';
 
 import ResponseCode from '../models/ResponseCode';
 
-export function respond(response, result, name?: string) {
+export default function respond(response, result, name?: string) {
   if (result && result.then) {
     result.then(payload => {
       response.status(200).json({
