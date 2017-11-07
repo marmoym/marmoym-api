@@ -7,6 +7,7 @@
     "babel": "./node_modules/.bin/babel ./ts_out --out-dir ./dist",
     "build": "yarn run clean && yarn run tsc && yarn run babel",
     "clean": "./node_modules/.bin/rimraf ./dist/* ./ts_out/*",
+    "lint": " ./node_modules/.bin/tslint -t stylish -p ./tsconfig.json",
     "migrate:dev": "NODE_ENV=development node ./src/database/migrate.js",
     "migrate:prod": "NODE_ENV=production node ./src/database/migrate.js",
     "rollback:dev": "node ./src/database/rollback.js",
@@ -32,6 +33,7 @@
     "mocha": "^3.4.2",
     "pm2": "^2.7.1",
     "rimraf": "^2.6.2",
+    "tslint": "^5.8.0",
     "typescript": "^2.5.3",
     "winston-daily-rotate-file": "^1.7.2"
   },

@@ -1,0 +1,73 @@
+{
+  "defaultSeverity": "warning",
+  "extends": [
+    "tslint:recommended"
+  ],
+  "jsRules": {
+    "variable-name": [
+      false
+    ],
+    "quotemark": [
+      true,
+      "single",
+      "jsx-double"
+    ]
+  },
+  "rules": {
+    "no-namespace": {
+      "options": [
+        true,
+        "allow-declarations"
+      ],
+      "severity": "warning"
+    },
+    "forin": [
+      false
+    ],
+    "interface-name": [
+      false
+    ],
+    "max-line-length": {
+      "options": [
+        100
+      ],
+      "severity": "error"
+    },
+    "no-console": [
+      false
+    ],
+    "no-trailing-whitespace": {
+      "options": [
+        "ignore-blank-lines"
+      ],
+      "severity": "error"
+    },
+    "no-unused-expression": [
+      false
+    ],
+    "ordered-imports": [
+      false
+    ],
+    "only-arrow-functions": {
+      "options": [
+        "allow-declarations",
+        "allow-named-functions"
+      ],
+      "severity": "off"
+    },
+    "quotemark": {
+      "options": [
+        "single",
+        "jsx-double"
+      ],
+      "severity": "error"
+    },
+    "member-ordering": [
+      false
+    ],
+    "variable-name": [
+      false
+    ]
+  },
+  "rulesDirectory": []
+}
