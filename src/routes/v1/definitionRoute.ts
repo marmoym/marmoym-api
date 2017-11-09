@@ -19,7 +19,7 @@ function definitionRoute(router) {
       respond(res, payload);
     })
     
-  router.route(ApiURL.NEW_DEFINITIONS)
+  router.route(ApiURL.DEFINITIONS_NEW)
     /**
      * Definition 등록
      */

@@ -1,5 +1,5 @@
 export const DEFINITIONS = '/definitions'; 
-export const NEW_DEFINITIONS = '/newDefinitions';
+export const DEFINITIONS_NEW = '/definitions/new';
 export const DEFINITIONS_IDS = '/definitions/ids'
 
 export const SEARCH = '/search'
