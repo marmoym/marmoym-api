@@ -19,7 +19,7 @@ import * as UserCheckUsedController from "../../controllers/User/UserCheckUsedCo
 
 function userRoute(router) {
   
-  router.route(URL.USERS)
+  router.route(URL.USERS_NEW)
     /**
      * 회원가입
      */
@@ -29,26 +29,8 @@ function userRoute(router) {
       
       respond(response, payload);
     })
-    /**
-     * 회원정보수정
-     */
-    .put(tokenAuthHandler, (request: Request, response: Response) => {
-      const req: RequestTypes.UpdateUser = request.body;
-      const payload = UserUpdateController.updateUser(req);
-
-      respond(response, payload);
-    })
-    /**
-     * 회원정보삭제
-     */
-    .delete(tokenAuthHandler, (request: Request, response: Response) => {
-      const req: RequestTypes.DeleteUser = request.body;
-      const payload = UserDeleteController.deleteUser(req);
-
-      respond(response, payload);
-    })
   
-  router.route(URL.USERS_SIGNED_IN)
+  router.route(URL.SESSION_NEW)
     /**
      * 로그인
      */
@@ -69,30 +51,49 @@ function userRoute(router) {
 
       respond(response, payload);
     })
+    /**
+     * 회원정보수정
+     */
+    .put(tokenAuthHandler, (request: Request, response: Response) => {
+      const req: RequestTypes.UpdateUser = request.body;
+      const payload = UserUpdateController.updateUser(req);
 
-  router.route(URL.USERS_USERNAME_VALIDATED)
+      respond(response, payload);
+    })
+    /**
+     * 회원정보삭제
+     * todo: Task can be handled in `updating user information`.
+     */
+    // .delete(tokenAuthHandler, (request: Request, response: Response) => {
+    //   const req: RequestTypes.DeleteUser = request.body;
+    //   const payload = UserDeleteController.deleteUser(req);
+
+    //   respond(response, payload);
+    // })
+
+  router.route(URL.USERS)
     /**
     * Username 사용여부 확인
     */
-    .post((request: Request, response: Response) => {
-      // should be changed to POST
-      const req: RequestTypes.CheckUsedUser = request.params;
-      const payload = UserCheckUsedController.checkUsernameUsed(req);
+    // .post((request: Request, response: Response) => {
+    //   // should be changed to POST
+    //   const req: RequestTypes.CheckUsedUser = request.params;
+    //   const payload = UserCheckUsedController.checkUsernameUsed(req);
 
-      respond(response, payload);
-    })
+    //   respond(response, payload);
+    // })
 
-  router.route(URL.USERS_EMAIL_VALIDATED)
+  router.route(URL.USERS)
     /**
     * Email 사용여부 확인
     */
-    .post((request: Request, response: Response) => {
-      // will be changed to POST
-      const req: RequestTypes.CheckUsedUser = request.params;
-      const payload = UserCheckUsedController.checkEmailUsed(req);
+    // .post((request: Request, response: Response) => {
+    //   // will be changed to POST
+    //   const req: RequestTypes.CheckUsedUser = request.params;
+    //   const payload = UserCheckUsedController.checkEmailUsed(req);
 
-      respond(response, payload);
-    })
+    //   respond(response, payload);
+    // })
 } 
 
 export default userRoute;
