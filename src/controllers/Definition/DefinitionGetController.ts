@@ -9,20 +9,18 @@ import MarmoymError from '@models/MarmoymError';
 import { transaction } from '../../database/databaseUtils';
 import { DefinitionResponse } from '../../routes/ResponseTypes';
 import * as RequestTypes from '../../routes/RequestTypes';
+import GetDefinitionsParam from '@models/RequestParams/GetDefinitionsParam';
+import GetDefinitionsResult from '@models/ApiResult/GetDefinitionsResult';
 
-export async function getDefinitionByDefIds(req: RequestTypes.GetDefinitions)
-  : Promise<DefinitionResponse.Get> {
+export async function getDefinitionByDefIds(param: GetDefinitionsParam)
+  : Promise<GetDefinitionsResult> {
     
-  let result: DefinitionResponse.Get = {
-    terms: [],
-    definitions: [],
-    users: []
-  };  
+  let result = new GetDefinitionsResult();
 
   let termIds = [];
   let userIds = [];
 
-  const defSelected = await DefinitionSelectDAO.selectDefinitionsByIds(req.defIds);
+  const defSelected = await DefinitionSelectDAO.selectDefinitionsByIds(param.defIds);
   
   await Promise.all(defSelected.map(async defObj => {
     termIds = _appendIfNotPresent(termIds, defObj, 'term_id');

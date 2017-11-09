@@ -6,10 +6,9 @@ import { requireNonNull, optional } from '@src/utils/objectUtils';
 export default {
   [ApiUrl.DEFINITIONS]: {
     [HttpMethod.POST]: (req) => {
-      
       return new GetDefinitionsParam({
-        defIds: requireNonNull(req.body.defIds),
-        offset: optional(req.body.offset).orElse(null),
+        defIds: requireNonNull(req.body['defIds']),
+        offset: optional(req.body['offset']).orElse(null),
       });
     }
   }

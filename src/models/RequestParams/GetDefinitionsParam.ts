@@ -1,15 +1,10 @@
-interface GetDefinitionsParamType {
-  defIds: number[];
-  offset?: number;
-}
+class GetDefinitionsParam {
+  public defIds: number[];
+  public offset?: number;
 
-class GetDefinitionsParam implements GetDefinitionsParamType {
-  defIds: number[];
-  offset?: number;
-
-  constructor(obj: GetDefinitionsParam) {
-    // this.temp = 1;
-    // this.temp2;
+  constructor(param: GetDefinitionsParam) {
+    this.defIds = param.defIds;
+    this.offset = param.offset;
   }
 }
 

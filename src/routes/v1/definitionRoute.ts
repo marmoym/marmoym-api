@@ -14,13 +14,9 @@ function definitionRoute(router) {
     /**
      * Definitions 가져오기
      */
-    .post((request: Request, response: Response) => {
-      console.log('def post', request['$param']);
-      const req: RequestTypes.GetDefinitions = request.body;
-      req.offset = request.query.offset;
-      const payload = DefinitionGetController.getDefinitionByDefIds(req);
-
-      respond(response, payload);
+    .post((req: Request, res: Response) => {
+      const payload = DefinitionGetController.getDefinitionByDefIds(req['$param']);
+      respond(res, payload);
     })
     
   router.route(ApiURL.NEW_DEFINITIONS)
