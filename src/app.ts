@@ -4,6 +4,7 @@
 import * as express from 'express';
 import * as cors from 'cors';
 import * as bodyParser from 'body-parser';
+import * as morgan from 'morgan';
 
 import { serverConfig, logConfig } from './config/marmoym-config'
 import * as errorHandleService from './middlewares/errorHandler';
@@ -14,6 +15,7 @@ import * as logger from '@src/modules/logger';
 const app: express.Application = express();
 const port: number = process.env.PORT || serverConfig['marmoym-dev1'].port;
 
+app.use(morgan('tiny'))
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
