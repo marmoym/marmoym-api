@@ -7,6 +7,6 @@ export default function validate(req): {} {
     const param = requestHandler[req.path][req.method](req);
     return param;
   } catch (e) {
-    throw new MarmoymError(ErrorType.MSC.TEMP);
+    throw new MarmoymError(ErrorType.MSC.REQUEST_TYPE_UNKNOWN);
   }
 }

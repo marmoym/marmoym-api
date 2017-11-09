@@ -4,9 +4,9 @@ export default {
     code: 404001,
     msg: 'text',
   },
-  'TEMP': {
-    type: 'TEMP',
+  'REQUEST_TYPE_UNKNOWN': {
+    type: 'REQUEST_TYPE_UNKNOWN',
     code: 999001,
-    msg: 'temp msg',
+    msg: 'Neither validator is defined or incorrect request',
   },
 }
