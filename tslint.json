@@ -1,3 +1,8 @@
+/**
+ * Marmoym 2017 tslint.json
+ * version 0.0.1
+ * @see https://github.com/tymsai/marmoym-dev-support
+ */
 {
   "defaultSeverity": "warning",
   "extends": [
@@ -53,7 +58,7 @@
         "allow-declarations",
         "allow-named-functions"
       ],
-      "severity": "off"
+      "severity": "error"
     },
     "quotemark": {
       "options": [
