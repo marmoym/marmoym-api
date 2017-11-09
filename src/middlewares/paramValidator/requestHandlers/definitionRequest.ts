@@ -16,5 +16,10 @@ export default {
     [HttpMethod.POST]: (req) => {
       return null;
     },
+  },
+  [ApiURL.DEFINITIONS_IDS]: {
+    [HttpMethod.GET]: (req) => {
+      return null;
+    }
   }
 };
