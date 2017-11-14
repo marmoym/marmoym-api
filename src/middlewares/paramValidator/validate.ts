@@ -4,9 +4,16 @@ import ErrorType from '@models/ErrorType';
 
 export default function validate(req): {} {
   try {
-    const param = requestHandler[req.path][req.method](req);
+    const path = _removeTrailingSlash(req.path);
+    const param = requestHandler[path][req.method](req);
     return param;
   } catch (e) {
     throw new MarmoymError(ErrorType.MSC.REQUEST_TYPE_UNKNOWN);
   }
+}
+
+function _removeTrailingSlash(path): string {
+  return (path[path.length - 1] === '/') ? 
+    path.substring(0, path.length - 1)
+    : path;
 }
