@@ -14,7 +14,7 @@
     "seed:dev": "NODE_ENV=production node ./src/database/seed.js",
     "setup:dev": "./internals/shell/setup.sh",
     "start:dev": "NODE_ENV=development nodemon ./dist/app.js",
-    "start:dev:debug": "NODE_ENV=development nodemon ./lib/app.js --debug",
+    "start:dev:debug": "NODE_ENV=development nodemon ./dist/app.js --debug",
     "test": "echo \"Error: no test specified\"",
     "tsc": "./node_modules/typescript/bin/tsc -p ./tsconfig.json"
   },
