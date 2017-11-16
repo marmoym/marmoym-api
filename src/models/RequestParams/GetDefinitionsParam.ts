@@ -1,5 +1,5 @@
 class GetDefinitionsParam {
-  public defIds: number[];
+  public defIds?: number[];
   public offset?: number;
 
   constructor(param: GetDefinitionsParam) {

@@ -7,7 +7,7 @@ export default {
   [ApiURL.DEFINITIONS]: {
     [HttpMethod.POST]: (req) => {
       return new GetDefinitionsParam({
-        defIds: requireNonNull(req.body['defIds']),
+        defIds: optional(req.body['defIds']).orElse(null),
         offset: optional(req.body['offset']).orElse(null),
       });
     }
