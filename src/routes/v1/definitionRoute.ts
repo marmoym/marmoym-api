@@ -7,6 +7,8 @@ import * as RequestTypes from '../RequestTypes';
 import { DefinitionResponse } from '../ResponseTypes';
 import * as DefinitionAddController from '../../controllers/Definition/DefinitionAddController';
 import * as DefinitionGetController from '../../controllers/Definition/DefinitionGetController';
+import GetDefinitionsParam from '@models/RequestParams/GetDefinitionsParam';
+import GetDefinitionIdsParam from '@models/RequestParams/GetDefinitionIdsParam';
 
 function definitionRoute(router) {
 
@@ -15,7 +17,8 @@ function definitionRoute(router) {
      * Definitions 가져오기
      */
     .post((req: Request, res: Response) => {
-      const payload = DefinitionGetController.getDefinitionByDefIds(req['$param']);
+      const param: GetDefinitionsParam = req['$param'];
+      const payload = DefinitionGetController.getDefinitionByDefIds(param);
       respond(res, payload);
     })
     
@@ -35,10 +38,14 @@ function definitionRoute(router) {
      * 최신 Definitions 가져오기
      */
     .get((request: Request, response: Response) => {
-      let req: RequestTypes.GetDefinitions = request.query;
-      const payload: Promise<DefinitionResponse.idGet> 
-        = DefinitionGetController.getRecentlyUpdatedDefinitionIds(req);
-      
+      const param: GetDefinitionIdsParam = request['$param'];
+      let payload;
+      if (param.defIds.length) {
+        console.log(123, 1);
+        payload = DefinitionGetController.getDefinitionIds(param);
+      } else {
+        payload = DefinitionGetController.getRecentlyUpdatedDefinitionIds(param);
+      }
       respond(response, payload, 'defIds');
     })
 

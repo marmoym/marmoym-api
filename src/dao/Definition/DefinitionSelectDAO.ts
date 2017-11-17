@@ -20,6 +20,15 @@ export function selectIdsOfRecentlyAdded(offset: number, limit:number) {
     .offset(Number(offset));
 }
 
+export function selectIdsByIds(ids: number[]) {
+  return db('Definition')
+    .where({
+      status: DefinitionStatus.NORMAL,
+    })
+    .select('id', 'updated_at')
+    .where('Definition.id', '=', ids);
+}
+
 export function selectIdsByTermExact(label: string, offset: number, limit: number) {
   return db('Definition')
     .leftJoin('Term', function() {

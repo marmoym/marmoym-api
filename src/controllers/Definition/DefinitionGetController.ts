@@ -10,6 +10,7 @@ import { transaction } from '../../database/databaseUtils';
 import { DefinitionResponse } from '../../routes/ResponseTypes';
 import * as RequestTypes from '../../routes/RequestTypes';
 import GetDefinitionsParam from '@models/RequestParams/GetDefinitionsParam';
+import GetDefinitionIdsParam from '@models/RequestParams/GetDefinitionIdsParam';
 import GetDefinitionsResult from '@models/ApiResult/GetDefinitionsResult';
 
 export async function getDefinitionByDefIds(param: GetDefinitionsParam)
@@ -44,8 +45,16 @@ export async function getDefinitionByDefIds(param: GetDefinitionsParam)
   return result;
 }
 
-export async function getRecentlyUpdatedDefinitionIds(req: RequestTypes.idGet) {
-  const definitionIds = await DefinitionSelectDAO.selectIdsOfRecentlyAdded(req.offset, 10);
+export async function getRecentlyUpdatedDefinitionIds(param: GetDefinitionIdsParam) {
+  const definitionIds = await DefinitionSelectDAO.selectIdsOfRecentlyAdded(param.offset, 10);
+  await Promise.all(definitionIds.map(defObj => {
+    defObj.updated_at = defObj.updated_at.getTime();
+  }));
+  return definitionIds;
+}
+
+export async function getDefinitionIds(param: GetDefinitionIdsParam) {
+  const definitionIds = await DefinitionSelectDAO.selectIdsByIds(param.defIds);
   await Promise.all(definitionIds.map(defObj => {
     defObj.updated_at = defObj.updated_at.getTime();
   }));
