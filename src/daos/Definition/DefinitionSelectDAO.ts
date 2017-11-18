@@ -1,8 +1,9 @@
 import db from '../../database';
 import EntityCommonStatus from '@constants/Status/EntityCommonStatus';
+import Entity from '@constants/Entity';
 
 export function selectDefinitionsByIds(ids: number[]) {
-  return db('Definition').where({
+  return db(Entity.DEFINITION).where({
       status: EntityCommonStatus.NORMAL
     })
     .whereIn('id', ids)
@@ -10,7 +11,7 @@ export function selectDefinitionsByIds(ids: number[]) {
 };
 
 export function selectIdsOfRecentlyAdded(offset: number, limit:number) {
-  return db('Definition').where({
+  return db(Entity.DEFINITION).where({
       status: EntityCommonStatus.NORMAL
     })
     .select('id', 'updated_at')
@@ -20,7 +21,7 @@ export function selectIdsOfRecentlyAdded(offset: number, limit:number) {
 }
 
 export function selectIdsByIds(ids: number[]) {
-  return db('Definition')
+  return db(Entity.DEFINITION)
     .where({
       status: EntityCommonStatus.NORMAL,
     })
@@ -29,8 +30,8 @@ export function selectIdsByIds(ids: number[]) {
 }
 
 export function selectIdsByTermExact(label: string, offset: number, limit: number) {
-  return db('Definition')
-    .leftJoin('Term', function() {
+  return db(Entity.DEFINITION)
+    .leftJoin(Entity.TERM, function() {
       this.on('Term.id', '=', 'Definition.term_id')
     })
     .where('Definition.status',EntityCommonStatus.NORMAL)
@@ -44,8 +45,8 @@ export function selectIdsByTermExact(label: string, offset: number, limit: numbe
 export function selectIdsByTerm(query: string, offset: number, limit: number) {
   let search_query = query.replace(' ', '%');
 
-  return db('Definition')
-    .leftJoin('Term', function() {
+  return db(Entity.DEFINITION)
+    .leftJoin(Entity.TERM, function() {
       this.on('Term.id', '=','Definition.term_id')
     })
     .where('Definition.status',EntityCommonStatus.NORMAL)

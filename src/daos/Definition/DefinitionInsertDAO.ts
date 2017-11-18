@@ -1,9 +1,10 @@
 import db from '../../database';
 import EntityCommonStatus from '@constants/Status/EntityCommonStatus';
+import Entity from '@constants/Entity';
 
 export function insertDefinition(trx, data: any, termId: number) {
   return db.transacting(trx)
-    .into('Definition')
+    .into(Entity.DEFINITION)
     .insert({
       label: data.label,
       status: EntityCommonStatus.NORMAL,
@@ -21,13 +22,13 @@ export function insertDefinitionPos(trx, defId: number, posIds: Array<number>) {
   });
 
   return db.transacting(trx)
-    .into('DefinitionPos')
+    .into(Entity.DEFINITION_POS)
     .insert(input);
 }
 
 export function insertDefinitionUsage(trx, defId: number, usageId: number) {
   return db.transacting(trx)
-    .into('DefinitionUsage')
+    .into(Entity.DEFINITION_USAGE)
     .insert({
       def_id: defId,
       usage_id: usageId,

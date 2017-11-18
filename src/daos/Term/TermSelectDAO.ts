@@ -1,8 +1,9 @@
 import db from '../../database';
 import EntityCommonStatus from '@constants/Status/EntityCommonStatus';
+import Entity from '@constants/Entity';
 
 export function selectTermByLabel(label: string, offset?: number , limit?: number) {
-  return db('Term').select('id', 'created_at')
+  return db(Entity.TERM).select('id', 'created_at')
     .where({
       status: EntityCommonStatus.NORMAL,
       label: label
@@ -12,7 +13,7 @@ export function selectTermByLabel(label: string, offset?: number , limit?: numbe
 };
 
 export function selectTermByIds(termIds: number[]) {
-  return db('Term')
+  return db(Entity.TERM)
     .where({
       status: EntityCommonStatus.NORMAL
     })
