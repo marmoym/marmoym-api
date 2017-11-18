@@ -41,7 +41,6 @@ function definitionRoute(router) {
       const param: GetDefinitionIdsParam = request['$param'];
       let payload;
       if (param.defIds.length) {
-        console.log(123, 1);
         payload = DefinitionGetController.getDefinitionIds(param);
       } else {
         payload = DefinitionGetController.getRecentlyUpdatedDefinitionIds(param);

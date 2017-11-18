@@ -16,6 +16,8 @@ import * as UserUpdateController from "../../controllers/User/UserUpdateControll
 import * as UserDeleteController from "../../controllers/User/UserDeleteController";
 import * as UserGetController from "../../controllers/User/UserGetController";
 import * as UserCheckUsedController from "../../controllers/User/UserCheckUsedController";
+import SignInUserParam from '@models/RequestParam/SignInUserParam';
+import Constant from '@constants/index';
 
 function userRoute(router) {
   
@@ -34,11 +36,11 @@ function userRoute(router) {
     /**
      * 로그인
      */
-    .post((request: Request, response: Response) => {
-      const req: RequestTypes.SignInUser = request.body;
-      const payload = UserSignInController.signInUser(req);
+    .post((req: Request, res: Response) => {
+      const param: SignInUserParam = req[Constant.VALIDATED_PARAM];
+      const payload = UserSignInController.signInUser(param);
       
-      respond(response, payload);
+      respond(res, payload);
     })
 
   router.route(URL.USERS_USERID)

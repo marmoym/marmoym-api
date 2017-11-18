@@ -1,6 +1,7 @@
 import db from '../../database';
 import UserStatus from '@constants/Status/UserStatus';
 import Entity from '@constants/Entity';
+import Field from '@constants/Field';
 
 export function selectUserByEmail(email: string) {
   return db(Entity.USER).where({
@@ -9,7 +10,7 @@ export function selectUserByEmail(email: string) {
     .whereNot({
       status: UserStatus.DELETED
     })
-    .select();
+    .select(Field.ALL);
 };
 
 export function selectUserByUsername(username: string) {
@@ -19,7 +20,7 @@ export function selectUserByUsername(username: string) {
     .whereNot({
       status: UserStatus.DELETED
     })
-    .select();
+    .select(Field.ALL);
 };
 
 export function selectUserByUserId(userId: number) {

@@ -8,5 +8,5 @@ export const USERS = '/users';
 export const USERS_NEW = '/users/new';
 export const USERS_USERID = '/users/:userId';
 
-export const SESSION_NEW = 'session/new';
-export const SESSION = 'session';
+export const SESSION_NEW = '/session/new';
+export const SESSION = '/session';

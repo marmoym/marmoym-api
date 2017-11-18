@@ -8,9 +8,10 @@ import { transaction } from '../../database/databaseUtils';
 import { authConfig } from '../../config/marmoym-config';
 import MarmoymError from "../../models/MarmoymError";
 import ErrorType from '../../models/ErrorType';
+import SignInUserParam from '@models/RequestParam/SignInUserParam';
 
-export async function signInUser(req) {
-  const userSelected = await UserSelectDAO.selectUserByEmail(req.email);
+export async function signInUser(param: SignInUserParam) {
+  const userSelected = await UserSelectDAO.selectUserByEmail(param.email);
   
   if (userSelected.length == 0) {
     throw new MarmoymError(ErrorType.USR.USER_NOT_FOUND);
@@ -21,7 +22,7 @@ export async function signInUser(req) {
       throw new MarmoymError(ErrorType.USR.USER_STATUS_PENDING);
     }
 
-    if (bcrypt.compareSync(req.password, userInfo.password)) {
+    if (bcrypt.compareSync(param.password, userInfo.password)) {
       return jwt.sign(
         {
           id: userInfo.id,
