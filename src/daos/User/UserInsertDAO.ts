@@ -1,5 +1,5 @@
 import db from '../../database';
-import { UserStatus } from "../../models/Status/UserStatus";
+import UserStatus from '@constants/Status/UserStatus';
 
 export function insertUser(trx, data: any, encodedPw: string) {
   return db.transacting(trx)

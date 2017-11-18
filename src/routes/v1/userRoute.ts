@@ -7,7 +7,7 @@ import db from '../../database';
 import respond from '@src/modules/respond';
 // import { Definition } from '../../models/ModelTypes';
 // import { DefinitionStatus } from '../../models/common/DefinitionStatus';
-import * as URL from '@models/ApiURL';
+import * as URL from '@constants/ApiURL';
 import * as RequestTypes from '../RequestTypes';
 import tokenAuthHandler from '@src/middlewares/tokenAuthHandler';
 import * as UserSignUpController from "../../controllers/User/UserSignUpController";

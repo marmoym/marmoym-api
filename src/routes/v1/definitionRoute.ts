@@ -2,13 +2,13 @@ import { Router, Request, Response } from 'express'
 
 import db from '../../database';
 import respond from '@src/modules/respond';
-import * as ApiURL from '@models/ApiURL';
+import * as ApiURL from '@constants/ApiURL';
 import * as RequestTypes from '../RequestTypes';
 import { DefinitionResponse } from '../ResponseTypes';
 import * as DefinitionAddController from '../../controllers/Definition/DefinitionAddController';
 import * as DefinitionGetController from '../../controllers/Definition/DefinitionGetController';
-import GetDefinitionsParam from '@models/RequestParams/GetDefinitionsParam';
-import GetDefinitionIdsParam from '@models/RequestParams/GetDefinitionIdsParam';
+import GetDefinitionsParam from '@models/RequestParam/GetDefinitionsParam';
+import GetDefinitionIdsParam from '@models/RequestParam/GetDefinitionIdsParam';
 
 function definitionRoute(router) {
 

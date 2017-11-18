@@ -1,10 +1,9 @@
 import db from '../../database';
-import { DefinitionStatus } from '../../models/Status/DefinitionStatus';
-import { TermStatus } from '../../models/Status/TermStatus';
+import EntityCommonStatus from '@constants/Status/EntityCommonStatus';
 
 export function selectDefinitionsByIds(ids: number[]) {
   return db('Definition').where({
-      status: DefinitionStatus.NORMAL
+      status: EntityCommonStatus.NORMAL
     })
     .whereIn('id', ids)
     .select('id','label','term_id','user_id','vote_id','updated_at');
@@ -12,7 +11,7 @@ export function selectDefinitionsByIds(ids: number[]) {
 
 export function selectIdsOfRecentlyAdded(offset: number, limit:number) {
   return db('Definition').where({
-      status: DefinitionStatus.NORMAL
+      status: EntityCommonStatus.NORMAL
     })
     .select('id', 'updated_at')
     .orderBy('created_at', 'desc')
@@ -23,7 +22,7 @@ export function selectIdsOfRecentlyAdded(offset: number, limit:number) {
 export function selectIdsByIds(ids: number[]) {
   return db('Definition')
     .where({
-      status: DefinitionStatus.NORMAL,
+      status: EntityCommonStatus.NORMAL,
     })
     .select('id', 'updated_at')
     .where('Definition.id', '=', ids);
@@ -34,8 +33,8 @@ export function selectIdsByTermExact(label: string, offset: number, limit: numbe
     .leftJoin('Term', function() {
       this.on('Term.id', '=', 'Definition.term_id')
     })
-    .where('Definition.status',DefinitionStatus.NORMAL)
-    .where('Term.status', TermStatus.NORMAL)
+    .where('Definition.status',EntityCommonStatus.NORMAL)
+    .where('Term.status', EntityCommonStatus.NORMAL)
     .where('Term.label', label)
     .select('Definition.id', 'Definition.updated_at')
     .offset(offset)
@@ -49,8 +48,8 @@ export function selectIdsByTerm(query: string, offset: number, limit: number) {
     .leftJoin('Term', function() {
       this.on('Term.id', '=','Definition.term_id')
     })
-    .where('Definition.status',DefinitionStatus.NORMAL)
-    .where('Term.status', TermStatus.NORMAL)
+    .where('Definition.status',EntityCommonStatus.NORMAL)
+    .where('Term.status', EntityCommonStatus.NORMAL)
     .where('Term.label', '%'+search_query+'%')
     .select('Definition.id', 'Definition.updated_at')
     .orderBy('Definition.created_at', 'desc')

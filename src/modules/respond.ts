@@ -1,6 +1,6 @@
 import * as winston from 'winston';
 
-import ResponseCode from '../models/ResponseCode';
+import ResponseCode from '@constants/ResponseCode';
 
 export default function respond(response, result, name?: string) {
   if (result && result.then) {

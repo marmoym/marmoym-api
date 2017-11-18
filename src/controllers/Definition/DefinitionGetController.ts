@@ -9,8 +9,8 @@ import MarmoymError from '@models/MarmoymError';
 import { transaction } from '../../database/databaseUtils';
 import { DefinitionResponse } from '../../routes/ResponseTypes';
 import * as RequestTypes from '../../routes/RequestTypes';
-import GetDefinitionsParam from '@models/RequestParams/GetDefinitionsParam';
-import GetDefinitionIdsParam from '@models/RequestParams/GetDefinitionIdsParam';
+import GetDefinitionsParam from '@models/RequestParam/GetDefinitionsParam';
+import GetDefinitionIdsParam from '@models/RequestParam/GetDefinitionIdsParam';
 import GetDefinitionsResult from '@models/ApiResult/GetDefinitionsResult';
 
 export async function getDefinitionByDefIds(param: GetDefinitionsParam)

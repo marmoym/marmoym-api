@@ -10,6 +10,12 @@
     "moduleResolution": "node",
     "outDir": "./ts_out/",
     "paths": {
+      "@constants/*": [
+        "src/constants/*"
+      ],
+      "@customTypes/*": [
+        "src/customTypes/*"
+      ],
       "@daos/*": [
         "src/daos/*"
       ],

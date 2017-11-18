@@ -1,5 +1,5 @@
 import db from '../../database';
-import { TermStatus } from "../../models/Status/TermStatus";
+import EntityCommonStatus from '@constants/Status/EntityCommonStatus';
 
 export function updateTermOnlyUpdatedAt(trx, termId: number) {
   return db.transacting(trx)
@@ -8,7 +8,7 @@ export function updateTermOnlyUpdatedAt(trx, termId: number) {
       id: termId,
     })
     .whereNot({
-      status: TermStatus.DELETED
+      status: EntityCommonStatus.DELETED
     })
     .update({
       updated_at: db.fn.now()

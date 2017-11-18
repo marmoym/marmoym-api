@@ -1,9 +1,9 @@
-import { DefinitionStatus } from './Status/DefinitionStatus';
+import EntityCommonStatus from '@constants/Status/EntityCommonStatus';
 
 export interface Definition {
   id?: number;
   label?: number;
-  status?: DefinitionStatus
+  status?: EntityCommonStatus
   term_id?: number;
   user_id?: number;
   vote_id?: number;

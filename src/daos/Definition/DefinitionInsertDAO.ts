@@ -1,12 +1,12 @@
 import db from '../../database';
-import { DefinitionStatus } from '../../models/Status/DefinitionStatus';
+import EntityCommonStatus from '@constants/Status/EntityCommonStatus';
 
 export function insertDefinition(trx, data: any, termId: number) {
   return db.transacting(trx)
     .into('Definition')
     .insert({
       label: data.label,
-      status: DefinitionStatus.NORMAL,
+      status: EntityCommonStatus.NORMAL,
       term_id: termId,
       user_id: '1', //TODO user 정보추가
       vote_id: '1', //TODO vote 정보넣고 업데이트
@@ -31,6 +31,6 @@ export function insertDefinitionUsage(trx, defId: number, usageId: number) {
     .insert({
       def_id: defId,
       usage_id: usageId,
-      status: DefinitionStatus.NORMAL
+      status: EntityCommonStatus.NORMAL
     });
 }

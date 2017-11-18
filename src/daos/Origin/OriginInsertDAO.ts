@@ -1,5 +1,5 @@
 import db from '../../database';
-import { OriginStatus } from '../../models/Status/OriginStatus';
+import EntityCommonStatus from '@constants/Status/EntityCommonStatus';
 
 export function insertOrigin(trx, label: string, defId: number) {
   return db.transacting(trx)
@@ -7,6 +7,6 @@ export function insertOrigin(trx, label: string, defId: number) {
     .insert({
       label: label,
       def_id : defId,
-      status: OriginStatus.NORMAL
+      status: EntityCommonStatus.NORMAL
     });
 };

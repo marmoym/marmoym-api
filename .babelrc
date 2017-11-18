@@ -4,7 +4,9 @@
       "module-resolver", {
         "alias": {
           /* `ts_out` is the path that Babel processes */
+          "@constants": "./ts_out/constants",
           "@controllers": "./ts_out/controllers",
+          "@customTypes": "./ts_out/customTypes",
           "@daos": "./ts_out/daos",
           "@models": "./ts_out/models",
           "@src": "./ts_out"

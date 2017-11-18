@@ -1,5 +1,5 @@
 import db from '../../database';
-import { UserStatus } from "../../models/Status/UserStatus";
+import EntityCommonStatus from '@constants/Status/EntityCommonStatus';
 
 export function deleteUserByUserId(trx, userId: number) {
   return db.transacting(trx)
@@ -8,9 +8,9 @@ export function deleteUserByUserId(trx, userId: number) {
       id: userId,
     })
     .whereNot({
-      status: UserStatus.DELETED
+      status: EntityCommonStatus.DELETED
     })
     .update({
-      status: UserStatus.DELETED
+      status: EntityCommonStatus.DELETED
     });
 };

@@ -1,5 +1,5 @@
 import db from '../../database';
-import { UsageStatus } from '../../models/Status/UsageStatus';
+import EntityCommonStatus from '@constants/Status/EntityCommonStatus';
 
 export function insertUsage(trx, label: string, no: number) {
   return db.transacting(trx)
@@ -7,6 +7,6 @@ export function insertUsage(trx, label: string, no: number) {
     .insert({
       label: label,
       no : no,
-      status: UsageStatus.NORMAL,
+      status: EntityCommonStatus.NORMAL,
     });
 };

@@ -1,5 +1,5 @@
 import db from '../../database';
-import { TermStatus } from '../../models/Status/TermStatus';
+import EntityCommonStatus from '@constants/Status/EntityCommonStatus';
 
 export function insertTerm(trx, label: string, roman: string) {
   return db.transacting(trx)
@@ -7,6 +7,6 @@ export function insertTerm(trx, label: string, roman: string) {
     .insert({
       label: label,
       roman: roman,
-      status: TermStatus.NORMAL
+      status: EntityCommonStatus.NORMAL
     });
 };
