@@ -1,10 +1,10 @@
 import db from '../../database';
-import * as TermSelectDAO from '../../dao/Term/TermSelectDAO';
-import * as UserSelectDAO from '../../dao/User/UserSelectDAO';
-import * as DefinitionSelectDAO from '../../dao/Definition/DefinitionSelectDAO';
-import * as PosSelectDAO from '../../dao/Pos/PosSelectDAO';
-import * as UsageSelectDAO from '../../dao/Usage/UsageSelectDAO';
-import * as OriginSelectDAO from '../../dao/Origin/OriginSelectDAO';
+import * as TermSelectDAO from '@daos/Term/TermSelectDAO';
+import * as UserSelectDAO from '@daos/User/UserSelectDAO';
+import * as DefinitionSelectDAO from '@daos/Definition/DefinitionSelectDAO';
+import * as PosSelectDAO from '@daos/Pos/PosSelectDAO';
+import * as UsageSelectDAO from '@daos/Usage/UsageSelectDAO';
+import * as OriginSelectDAO from '@daos/Origin/OriginSelectDAO';
 import MarmoymError from '@models/MarmoymError';
 import { transaction } from '../../database/databaseUtils';
 import { DefinitionResponse } from '../../routes/ResponseTypes';

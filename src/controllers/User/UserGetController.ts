@@ -1,8 +1,8 @@
 import * as bcrypt from 'bcrypt';
 
 import db from '../../database';
-import * as UserSelectDAO from '../../dao/User/UserSelectDAO';
-import * as UserUpdateDAO from "../../dao/User/UserUpdateDAO";
+import * as UserSelectDAO from '@daos/User/UserSelectDAO';
+import * as UserUpdateDAO from "@daos/User/UserUpdateDAO";
 import { transaction } from '../../database/databaseUtils';
 import { authConfig } from '../../config/marmoym-config';
 import MarmoymError from "../../models/MarmoymError";

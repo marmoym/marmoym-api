@@ -10,14 +10,17 @@
     "moduleResolution": "node",
     "outDir": "./ts_out/",
     "paths": {
-      "@src/*": [
-        "src/*"
+      "@daos/*": [
+        "src/daos/*"
       ],
       "@models/*": [
         "src/models/*"
       ],
       "@controllers/*": [
         "src/controllers/*"
+      ],
+      "@src/*": [
+        "src/*"
       ]
     },
     "target": "es6"

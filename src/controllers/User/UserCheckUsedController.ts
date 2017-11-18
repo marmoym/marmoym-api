@@ -2,8 +2,8 @@ import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcrypt';
 
 import db from '../../database';
-import * as UserInsertDAO from '../../dao/User/UserInsertDAO';
-import * as UserSelectDAO from '../../dao/User/UserSelectDAO';
+import * as UserInsertDAO from '@daos/User/UserInsertDAO';
+import * as UserSelectDAO from '@daos/User/UserSelectDAO';
 import { transaction } from '../../database/databaseUtils';
 import { authConfig } from '../../config/marmoym-config';
 import MarmoymError from "@models/MarmoymError";

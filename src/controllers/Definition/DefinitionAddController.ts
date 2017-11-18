@@ -1,10 +1,10 @@
 import db from '../../database';
-import * as DefinitionInsertDAO from '../../dao/Definition/DefinitionInsertDAO';
-import * as TermSelectDAO from '../../dao/Term/TermSelectDAO';
-import * as TermInsertDAO from '../../dao/Term/TermInsertDAO';
-import * as TermUpdateDAO from '../../dao/Term/TermUpdateDAO';
-import * as UsageInsertDAO from '../../dao/Usage/UsageInsertDAO';
-import * as OriginInsertDAO from '../../dao/Origin/OriginInsertDAO';
+import * as DefinitionInsertDAO from '@daos/Definition/DefinitionInsertDAO';
+import * as TermSelectDAO from '@daos/Term/TermSelectDAO';
+import * as TermInsertDAO from '@daos/Term/TermInsertDAO';
+import * as TermUpdateDAO from '@daos/Term/TermUpdateDAO';
+import * as UsageInsertDAO from '@daos/Usage/UsageInsertDAO';
+import * as OriginInsertDAO from '@daos/Origin/OriginInsertDAO';
 import { transaction } from '../../database/databaseUtils';
 
 export function addDefinition(req) {

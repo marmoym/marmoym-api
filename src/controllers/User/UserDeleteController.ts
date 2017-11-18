@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcrypt';
 
 import db from '../../database';
-import * as UserDeleteDAO from '../../dao/User/UserDeleteDAO';
+import * as UserDeleteDAO from '@daos/User/UserDeleteDAO';
 import { transaction } from '../../database/databaseUtils';
 import MarmoymError from "@models/MarmoymError";
 import ErrorType from '../../models/ErrorType';
