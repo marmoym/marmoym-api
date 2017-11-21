@@ -40,7 +40,7 @@ function userRoute(router) {
       const param: SignInUserParam = req[Constant.VALIDATED_PARAM];
       const payload = UserSignInController.signInUser(param);
       
-      respond(res, payload);
+      respond(res, payload, 'token');
     })
 
   router.route(URL.USERS_USERID)
