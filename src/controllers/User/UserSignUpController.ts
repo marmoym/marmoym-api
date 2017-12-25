@@ -7,15 +7,20 @@ import { transaction } from '../../database/databaseUtils';
 import { authConfig } from '../../config/marmoym-config';
 import MarmoymError from "../../models/MarmoymError";
 import ErrorType from '../../models/ErrorType';
+import SignUpUserParam from '@models/requestParam/SignUpUserParam';
 
-export function signUpUser(req) {
+export function signUpUser(param: SignUpUserParam) {
   return transaction(async trx => {
-    const userSelectedByEmail = await UserSelectDAO.selectUserByEmail(req.email); // check email exist
-    const userSelectedByUsername = await UserSelectDAO.selectUserByUsername(req.username) // check  username exist
-    
+
+    // Check if email exists
+    const userSelectedByEmail = await UserSelectDAO.selectUserByEmail(param.email);
+
+    // Check if username exists
+    const userSelectedByUsername = await UserSelectDAO.selectUserByUsername(param.username);
+
     if (userSelectedByEmail.length == 0 && userSelectedByUsername.length == 0) {
-      const encodedPw = bcrypt.hashSync(req.password, authConfig.hashSalt);
-      const userInserted = await UserInsertDAO.insertUser(trx, req, encodedPw);
+      const encodedPw = bcrypt.hashSync(param.password, authConfig.hashSalt);
+      const userInserted = await UserInsertDAO.insertUser(trx, param, encodedPw);
 
       return 'UserSignUpSuccess'
     } else if (userSelectedByEmail.length == 0) {

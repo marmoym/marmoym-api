@@ -2,6 +2,7 @@ import HttpMethod from '@constants/HttpMethod';
 import * as ApiURL from '@constants/ApiUrl';
 import { requireNonNull, optional } from '@src/utils/objectUtils';
 import SignInUserParam from '@models/RequestParam/SignInUserParam';
+import SignUpUserParam from '@models/RequestParam/SignUpUserParam';
 
 export default {
   [ApiURL.SESSION_NEW]: {
@@ -9,6 +10,15 @@ export default {
       return new SignInUserParam({
         email: requireNonNull(req.body['email']),
         password: requireNonNull(req.body['password']),
+      });
+    },
+  },
+  [ApiURL.USERS_NEW]: {
+    [HttpMethod.POST]: (req) => {
+      return new SignUpUserParam({
+        email: requireNonNull(req.body['email']),
+        password: requireNonNull(req.body['password']),
+        username: requireNonNull(req.body['username']),
       });
     },
   },

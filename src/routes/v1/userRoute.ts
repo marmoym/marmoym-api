@@ -17,6 +17,7 @@ import * as UserDeleteController from "../../controllers/User/UserDeleteControll
 import * as UserGetController from "../../controllers/User/UserGetController";
 import * as UserCheckUsedController from "../../controllers/User/UserCheckUsedController";
 import SignInUserParam from '@models/RequestParam/SignInUserParam';
+import SignUpUserParam from '@models/RequestParam/SignUpUserParam';
 import Constant from '@constants/index';
 
 function userRoute(router) {
@@ -25,11 +26,11 @@ function userRoute(router) {
     /**
      * 회원가입
      */
-    .post((request: Request, response: Response) => {
-      const req: RequestTypes.SignUpUser = request.body;
-      const payload = UserSignUpController.signUpUser(req);
+    .post((req: Request, res: Response) => {
+      const param: SignUpUserParam = req[Constant.VALIDATED_PARAM];
+      const payload = UserSignUpController.signUpUser(param);
       
-      respond(response, payload);
+      respond(res, payload);
     })
   
   router.route(URL.SESSION_NEW)
