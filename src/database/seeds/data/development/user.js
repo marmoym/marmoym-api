@@ -1,4 +1,5 @@
 module.exports = [
+  {username: 'test', password: '$2a$10$4Agh.wOEn6JWTYJTLAz5T.oLnGQh02CWzBCSNAUVtCDItGYONZgzm', email: 'test@test.com', status: 'N'},
   {username: 'seeduser1', password: '$2a$10$SKF7vz43Bi/r0PEHgztgYOBhFQMwbcxAUn2JEAR8qTEJBAs7a1f4m', email: 'seed1@tymsai.com', status: 'N'},
   {username: 'seeduser2', password: '$2a$10$SKF7vz43Bi/r0PEHgztgYOBhFQMwbcxAUn2JEAR8qTEJBAs7a1f4m', email: 'seed2@tymsai.com', status: 'N'},
   {username: 'seeduser3', password: '$2a$10$SKF7vz43Bi/r0PEHgztgYOBhFQMwbcxAUn2JEAR8qTEJBAs7a1f4m', email: 'seed3@tymsai.com', status: 'N'},
@@ -18,5 +19,5 @@ module.exports = [
   {username: 'seeduser17', password: '$2a$10$SKF7vz43Bi/r0PEHgztgYOBhFQMwbcxAUn2JEAR8qTEJBAs7a1f4m', email: 'seed17@tymsai.com', status: 'P'},
   {username: 'seeduser18', password: '$2a$10$SKF7vz43Bi/r0PEHgztgYOBhFQMwbcxAUn2JEAR8qTEJBAs7a1f4m', email: 'seed18@tymsai.com', status: 'P'},
   {username: 'seeduser19', password: '$2a$10$SKF7vz43Bi/r0PEHgztgYOBhFQMwbcxAUn2JEAR8qTEJBAs7a1f4m', email: 'seed19@tymsai.com', status: 'P'},
-  {username: 'seeduser20', password: '$2a$10$SKF7vz43Bi/r0PEHgztgYOBhFQMwbcxAUn2JEAR8qTEJBAs7a1f4m', email: 'seed20@tymsai.com', status: 'P'}  
+  {username: 'seeduser20', password: '$2a$10$SKF7vz43Bi/r0PEHgztgYOBhFQMwbcxAUn2JEAR8qTEJBAs7a1f4m', email: 'seed20@tymsai.com', status: 'P'},
 ]

@@ -3,7 +3,7 @@ const knex = require('knex');
 const knexConfig = require('./knexfile.js');  
 const logger = require('@src/modules/logger');
 
-const ENV = 'development';  
+const ENV = process.env.NODE_ENV;
 const _knex = knex(knexConfig[ENV]);
 knexConfig[ENV].debug = process.argv[2] === '--debug' ? true : false;
 
