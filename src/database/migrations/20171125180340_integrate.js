@@ -1,3 +1,6 @@
+const Comment = require('@models/Comment').default;
+const CommentPath = require('@models/CommentPath').default;
+
 exports.up = function(knex, Promise) {
   return Promise.all([
     knex.schema.createTable('Term', function(table) {
@@ -5,7 +8,6 @@ exports.up = function(knex, Promise) {
       table.string('label', 255);
       table.string('roman', 255);
       table.string('status', 1).defaultTo('N');
-
       table.timestamps(true, true);
     }),
 
@@ -16,7 +18,6 @@ exports.up = function(knex, Promise) {
       table.integer('term_id').notNullable();
       table.integer('user_id').notNullable();
       table.integer('vote_id').notNullable();
-
       table.timestamps(true, true);
     }),
 
@@ -27,7 +28,6 @@ exports.up = function(knex, Promise) {
       table.string('email', 128).notNullable();
       table.integer('karma', ).defaultTo(0);
       table.string('status', 1).defaultTo('P');
-
       table.timestamps(true, true);
     }),
 
@@ -38,7 +38,6 @@ exports.up = function(knex, Promise) {
       table.integer('upvote_count').defaultTo(0);
       table.integer('downvote_count').defaultTo(0);
       table.string('status', 1).defaultTo('N');
-
       table.timestamps(true, true);
     }),
 
@@ -48,7 +47,6 @@ exports.up = function(knex, Promise) {
       table.integer('target_id').notNullable();
       table.integer('user_id').notNullable();
       table.integer('action').defaultTo(0);
-
       table.timestamps(true, true);
     }),
 
@@ -57,7 +55,6 @@ exports.up = function(knex, Promise) {
       table.string('label', 512).notNullable();
       table.string('status', 1).defaultTo('N');
       table.integer('def_id').notNullable();
-
       table.timestamps(true, true);
     }),
 
@@ -66,7 +63,6 @@ exports.up = function(knex, Promise) {
       table.string('label', 512).notNullable();
       table.string('labelEn', 512).notNullable();
       table.string('status', 1).defaultTo('N');
-
       table.timestamps(true, true);
     }),
 
@@ -75,7 +71,6 @@ exports.up = function(knex, Promise) {
       table.integer('def_id').notNullable();
       table.integer('pos_id').notNullable();
       table.string('status', 1).defaultTo('N');
-
       table.timestamps(true, true);
     }),
 
@@ -84,7 +79,6 @@ exports.up = function(knex, Promise) {
       table.integer('no').defaultTo(1);
       table.string('label', 512).notNullable();
       table.string('status', 1).defaultTo('N');
-
       table.timestamps(true, true);
     }),
 
@@ -93,33 +87,32 @@ exports.up = function(knex, Promise) {
       table.integer('def_id').notNullable();
       table.integer('usage_id').notNullable();
       table.string('status', 1).defaultTo('N');
-
       table.timestamps(true, true);
     }),
-    knex.schema.createTable('Comment', function(table) {
-      table.increments('id').primary();
-      table.integer('parent_id').defaultTo('0');
-      table.integer('gparent_id').defaultTo('0');
-      table.string('target_type', 1).notNullable();
-      table.integer('target_id').notNullable();
-      table.string('label', 512).notNullable();
-      table.integer('user_id').notNullable();
-      table.integer('vote_id').notNullable();
-      table.string('status', 1).defaultTo('N');
 
+    knex.schema.createTable(Comment._NAME, function(table) {
+      table.increments(Comment.ID).primary();
+      table.integer(Comment.PARENT_ID).defaultTo('0');
+      table.integer(Comment.GPARENT_ID).defaultTo('0');
+      table.string(Comment.TARGET_TYPE, 1).notNullable();
+      table.integer(Comment.TARGET_ID).notNullable();
+      table.string(Comment.LABEL, 512).notNullable();
+      table.integer(Comment.USER_ID).notNullable();
+      table.integer(Comment.VOTE_ID).notNullable();
+      table.string(Comment.STATUS, 1).defaultTo('N');
       table.timestamps(true, true);
     }),
-    knex.schema.createTable('CommentPath', function(table) {
-      table.increments('id').primary();
-      table.integer('gparent_id').defaultTo('0');
-      table.string('path', 1024);
-      table.string('status', 1).defaultTo('N');
 
+    knex.schema.createTable(CommentPath._NAME, function(table) {
+      table.increments(CommentPath.ID).primary();
+      table.integer(CommentPath.GPARENT_ID).defaultTo('0');
+      table.text(CommentPath.PATH);
+      table.string(CommentPath.STATUS, 1).defaultTo('N');
       table.timestamps(true, true);
     }),
   ])
 };
 
 exports.down = function(knex, Promise) {
-  console.info('ROLLBACK COMPLETED');
+  console.info('Nothing to rollback. We advise you to delete the table manually.');
 };

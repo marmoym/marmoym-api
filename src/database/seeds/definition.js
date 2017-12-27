@@ -6,15 +6,15 @@ const originSeedData = require('./data/development/origin');
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex('Definition').del()
+  return knex('Definition').truncate()
     .then(function () {
-      return knex('DefinitionPos').del()
+      return knex('DefinitionPos').truncate()
     })
     .then(function () {
-      return knex('DefinitionUsage').del()
+      return knex('DefinitionUsage').truncate()
     })
     .then(function () {
-      return knex('Origin').del()
+      return knex('Origin').truncate()
     })
     .then(function () {
       // Inserts seed entries
