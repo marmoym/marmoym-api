@@ -3,8 +3,6 @@ import { Router, Request, Response } from 'express'
 import db from '../../database';
 import respond from '@src/modules/respond';
 import * as ApiURL from '@constants/ApiURL';
-import * as RequestTypes from '../RequestTypes';
-import { DefinitionResponse } from '../ResponseTypes';
 import * as DefinitionAddController from '../../controllers/Definition/DefinitionAddController';
 import * as DefinitionGetController from '../../controllers/Definition/DefinitionGetController';
 import GetDefinitionsParam from '@models/RequestParam/GetDefinitionsParam';
@@ -27,7 +25,7 @@ function definitionRoute(router) {
      * Definition 등록
      */
     .post((request: Request, response: Response) => {
-      const req: RequestTypes.NewDefinitions = request.body;
+      const req = request.body;
       const payload = DefinitionAddController.addDefinition(req);
 
       respond(response, payload);
@@ -54,7 +52,7 @@ function definitionRoute(router) {
      * Definition 검색
      */
     .get((request: Request, response: Response) => {
-      const req: RequestTypes.Search = request.query;
+      const req = request.query;
       const payload = DefinitionGetController.getDefinitionIdsBySearch(req);
 
       respond(response, payload, 'defIds');

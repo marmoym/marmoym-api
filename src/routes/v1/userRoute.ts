@@ -8,7 +8,6 @@ import respond from '@src/modules/respond';
 // import { Definition } from '../../models/ModelTypes';
 // import { DefinitionStatus } from '../../models/common/DefinitionStatus';
 import * as URL from '@constants/ApiURL';
-import * as RequestTypes from '../RequestTypes';
 import tokenAuthHandler from '@src/middlewares/tokenAuthHandler';
 import * as UserSignUpController from "../../controllers/User/UserSignUpController";
 import * as UserSignInController from "../../controllers/User/UserSignInController";
@@ -49,7 +48,7 @@ function userRoute(router) {
     * 회원정보가져오기
     */
     .get(tokenAuthHandler, (request: Request, response: Response) => {
-      const req: RequestTypes.GetUser = request.params;
+      const req = request.params;
       const payload = UserGetController.getUserInfo(req);
 
       respond(response, payload);
@@ -58,7 +57,7 @@ function userRoute(router) {
      * 회원정보수정
      */
     .put(tokenAuthHandler, (request: Request, response: Response) => {
-      const req: RequestTypes.UpdateUser = request.body;
+      const req  = request.body;
       const payload = UserUpdateController.updateUser(req);
 
       respond(response, payload);

@@ -7,8 +7,6 @@ import * as UsageSelectDAO from '@daos/Usage/UsageSelectDAO';
 import * as OriginSelectDAO from '@daos/Origin/OriginSelectDAO';
 import MarmoymError from '@models/MarmoymError';
 import { transaction } from '../../database/databaseUtils';
-import { DefinitionResponse } from '../../routes/ResponseTypes';
-import * as RequestTypes from '../../routes/RequestTypes';
 import GetDefinitionsParam from '@models/RequestParam/GetDefinitionsParam';
 import GetDefinitionIdsParam from '@models/RequestParam/GetDefinitionIdsParam';
 import GetDefinitionsResult from '@models/ApiResult/GetDefinitionsResult';
@@ -61,7 +59,7 @@ export async function getDefinitionIds(param: GetDefinitionIdsParam) {
   return definitionIds;
 }
 
-export async function getDefinitionIdsBySearch(req: RequestTypes.Search) {
+export async function getDefinitionIdsBySearch(req) {
   const definitionIds = await DefinitionSelectDAO.selectIdsByTerm(req.query,0,10);
   await Promise.all(definitionIds.map(defObj => {
    defObj.updated_at = defObj.updated_at.getTime();
