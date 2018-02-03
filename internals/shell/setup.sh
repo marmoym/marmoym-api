@@ -1,7 +1,7 @@
 #!/bin/bash
 
 get_config() {
-  marmoym_config_repo="git@github.com:tymsai/marmoym-config.git"
+  marmoym_config_repo="git@gitlab.com:marmoym/marmoym-config.git"
   parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
   config_path="${parent_path}/../../src/config"
 
