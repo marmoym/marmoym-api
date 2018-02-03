@@ -5,9 +5,9 @@ import TermErrorType from './TermErrorType';
 import MiscErrorType from './MiscErrorType';
 
 export default {
-  ATH: AuthErrorType,
-  DEF: DefinitionErrorType,
-  MSC: MiscErrorType,
-  TRM: TermErrorType,
-  USR: UserErrorType,
+  ...AuthErrorType,
+  ...DefinitionErrorType,
+  ...MiscErrorType,
+  ...TermErrorType,
+  ...UserErrorType,
 }

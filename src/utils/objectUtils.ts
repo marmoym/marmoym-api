@@ -1,9 +1,14 @@
 import MarmoymError from '@models/MarmoymError';
-import ErrorType from '@models/ErrorType';
+import ErrorType from '@constants/ErrorType';
 
-export function requireNonNull(obj, errMsg?: string) {
+/**
+ * ErrorMeta is an object of two properties: Error Type and Error Message.
+ */
+export function requireNonNull(obj, err?: {}) {
   if (obj === undefined || null) {
-    throw new MarmoymError(ErrorType.MSC.RESOURCE_NOT_FOUND);
+    throw (err)
+      ? err
+      : new MarmoymError(ErrorType.RESOURCE_NOT_FOUND);
   } else {
     return obj;
   }

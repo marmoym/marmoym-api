@@ -6,7 +6,7 @@ import * as UserSelectDAO from '@daos/User/UserSelectDAO';
 import { transaction } from '../../database/databaseUtils';
 import { authConfig } from '../../config/marmoym-config';
 import MarmoymError from "../../models/MarmoymError";
-import ErrorType from '../../models/ErrorType';
+import ErrorType from '@constants/ErrorType';
 import SignUpUserParam from '@models/requestParam/SignUpUserParam';
 
 export function signUpUser(param: SignUpUserParam) {
@@ -24,9 +24,9 @@ export function signUpUser(param: SignUpUserParam) {
 
       return 'UserSignUpSuccess'
     } else if (userSelectedByEmail.length == 0) {
-      throw new MarmoymError(ErrorType.USR.EMAIL_ALREADY_USED);
+      throw new MarmoymError(ErrorType.EMAIL_ALREADY_USED);
     } else {
-      throw new MarmoymError(ErrorType.USR.USERNAME_ALREADY_USED);
+      throw new MarmoymError(ErrorType.USERNAME_ALREADY_USED);
     }
   });
 }

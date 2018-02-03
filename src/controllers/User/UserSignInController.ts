@@ -7,25 +7,25 @@ import * as UserSelectDAO from '@daos/User/UserSelectDAO';
 import { transaction } from '../../database/databaseUtils';
 import { authConfig } from '../../config/marmoym-config';
 import MarmoymError from "../../models/MarmoymError";
-import ErrorType from '../../models/ErrorType';
+import ErrorType from '@constants/ErrorType';
 import SignInUserParam from '@models/RequestParam/SignInUserParam';
 
 export async function signInUser(param: SignInUserParam) {
   const userSelected = await UserSelectDAO.selectUserByEmail(param.email);
   
   if (userSelected.length == 0) {
-    throw new MarmoymError(ErrorType.USR.USER_NOT_FOUND);
+    throw new MarmoymError(ErrorType.USER_NOT_FOUND);
   } else {
     const userInfo = userSelected[0];
     
     if (userInfo.status == 'P') {
-      throw new MarmoymError(ErrorType.USR.USER_STATUS_PENDING);
+      throw new MarmoymError(ErrorType.USER_STATUS_PENDING);
     }
 
     if (bcrypt.compareSync(param.password, userInfo.password)) {
-      return jwt.sign(
+      const token = jwt.sign(
         {
-          id: userInfo.id,
+          userId: userInfo.id,
           username: userInfo.username,
           email: userInfo.email,
         },
@@ -34,8 +34,16 @@ export async function signInUser(param: SignInUserParam) {
           expiresIn: authConfig.tokenExpireDuration
         }
       );
+
+      return {
+        id: userInfo.id,
+        token,
+        username: userInfo.username,
+        email: userInfo.email,
+      };
+
     } else {
-      throw new MarmoymError(ErrorType.USR.USER_INCORRECT_PASSWORD);
+      throw new MarmoymError(ErrorType.USER_INCORRECT_PASSWORD);
     }
   }
 }

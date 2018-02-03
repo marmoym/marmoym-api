@@ -2,7 +2,7 @@ import * as logger from '@src/modules/logger';
 
 export function handleError(err, req, res, next) {
   if (err.constructor.name === 'MarmoymError') {
-    logger.error('[ErrorHandleService]', err);
+    logger.error('[ErrorHandler]', err);
     res.send({
       code: err.code,
       msg: err.msg,

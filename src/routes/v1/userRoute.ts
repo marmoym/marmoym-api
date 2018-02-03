@@ -5,8 +5,6 @@ import { Router, Request, Response } from 'express'
 
 import db from '../../database';
 import respond from '@src/modules/respond';
-// import { Definition } from '../../models/ModelTypes';
-// import { DefinitionStatus } from '../../models/common/DefinitionStatus';
 import * as URL from '@constants/ApiURL';
 import tokenAuthHandler from '@src/middlewares/tokenAuthHandler';
 import * as UserSignUpController from "../../controllers/User/UserSignUpController";
@@ -17,7 +15,8 @@ import * as UserGetController from "../../controllers/User/UserGetController";
 import * as UserCheckUsedController from "../../controllers/User/UserCheckUsedController";
 import SignInUserParam from '@models/RequestParam/SignInUserParam';
 import SignUpUserParam from '@models/RequestParam/SignUpUserParam';
-import Constant from '@constants/index';
+import Constant from '@constants/Constant';
+import { enhance } from '@src/middlewares/routerEnhancer';
 
 function userRoute(router) {
   
@@ -25,23 +24,21 @@ function userRoute(router) {
     /**
      * 회원가입
      */
-    .post((req: Request, res: Response) => {
+    .post(enhance(async (req: Request, res: Response) => {
       const param: SignUpUserParam = req[Constant.VALIDATED_PARAM];
-      const payload = UserSignUpController.signUpUser(param);
-      
-      respond(res, payload);
-    })
+      const payload = await UserSignUpController.signUpUser(param);
+      return payload;
+    }))
   
   router.route(URL.SESSION_NEW)
     /**
      * 로그인
      */
-    .post((req: Request, res: Response) => {
+    .post(enhance(async (req: Request, res: Response) => {
       const param: SignInUserParam = req[Constant.VALIDATED_PARAM];
-      const payload = UserSignInController.signInUser(param);
-      
-      respond(res, payload, 'token');
-    })
+      const payload = await UserSignInController.signInUser(param);
+      return payload;
+    }))
 
   router.route(URL.USERS_USERID)
     /**
