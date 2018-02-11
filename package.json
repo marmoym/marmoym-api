@@ -12,8 +12,8 @@
     "rollback:dev": "yarn run build && NODE_ENV=development node ./dist/database/setup.js --rollback",
     "seed:dev": "yarn run build && NODE_ENV=development node ./dist/database/setup.js --seed",
     "setup:dev": "./internals/shell/setup.sh",
-    "start:dev": "NODE_ENV=development ./node_modules/.bin/nodemon ./dist/app.js",
-    "start:dev:debug": "NODE_ENV=development ./node_modules/.bin/nodemon ./dist/app.js --debug",
+    "start:dev": "yarn run build && NODE_ENV=development node ./dist/app.js",
+    "start:dev:debug": "NODE_ENV=development node ./dist/app.js --debug",
     "test": "echo \"Error: no test specified\"",
     "tsc": "./node_modules/typescript/bin/tsc -p ./tsconfig.json"
   },
@@ -31,7 +31,6 @@
     "chai": "^4.0.2",
     "mocha": "^3.4.2",
     "morgan": "^1.9.0",
-    "nodemon": "^1.14.12",
     "rimraf": "^2.6.2",
     "tslint": "^5.8.0",
     "typescript": "^2.5.3",
