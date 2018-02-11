@@ -11,7 +11,7 @@ import logConfig from '@config/serverConfig';
 import * as errorHandleService from './middlewares/errorHandler';
 import routes from './routes';
 import db from '@src/database';
-import * as logger from '@src/modules/logger';
+import logger from '@src/modules/logger';
 
 const app: express.Application = express();
 const port: number = process.env.PORT || serverConfig['marmoym-dev1'].port;

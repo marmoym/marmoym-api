@@ -1,9 +1,9 @@
-const knex = require('knex');
+import * as knex from 'knex';
 
-const config = require('./knexfile.js');  
-const logger = require('@src/modules/logger');
+import knexFile from './knexFile';
+import logger from '@src/modules/logger';
 
-const _knex = knex(config[process.env.NODE_ENV]);
+const _knex = knex(knexFile[process.env.NODE_ENV]);
 
 const arg = process.argv[2];
 
@@ -27,4 +27,4 @@ if (arg === '--migrate') {
   });
 }
 
-module.exports = knex;
+export default knex;

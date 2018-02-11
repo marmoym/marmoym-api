@@ -1,4 +1,4 @@
-import * as logger from '@src/modules/logger';
+import logger from '@src/modules/logger';
 
 export function handleError(err, req, res, next) {
   if (err.constructor.name === 'MarmoymError') {

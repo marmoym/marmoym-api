@@ -1,5 +1,5 @@
-const Comment = require('@models/Comment').default;
-const CommentPath = require('@models/CommentPath').default;
+import Comment from '@models/Comment';
+import CommentPath from '@models/CommentPath';
 
 exports.up = function(knex, Promise) {
   return Promise.all([

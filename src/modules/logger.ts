@@ -1,6 +1,6 @@
-const winston = require('winston');
-const fs = require('fs');
-const path = require('path');
+import * as winston from 'winston';
+import * as fs from 'fs';
+import * as path from 'path';
 require('winston-daily-rotate-file'); // necesssary to insert into winston transports.
 
 const LOG_PATH = path.resolve(__dirname, '..', '..', 'log');
@@ -46,4 +46,4 @@ logger.warn('winston warn');
 logger.error('winston error');
 logger.warn('[  END] ================== winston.js logger check ==================');
 
-module.exports = logger;
+export default logger;

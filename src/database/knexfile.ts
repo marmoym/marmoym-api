@@ -1,6 +1,6 @@
-const path = require('path');
+import * as path from 'path';
 
-const dbConfig = require('@config/dbConfig').default;
+import dbConfig from '@config/dbConfig';
 
 const _config = dbConfig.marmoym_dev1;
 const MIGRATION_PATH = path.resolve(__dirname, 'migrations');
@@ -14,4 +14,4 @@ _config.development.seeds = {
   directory: SEED_PATH
 };
 
-module.exports = _config;
+export default _config;
