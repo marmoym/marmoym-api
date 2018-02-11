@@ -11,7 +11,7 @@
     "migrate:prod": "yarn run build && NODE_ENV=production node ./dist/database/setup.js --migrate",
     "rollback:dev": "yarn run build && NODE_ENV=development node ./dist/database/setup.js --rollback",
     "seed:dev": "yarn run build && NODE_ENV=development node ./dist/database/setup.js --seed",
-    "setup:dev": "./internals/shell/setup.sh",
+    "preinstall:dev": "./internals/shell/preinstall.sh",
     "start:dev": "yarn run build && NODE_ENV=development node ./dist/app.js",
     "start:dev:debug": "NODE_ENV=development node ./dist/app.js --debug",
     "test": "echo \"Error: no test specified\"",
