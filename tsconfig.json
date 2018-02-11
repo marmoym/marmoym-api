@@ -8,7 +8,7 @@
     ],
     "module": "commonjs",  
     "moduleResolution": "node",
-    "outDir": "./ts_out/",
+    "outDir": "./tsc_out/",
     "paths": {
       "@config/*": [
         "src/config/marmoym-config/*"

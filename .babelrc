@@ -3,13 +3,13 @@
     [
       "module-resolver", {
         "alias": {
-          "@config": "./ts_out/config/marmoym-config",
-          "@constants": "./ts_out/constants",
-          "@controllers": "./ts_out/controllers",
-          "@customTypes": "./ts_out/customTypes",
-          "@daos": "./ts_out/daos",
-          "@models": "./ts_out/models",
-          "@src": "./ts_out"
+          "@config": "./tsc_out/config/marmoym-config",
+          "@constants": "./tsc_out/constants",
+          "@controllers": "./tsc_out/controllers",
+          "@customTypes": "./tsc_out/customTypes",
+          "@daos": "./tsc_out/daos",
+          "@models": "./tsc_out/models",
+          "@src": "./tsc_out"
         }
       }
     ]

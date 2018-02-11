@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "description": "marmoym-api",
   "scripts": {
-    "babel": "./node_modules/.bin/babel ./ts_out --out-dir ./dist",
+    "babel": "./node_modules/.bin/babel ./tsc_out --out-dir ./dist",
     "build": "yarn run clean && yarn run tsc && yarn run babel",
-    "clean": "./node_modules/.bin/rimraf ./dist/* ./ts_out/*",
+    "clean": "./node_modules/.bin/rimraf ./dist/* ./tsc_out/*",
     "lint": " ./node_modules/.bin/tslint -t stylish -p ./tsconfig.json",
     "migrate:dev": "yarn run build && NODE_ENV=development node ./dist/database/setup.js --migrate",
     "migrate:prod": "yarn run build && NODE_ENV=production node ./dist/database/setup.js --migrate",
