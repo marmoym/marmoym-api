@@ -1,11 +1,7 @@
-import BaseModel from './BaseModel';
+import BaseEntity from '@entities/BaseEntity';
 
-class Comment extends BaseModel {
-
-  /**
-   * 
-   */
-  public static _NAME: string = 'Comment';
+class Comment extends BaseEntity {
+  public static _NAME: string = 'comment';
   public static PARENT_ID: string = 'parent_id';
   public static GPARENT_ID: string = 'gparent_id';
   public static TARGET_TYPE: string = 'target_type';
@@ -18,7 +14,6 @@ class Comment extends BaseModel {
   constructor(param: Comment) {
     super();
   }
-
 }
 
 export default Comment;

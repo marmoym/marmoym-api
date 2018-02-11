@@ -1,11 +1,7 @@
-import BaseModel from "@models/BaseModel";
+import BaseEntity from "@entities/BaseEntity";
 
-class CommentPath extends BaseModel {
-
-  /**
-   * 
-   */
-  public static _NAME: string = 'CommentPath';
+class CommentPath extends BaseEntity {
+  public static _NAME: string = 'comment_path';
   public static GPARENT_ID: string = 'gparent_id';
   public static PATH: string = 'path';
   public static STATUS: string = 'status';
@@ -13,7 +9,6 @@ class CommentPath extends BaseModel {
   constructor(param: CommentPath) {
     super();
   }
-  
 }
 
 export default CommentPath;

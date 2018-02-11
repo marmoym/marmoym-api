@@ -6,8 +6,8 @@
           "@config": "./tsc_out/config/marmoym-config",
           "@constants": "./tsc_out/constants",
           "@controllers": "./tsc_out/controllers",
-          "@customTypes": "./tsc_out/customTypes",
           "@daos": "./tsc_out/daos",
+          "@entities": "./tsc_out/entities",
           "@models": "./tsc_out/models",
           "@src": "./tsc_out"
         }

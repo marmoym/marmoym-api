@@ -1,4 +1,4 @@
-class BaseModel {
+class BaseEntity {
 
   /**
    * ...
@@ -16,4 +16,4 @@ class BaseModel {
   public static UPDATED_AT: string = 'updated_at';
 }
 
-export default BaseModel;
+export default BaseEntity;
