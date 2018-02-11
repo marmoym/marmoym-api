@@ -6,7 +6,8 @@ import * as cors from 'cors';
 import * as bodyParser from 'body-parser';
 import * as morgan from 'morgan';
 
-import { serverConfig, logConfig } from './config/marmoym-config'
+import serverConfig from '@config/serverConfig';
+import logConfig from '@config/serverConfig';
 import * as errorHandleService from './middlewares/errorHandler';
 import routes from './routes';
 import db from '@src/database';

@@ -10,6 +10,9 @@
     "moduleResolution": "node",
     "outDir": "./ts_out/",
     "paths": {
+      "@config/*": [
+        "src/config/marmoym-config/*"
+      ],
       "@constants/*": [
         "src/constants/*"
       ],

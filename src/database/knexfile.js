@@ -1,6 +1,6 @@
 const path = require('path');
 
-const dbConfig = require('@src/config/marmoym-config').dbConfig;
+const dbConfig = require('@config/dbConfig').default;
 
 const _config = dbConfig.marmoym_dev1;
 const MIGRATION_PATH = path.resolve(__dirname, 'migrations');

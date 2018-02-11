@@ -3,7 +3,7 @@
     [
       "module-resolver", {
         "alias": {
-          /* `ts_out` is the path that Babel processes */
+          "@config": "./ts_out/config/marmoym-config",
           "@constants": "./ts_out/constants",
           "@controllers": "./ts_out/controllers",
           "@customTypes": "./ts_out/customTypes",

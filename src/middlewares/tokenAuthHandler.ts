@@ -1,7 +1,7 @@
 import * as jwt from 'jsonwebtoken';
 import * as winston from 'winston';
 
-import { authConfig } from '../config/marmoym-config';
+import authConfig from '@config/authConfig';
 import MarmoymError from "@models/MarmoymError";
 import ErrorType from '@constants/ErrorType';
 

@@ -4,7 +4,7 @@ import db from '../../database';
 import * as UserInsertDAO from '@daos/User/UserInsertDAO';
 import * as UserSelectDAO from '@daos/User/UserSelectDAO';
 import { transaction } from '../../database/databaseUtils';
-import { authConfig } from '../../config/marmoym-config';
+import authConfig from '@config/authConfig';
 import MarmoymError from "../../models/MarmoymError";
 import ErrorType from '@constants/ErrorType';
 import SignUpUserParam from '@models/requestParam/SignUpUserParam';
