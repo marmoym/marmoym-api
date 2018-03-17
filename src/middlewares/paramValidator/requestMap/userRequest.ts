@@ -1,8 +1,8 @@
 import HttpMethod from '@constants/HttpMethod';
-import * as ApiURL from '@constants/ApiUrl';
+import * as ApiURL from '@constants/ApiURL';
 import { requireNonNull, optional } from '@src/utils/objectUtils';
-import SignInUserParam from '@models/RequestParam/SignInUserParam';
-import SignUpUserParam from '@models/RequestParam/SignUpUserParam';
+import SignInUserParam from '@models/requestParam/SignInUserParam';
+import SignUpUserParam from '@models/requestParam/SignUpUserParam';
 import ErrorType from '@constants/ErrorType';
 
 export default {

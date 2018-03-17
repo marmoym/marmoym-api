@@ -7,8 +7,8 @@ import * as UsageSelectDAO from '@daos/Usage/UsageSelectDAO';
 import * as OriginSelectDAO from '@daos/Origin/OriginSelectDAO';
 import MarmoymError from '@models/MarmoymError';
 import { transaction } from '../../database/databaseUtils';
-import GetDefinitionsParam from '@models/RequestParam/GetDefinitionsParam';
-import GetDefinitionIdsParam from '@models/RequestParam/GetDefinitionIdsParam';
+import GetDefinitionsParam from '@models/requestParam/GetDefinitionsParam';
+import GetDefinitionIdsParam from '@models/requestParam/GetDefinitionIdsParam';
 import GetDefinitionsResult from '@models/ApiResult/GetDefinitionsResult';
 
 export async function getDefinitionByDefIds(param: GetDefinitionsParam)

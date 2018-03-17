@@ -1,7 +1,7 @@
 import HttpMethod from '@constants/HttpMethod';
-import * as ApiURL from '@constants/ApiUrl';
-import GetDefinitionsParam from '@models/RequestParam/GetDefinitionsParam';
-import GetDefinitionIdsParam from '@models/RequestParam/GetDefinitionIdsParam';
+import * as ApiURL from '@constants/ApiURL';
+import GetDefinitionsParam from '@models/requestParam/GetDefinitionsParam';
+import GetDefinitionIdsParam from '@models/requestParam/GetDefinitionIdsParam';
 import { requireNonNull, optional } from '@src/utils/objectUtils';
 
 export default {

@@ -5,8 +5,8 @@ import respond from '@src/modules/respond';
 import * as ApiURL from '@constants/ApiURL';
 import * as DefinitionAddController from '../../controllers/Definition/DefinitionAddController';
 import * as DefinitionGetController from '../../controllers/Definition/DefinitionGetController';
-import GetDefinitionsParam from '@models/RequestParam/GetDefinitionsParam';
-import GetDefinitionIdsParam from '@models/RequestParam/GetDefinitionIdsParam';
+import GetDefinitionsParam from '@models/requestParam/GetDefinitionsParam';
+import GetDefinitionIdsParam from '@models/requestParam/GetDefinitionIdsParam';
 
 function definitionRoute(router) {
 

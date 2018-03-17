@@ -13,8 +13,8 @@ import * as UserUpdateController from "../../controllers/User/UserUpdateControll
 import * as UserDeleteController from "../../controllers/User/UserDeleteController";
 import * as UserGetController from "../../controllers/User/UserGetController";
 import * as UserCheckUsedController from "../../controllers/User/UserCheckUsedController";
-import SignInUserParam from '@models/RequestParam/SignInUserParam';
-import SignUpUserParam from '@models/RequestParam/SignUpUserParam';
+import SignInUserParam from '@models/requestParam/SignInUserParam';
+import SignUpUserParam from '@models/requestParam/SignUpUserParam';
 import Constant from '@constants/Constant';
 import { enhance } from '@src/middlewares/routerEnhancer';
 

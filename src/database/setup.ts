@@ -1,6 +1,6 @@
 import * as knex from 'knex';
 
-import knexFile from './knexFile';
+import knexFile from './knexfile';
 import logger from '@src/modules/logger';
 
 const _knex = knex(knexFile[process.env.NODE_ENV]);

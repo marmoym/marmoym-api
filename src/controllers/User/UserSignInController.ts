@@ -8,7 +8,7 @@ import { transaction } from '../../database/databaseUtils';
 import authConfig from '@config/authConfig';
 import MarmoymError from "../../models/MarmoymError";
 import ErrorType from '@constants/ErrorType';
-import SignInUserParam from '@models/RequestParam/SignInUserParam';
+import SignInUserParam from '@models/requestParam/SignInUserParam';
 
 export async function signInUser(param: SignInUserParam) {
   const userSelected = await UserSelectDAO.selectUserByEmail(param.email);
