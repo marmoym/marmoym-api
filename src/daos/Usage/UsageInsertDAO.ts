@@ -1,10 +1,10 @@
 import db from '../../database';
 import EntityCommonStatus from '@constants/Status/EntityCommonStatus';
-import Entity from '@constants/Entity';
+import Usage from '@entities/Usage';
 
 export function insertUsage(trx, label: string, no: number) {
   return db.transacting(trx)
-    .into(Entity.USAGE)
+    .into(Usage._NAME)
     .insert({
       label: label,
       no : no,

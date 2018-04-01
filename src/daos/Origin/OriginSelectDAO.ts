@@ -1,9 +1,9 @@
 import db from '../../database';
 import EntityCommonStatus from '@constants/Status/EntityCommonStatus';
-import Entity from '@constants/Entity';
+import Origin from '@entities/Origin';
 
 export function selectOriginByDefinitionId (defId: number) {
-  return db(Entity.ORIGIN).where({
+  return db(Origin._NAME).where({
     def_id: defId,
     status: EntityCommonStatus.NORMAL
   })

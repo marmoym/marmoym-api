@@ -1,10 +1,10 @@
 import db from '../../database';
-import EntityCommonStatus from '@constants/Status/EntityCommonStatus';
-import Entity from '@constants/Entity';
+import EntityCommonStatus from '@constants/Status/EntityCommonStatus';import Term from '@entities/Term';
+;
 
 export function updateTermOnlyUpdatedAt(trx, termId: number) {
   return db.transacting(trx)
-    .into(Entity.TERM)
+    .into(Term._NAME)
     .where({
       id: termId,
     })

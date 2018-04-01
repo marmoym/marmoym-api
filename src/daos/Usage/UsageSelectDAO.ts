@@ -1,10 +1,11 @@
 import db from '../../database';
 import EntityCommonStatus from '@constants/Status/EntityCommonStatus';
-import Entity from '@constants/Entity';
+import DefinitionUsage from '@entities/DefinitionUsage';
+import Usage from '@entities/Usage';
 
 export function selectUsageByDefinitionId(defId: number) {
-  return db(Entity.DEFINITION_USAGE).where('DefinitionUsage.def_id',defId)
-    .leftJoin(Entity.USAGE, function() {
+  return db(DefinitionUsage._NAME).where('DefinitionUsage.def_id',defId)
+    .leftJoin(Usage._NAME, function() {
       this.on('Usage.id', '=','DefinitionUsage.usage_id');
     })
     .where('Usage.status', EntityCommonStatus.NORMAL)

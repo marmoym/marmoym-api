@@ -1,6 +1,5 @@
 import db from '../../database';
 import UserStatus from '@constants/Status/UserStatus';
-import Entity from '@constants/Entity';
 
 export function updateUserByUserId(trx, encodedPw: string, username: string, userId: number) {
   return db.transacting(trx)
