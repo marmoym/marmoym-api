@@ -1,4 +1,4 @@
-const posSeedData = require('./data/development/pos');
+import posSeedData from './data/development/pos';
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries

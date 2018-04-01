@@ -1,4 +1,4 @@
-module.exports = [
+export default [
   {label: '앙기모띠', roman: 'anggimochi'},
   {label: '사과', roman: 'saghwa'},
   {label: '바나나', roman: 'banana'},
@@ -9,4 +9,4 @@ module.exports = [
   {label: '오버워치', roman: 'overwachi'},
   {label: '배그', roman: 'bagu'},
   {label: '퇴사', roman: 'tesa'}
-]
+];

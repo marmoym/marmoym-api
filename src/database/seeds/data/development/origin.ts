@@ -1,4 +1,4 @@
-module.exports = [
+export default [
   {label: '아프리카방송에서 유래되었다', def_id: '1', status: 'N'},
   {label: '사과의 유래', def_id: '2', status: 'N'},
   {label: '바나나의 유래', def_id: '3', status: 'N'},
@@ -9,4 +9,4 @@ module.exports = [
   {label: '오버워치의 유래', def_id: '8', status: 'N'},
   {label: '빼그의 유래', def_id: '9', status: 'N'},
   {label: '퇴사의 유래', def_id: '10', status: 'N'},
-]
+];

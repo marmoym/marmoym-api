@@ -1,8 +1,8 @@
-const definitionSeedData = require('./data/development/definition');
-const definitionPosSeedData = require('./data/development/definitionPos');
-const usageSeedData = require('./data/development/usage');
-const definitionUsageSeedData = require('./data/development/definitionUsage');
-const originSeedData = require('./data/development/origin');
+import definitionSeedData from './data/development/definition';
+import definitionPosSeedData from './data/development/definitionPos';
+import usageSeedData from './data/development/usage';
+import definitionUsageSeedData from './data/development/definitionUsage';
+import originSeedData from './data/development/origin';
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries

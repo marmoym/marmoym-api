@@ -1,7 +1,7 @@
-const Comment = require('@models/Comment').default;
-const CommentPath = require('@models/CommentPath').default;
-const commentSeed = require('./data/development/commentSeed');
-const commentPathSeed = require('./data/development/commentPathSeed');
+import Comment from '@entities/Comment';
+import CommentPath from '@entities/CommentPath';
+import commentSeed from './data/development/commentSeed';
+import commentPathSeed from './data/development/commentPathSeed';
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries

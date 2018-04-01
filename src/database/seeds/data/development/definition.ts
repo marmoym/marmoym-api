@@ -1,4 +1,4 @@
-module.exports = [
+export default [
   {label: '기분좋다라고하는뜻', term_id: '1', user_id: '1', vote_id: '1'},
   {label: '과일종류중 하나 애쁠이다', term_id: '2', user_id: '2', vote_id: '1'},
   {label: '과일종류중 하나 빠네나', term_id: '3', user_id: '3', vote_id: '1'},
@@ -9,4 +9,4 @@ module.exports = [
   {label: '블리자드 총쏘는 게임', term_id: '8', user_id: '8', vote_id: '1'},
   {label: '배틀그라운드의 줄임말', term_id: '9', user_id: '9', vote_id: '1'},
   {label: '회사를 나간다는말', term_id: '10', user_id: '10', vote_id: '1'},
-]
+];

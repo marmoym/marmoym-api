@@ -1,10 +1,10 @@
-const termSeedData = require('./data/development/term');
+import userSeedData from './data/development/user';
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex('Term').truncate()
+  return knex('User').truncate()
     .then(function () {
       // Inserts seed entries
-      return knex('Term').insert(termSeedData);
+      return knex('User').insert(userSeedData);
     });
 };

@@ -1,4 +1,4 @@
-module.exports = [
+export default [
   {def_id: '1', usage_id: '1'},
   {def_id: '2', usage_id: '2'},
   {def_id: '3', usage_id: '3'},
@@ -9,4 +9,4 @@ module.exports = [
   {def_id: '8', usage_id: '8'},
   {def_id: '9', usage_id: '9'},
   {def_id: '10', usage_id: '10'},
-]
+];
