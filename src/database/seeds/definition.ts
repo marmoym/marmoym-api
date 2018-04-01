@@ -3,33 +3,38 @@ import definitionPosSeedData from './data/development/definitionPos';
 import usageSeedData from './data/development/usage';
 import definitionUsageSeedData from './data/development/definitionUsage';
 import originSeedData from './data/development/origin';
+import Definition from '@entities/Definition';
+import DefinitionPos from '@entities/DefinitionPos';
+import DefinitionUsage from '@entities/DefinitionUsage';
+import Origin from '@entities/Origin';
+import Usage from '@entities/Usage';
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex('Definition').truncate()
+  return knex(Definition._NAME).truncate()
     .then(function () {
-      return knex('DefinitionPos').truncate()
+      return knex(DefinitionPos._NAME).truncate()
     })
     .then(function () {
-      return knex('DefinitionUsage').truncate()
+      return knex(DefinitionUsage._NAME).truncate()
     })
     .then(function () {
-      return knex('Origin').truncate()
+      return knex(Origin._NAME).truncate()
     })
     .then(function () {
       // Inserts seed entries
-      return knex('Definition').insert(definitionSeedData);
+      return knex(Definition._NAME).insert(definitionSeedData);
     })
     .then(function () {
-      return knex('DefinitionPos').insert(definitionPosSeedData);
+      return knex(DefinitionPos._NAME).insert(definitionPosSeedData);
     })
     .then(function () {
-      return knex('Usage').insert(usageSeedData);
+      return knex(Usage._NAME).insert(usageSeedData);
     })
     .then(function () {
-      return knex('DefinitionUsage').insert(definitionUsageSeedData);
+      return knex(DefinitionUsage._NAME).insert(definitionUsageSeedData);
     })
     .then(function () {
-      return knex('Origin').insert().insert(originSeedData);
+      return knex(Origin._NAME).insert().insert(originSeedData);
     });
 };
