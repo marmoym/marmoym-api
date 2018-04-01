@@ -1,6 +1,5 @@
 import db from '../../database';
 import EntityCommonStatus from '@constants/Status/EntityCommonStatus';
-import Entity from '@constants/Entity';
 import Definition from '@entities/Definition';
 import DefinitionPos from '@entities/DefinitionPos';
 import DefinitionUsage from '@entities/DefinitionUsage';

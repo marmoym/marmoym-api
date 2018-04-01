@@ -1,9 +1,10 @@
 import db from '../../database';
 import UserStatus from '@constants/Status/UserStatus';
+import User from '@entities/User';
 
 export function updateUserByUserId(trx, encodedPw: string, username: string, userId: number) {
   return db.transacting(trx)
-    .into(Entity.USER)
+    .into(User._NAME)
     .where({
       id: userId,
     })
