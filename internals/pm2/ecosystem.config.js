@@ -26,7 +26,7 @@ module.exports = {
       repo: 'git@github.com:marmoym/marmoym-api.git',
       path: '/home/ubuntu/work/marmoym/marmoym-api',
       'post-setup': 'git fetch origin',
-      'post-deploy': 'npm install && npm run pm2:start:prod',
+      'post-deploy': 'yarn install && yarn run pm2:start:prod',
     },
     production: {
       user: 'ubuntu',
@@ -35,7 +35,7 @@ module.exports = {
       repo: 'git@github.com:marmoym/marmoym-api.git',
       path: '/home/ubuntu/work/marmoym/marmoym-api',
       'post-setup': 'git fetch origin',
-      'post-deploy': 'npm install && npm run pm2:start:prod',
+      'post-deploy': 'yarn install && yarn run pm2:start:prod',
     },
   },
 };
