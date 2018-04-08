@@ -10,7 +10,8 @@
           "@entities": "./tsc_out/entities",
           "@middlewares": "./tsc_out/middlewares",
           "@models": "./tsc_out/models",
-          "@src": "./tsc_out"
+          "@src": "./tsc_out",
+          "@utils": "./tsc_out/utils"
         }
       }
     ]

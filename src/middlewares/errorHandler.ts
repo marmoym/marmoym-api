@@ -1,14 +1,14 @@
-import logger from '@src/modules/logger';
+import Logger from '@src/modules/Logger';
 
 export function handleError(err, req, res, next) {
   if (err.constructor.name === 'MarmoymError') {
-    logger.error('[ErrorHandler]', err);
+    Logger.error('[ErrorHandler]', err);
     res.send({
       code: err.code,
       msg: err.msg,
     });
   } else {
-    logger.error(err);
+    Logger.error(err);
     res.send({
       code: '000000',
       msg: 'Internal Error',

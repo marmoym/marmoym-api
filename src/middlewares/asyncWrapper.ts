@@ -5,7 +5,6 @@ import HttpStatus from '@constants/HttpStatus';
 import ResponseType from '@models/ResponseType';
 
 export default function asyncWrap(fn) {
-  console.log(1213, fn);
   return (req, res, next) => {
     Promise.resolve(fn(req, res, next))
       .then((payload) => {

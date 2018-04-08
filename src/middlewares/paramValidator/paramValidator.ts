@@ -1,4 +1,4 @@
-import * as logger from '@src/modules/logger';
+import * as Logger from '@src/modules/Logger';
 import * as ApiURL from '@constants/ApiURL';
 import Constant from '@constants/Constant';
 import MarmoymError from '@models/MarmoymError';

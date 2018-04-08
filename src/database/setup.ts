@@ -1,29 +1,29 @@
 import * as knex from 'knex';
 
 import knexFile from './knexfile';
-import logger from '@src/modules/logger';
+import Logger from '@src/modules/Logger';
 
 const _knex = knex(knexFile[process.env.NODE_ENV]);
 
 const arg = process.argv[2];
 
 if (arg === '--migrate') {
-  logger.info('--migrate');
+  Logger.info('--migrate');
   _knex.migrate.latest().then(res => {
-    logger.log('debug', 'MIGRATION COMPLETE');
-    logger.log('debug', 'RESULT', res);
+    Logger.log('debug', 'MIGRATION COMPLETE');
+    Logger.log('debug', 'RESULT', res);
   });
 } else if (arg === '--rollback') {
-  logger.info('--rollback');
+  Logger.info('--rollback');
   _knex.migrate.rollback().then(res => {
-    logger.log('debug', 'ROLLBACK COMPLETE');
-    logger.log('debug', 'RESULT', res);
+    Logger.log('debug', 'ROLLBACK COMPLETE');
+    Logger.log('debug', 'RESULT', res);
   });
 } else if (arg === '--seed') {
-  logger.info('--seed');
+  Logger.info('--seed');
   _knex.seed.run().then(res => {
-    logger.log('debug', 'SEED COMPLETE');
-    logger.log('debug', 'RESULT', res);
+    Logger.log('debug', 'SEED COMPLETE');
+    Logger.log('debug', 'RESULT', res);
   });
 }
 
