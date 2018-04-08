@@ -7,19 +7,19 @@ import * as UserSelectDAO from '@daos/User/UserSelectDAO';
 import { transaction } from '../../database/databaseUtils';
 import authConfig from '@config/authConfig';
 import MarmoymError from "../../models/MarmoymError";
-import ErrorType from '@constants/ErrorType';
+// import ErrorType from '@constants/ErrorType';
 import SignInUserParam from '@models/requestParam/SignInUserParam';
 
 export async function signInUser(param: SignInUserParam) {
   const userSelected = await UserSelectDAO.selectUserByEmail(param.email);
   
   if (userSelected.length == 0) {
-    throw new MarmoymError(ErrorType.USER_NOT_FOUND);
+    // throw new MarmoymError(ErrorType.USER_NOT_FOUND);
   } else {
     const userInfo = userSelected[0];
     
     if (userInfo.status == 'P') {
-      throw new MarmoymError(ErrorType.USER_STATUS_PENDING);
+      // throw new MarmoymError(ErrorType.USER_STATUS_PENDING);
     }
 
     if (bcrypt.compareSync(param.password, userInfo.password)) {
@@ -43,7 +43,7 @@ export async function signInUser(param: SignInUserParam) {
       };
 
     } else {
-      throw new MarmoymError(ErrorType.USER_INCORRECT_PASSWORD);
+      // throw new MarmoymError(ErrorType.USER_INCORRECT_PASSWORD);
     }
   }
 }

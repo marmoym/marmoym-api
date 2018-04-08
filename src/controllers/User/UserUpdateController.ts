@@ -6,7 +6,7 @@ import * as UserUpdateDAO from "@daos/User/UserUpdateDAO";
 import { transaction } from '../../database/databaseUtils';
 import authConfig from '@config/authConfig';
 import MarmoymError from "../../models/MarmoymError";
-import ErrorType from '@constants/ErrorType';
+// import ErrorType from '@constants/ErrorType';
 
 export function updateUser(req) {
   return transaction(async trx => {
@@ -23,12 +23,12 @@ export function updateUser(req) {
       if (userSelectedByUsername.length == 0) {
         inputUsername = req.username;
       } else {
-        throw new MarmoymError(ErrorType.USERNAME_ALREADY_USED);
+        // throw new MarmoymError(ErrorType.USERNAME_ALREADY_USED);
       }
     }
 
     if (encodedPw == undefined && inputUsername == undefined) {
-      throw new MarmoymError(ErrorType.USER_UPDATE_VALUES_EMPTY);
+      // throw new MarmoymError(ErrorType.USER_UPDATE_VALUES_EMPTY);
     } else {
       const userUpdated = await UserUpdateDAO.updateUserByUserId(trx, encodedPw, inputUsername, req.userId);
     }

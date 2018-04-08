@@ -20,11 +20,26 @@ app.use(morgan('tiny'))
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use("/", routes);
+app.use("/", (req, res, next) => {
+  // if (state.status === AppStatus.LAUNCHING) {
+  //   res.send({
+  //     message: 'App is launching. Reload after 15 seconds.',
+  //   });
+  // } else if (state.status === AppStatus.DATABASE_ERROR) {
+  //   res.status(500)
+  //     .send({
+  //       code: ResponseType.DATABASE_CONNECTION_FAIL.code,
+  //       message: ResponseType.DATABASE_CONNECTION_FAIL.message,
+  //     });
+  // } else {
+  //   next();
+  // }
+  next();
+}, routes);
 app.use(errorHandleService.handleError);
 
-app.listen(serverConfig['marmoym-dev1'].port, () => {
-  logger.debug(`[BEGIN] Express listening on ${serverConfig['marmoym-dev1'].port}`);
-});
+// app.listen(serverConfig['marmoym-dev1'].port, () => {
+//   logger.debug(`[BEGIN] Express listening on ${serverConfig['marmoym-dev1'].port}`);
+// });
 
 export default app;

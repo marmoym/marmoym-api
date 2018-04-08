@@ -1,12 +1,12 @@
 import * as winston from 'winston';
 
-import ResponseCode from '@constants/ResponseCode';
+// import ResponseCode from '@constants/ResponseCode';
 
 export default function respond(response, result, name?: string) {
   if (result && result.then) {
     result.then(payload => {
       response.status(200).json({
-        code: ResponseCode.SUCCESS,
+        // code: ResponseCode.SUCCESS,
         payload: name ?
           { [name]: createPayload(payload) }
           : createPayload(payload),
@@ -15,7 +15,7 @@ export default function respond(response, result, name?: string) {
       .catch(err => {
         winston.error(err);
         response.status(200).json({
-          code: err.code || ResponseCode.ERROR,
+          // code: err.code || ResponseCode.ERROR,
         });
       });
   }

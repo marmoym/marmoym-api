@@ -2,7 +2,7 @@ import * as logger from '@src/modules/logger';
 import * as ApiURL from '@constants/ApiURL';
 import Constant from '@constants/Constant';
 import MarmoymError from '@models/MarmoymError';
-import ErrorType from '@constants/ErrorType';
+// import ErrorType from '@constants/ErrorType';
 import requestMap from './requestMap';
 
 /**
@@ -21,9 +21,9 @@ function _validate(req): {} {
       const param = requestMap[path][req.method](req);
       return param;
     } catch (e) {
-      if (e.type && e.type === ErrorType.RESOURCE_NOT_FOUND) {
-        throw new MarmoymError(ErrorType.REQUEST_PARAMETER_INSUFFICIENT);
-      }
+      // if (e.type && e.type === ErrorType.RESOURCE_NOT_FOUND) {
+        // throw new MarmoymError(ErrorType.REQUEST_PARAMETER_INSUFFICIENT);
+      // }
       throw e;
     }
   }

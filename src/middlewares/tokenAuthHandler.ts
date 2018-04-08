@@ -3,7 +3,7 @@ import * as winston from 'winston';
 
 import authConfig from '@config/authConfig';
 import MarmoymError from "@models/MarmoymError";
-import ErrorType from '@constants/ErrorType';
+// import ErrorType from '@constants/ErrorType';
 
 /**
  * ...
@@ -14,13 +14,13 @@ import ErrorType from '@constants/ErrorType';
     decoded = jwt.verify(token, authConfig.jwtSecret);
     winston.debug('JWT decoded: ', decoded);
   } catch(err) {
-    throw new MarmoymError(ErrorType.TOKEN_INVALID);
+    // throw new MarmoymError(ErrorType.TOKEN_INVALID);
   }
 
   if (decoded.id == userId) {
     return decoded;
   } else {
-    throw new MarmoymError(ErrorType.TOKEN_AND_USER_ID_INCOMPATIBLE);
+    // throw new MarmoymError(ErrorType.TOKEN_AND_USER_ID_INCOMPATIBLE);
   }
 };
 

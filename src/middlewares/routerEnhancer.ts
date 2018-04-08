@@ -1,6 +1,6 @@
 import * as winston from 'winston';
 
-import ResponseCode from '@constants/ResponseCode';
+// import ResponseCode from '@constants/ResponseCode';
 
 /**
  * ...
@@ -11,7 +11,7 @@ export function enhance(fn) {
       .then(data => {
         res.status(200)
           .json({
-            code: ResponseCode.SUCCESS,
+            // code: ResponseCode.SUCCESS,
             payload: data,
           })
       })
