@@ -11,7 +11,7 @@
           "@middlewares": "./tsc_out/middlewares",
           "@models": "./tsc_out/models",
           "@src": "./tsc_out",
-          "@utils": "./tsc_out/utils"
+          "@utils": "./tsc_out/utils",
         }
       }
     ]

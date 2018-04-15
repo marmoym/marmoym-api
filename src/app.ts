@@ -49,7 +49,6 @@ app.use("/", (req, res, next) => {
   } else {
     next();
   }
-  next();
 }, routes);
 app.use(errorHandleService.handleError);
 

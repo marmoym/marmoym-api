@@ -36,7 +36,8 @@
     "morgan": "^1.9.0",
     "rimraf": "^2.6.2",
     "tslint": "^5.8.0",
-    "typescript": "^2.5.3"
+    "typescript": "^2.5.3",
+    "winston-daily-rotate-file": "^3.0.2"
   },
   "dependencies": {
     "bcrypt": "^1.0.3",
@@ -50,7 +51,6 @@
     "mysql2": "^1.4.2",
     "pg": "^7.4.1",
     "sequelize": "^3.30.4",
-    "winston": "^3.0.0-rc4",
-    "winston-daily-rotate-file": "^2.0.0-rc.6"
+    "winston": "3.0.0-rc4"
   }
 }
