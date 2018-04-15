@@ -5,8 +5,7 @@ import * as ApiURL from '@constants/ApiURL';
 import db from '../../database';
 import * as DefinitionAddController from '../../controllers/Definition/DefinitionAddController';
 import * as DefinitionGetController from '../../controllers/Definition/DefinitionGetController';
-import GetDefinitionsParam from '@models/requestParam/GetDefinitionsParam';
-import GetDefinitionIdsParam from '@models/requestParam/GetDefinitionIdsParam';
+import DefinitionGetParam from '@models/definition/DefinitionGetParam';
 import respond from '@src/modules/respond';
 import { requireNonNull, optional } from '@src/utils/objectUtils';
 
@@ -15,19 +14,21 @@ import { requireNonNull, optional } from '@src/utils/objectUtils';
 function definitionRoute(router) {
   router.route(ApiURL.DEFINITIONS)
     /**
+     * /api/v1/definitions
      * Definitions 가져오기
      */
     .post((asyncWrapper(async (req: Request, res: Response) => {
-      console.log('1');
-      const param = {
-      };
 
-      return 3;
+      const param = new DefinitionGetParam({
+        page: requireNonNull(req.body.page),
+        search: req.body.search
+      })
+
       
       // return new Promise((resolve, reject) => {
       // ));
-      // const payload = DefinitionGetController.getDefinitions(param);
-      // respond(res, payload);
+      return DefinitionGetController.getDefinitions(param);
+
     })))
 
   // router.route(ApiURL.DEFINITIONS_NEW)

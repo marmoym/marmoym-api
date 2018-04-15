@@ -10,11 +10,13 @@ const knexfile = {
 };
 
 knexfile.development.migrations = {
-  directory: MIGRATION_PATH
+  directory: MIGRATION_PATH,
+  debug: true,
 };
 
 knexfile.development.seeds = {
-  directory: SEED_PATH
+  directory: SEED_PATH,
+  debug: true,
 };
 
 export default knexfile;

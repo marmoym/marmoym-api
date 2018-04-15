@@ -7,9 +7,8 @@ import * as UsageSelectDAO from '@daos/Usage/UsageSelectDAO';
 import * as OriginSelectDAO from '@daos/Origin/OriginSelectDAO';
 import MarmoymError from '@models/MarmoymError';
 import { transaction } from '../../database/databaseUtils';
-import GetDefinitionsParam from '@models/requestParam/GetDefinitionsParam';
-import GetDefinitionIdsParam from '@models/requestParam/GetDefinitionIdsParam';
-import GetDefinitionsResult from '@models/ApiResult/GetDefinitionsResult';
+import DefinitionGetParam from '@models/definition/DefinitionGetParam';
+import DefinitionGetResult from '@models/definition/DefinitionGetResult';
 
 export default class DefinitionGetController {
   public static async getDefinitions() {
@@ -17,7 +16,16 @@ export default class DefinitionGetController {
   }
 };
 
-
+export async function getDefinitions(param: DefinitionGetParam): Promise<any> {
+  try {
+    const data = await DefinitionSelectDAO.selectDefinitions(1, 10);
+    
+    const result = DefinitionGetResult.ofMany(data);
+    return result;
+  } catch (err) {
+    // todos
+  }
+}
 // export async function getDefinitionByDefIds(param: GetDefinitionsParam)
 //   : Promise<GetDefinitionsResult> {
     
