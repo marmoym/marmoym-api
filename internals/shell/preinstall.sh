@@ -8,7 +8,8 @@ get_config() {
   if [ -d "${config_path}/marmoym-config/.git" ]; then
     echo "Rebasing marmoym-config";
     cd ${config_path}/marmoym-config;
-    git pull --rebase;
+    git checkout dev;
+    git pull origin dev --rebase;
   else
     echo "Configuration is missing. It is either you are not permitted
 to access the source or have not installed it yet.";
