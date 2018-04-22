@@ -12,14 +12,14 @@ export function selectDefinitions(page: number, limit: number) {
   console.log(Term.ID, Definition.TERM_ID);
   return db.raw(`
     select 
-      def.${Definition.ID} as def_id,
+      def.${Definition.ID} as definition_id,
       def.${Definition.TERM_ID} as term_id,
-      term.${Term.LABEL} as term,
-      def.${Definition.LABEL} as definition,
+      term.${Term.LABEL} as term_label,
+      def.${Definition.LABEL} as definition_label,
       pos.${Pos.LABEL} as pos,
       usage.${Usage.LABEL} as usage,
-      def.${Definition.CREATED_AT} as create_at,
-      def.${Definition.UPDATED_AT} as update_at
+      def.${Definition.CREATED_AT},
+      def.${Definition.UPDATED_AT}
     from ${Definition._NAME} def
     left join ${Term._NAME} as term on def.${Definition.TERM_ID} = term.${Term.ID}
     left join ${DefinitionPos._NAME} as defpos on def.${Definition.ID} = defpos.${DefinitionPos.DEF_ID}
