@@ -1,6 +1,6 @@
 import Logger from '@src/modules/Logger';
 
-export function handleError(err, req, res, next) {
+export default function errorHandler(err, req, res, next) {
   if (err.constructor.name === 'MarmoymError') {
     Logger.error('[ErrorHandler]', err);
     res.send({

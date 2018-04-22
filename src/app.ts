@@ -6,12 +6,13 @@ import * as cors from 'cors';
 import * as bodyParser from 'body-parser';
 import * as morgan from 'morgan';
 
+import AppRouter from '@routes/AppRouter';
 import AppStatus from '@constants/AppStatus';
-import * as errorHandleService from './middlewares/errorHandler';
-import routes from './routes';
+import errorHandler from './middlewares/errorHandler';
 import db from '@src/database';
-import Logger from '@src/modules/Logger';
 import KnexDAO from '@daos/knex/KnexDAO';
+import Logger from '@modules/Logger';
+import marmoymConfig from '@config/marmoymConfig';
 
 const app: express.Application = express();
 
@@ -24,12 +25,12 @@ const state = {
 // Connect to Database and check sanity
 KnexDAO.getMigrations(db, {})
   .then((res) => {
-    Logger.info('db connection success');
+    Logger.info('DB connection success');
     state.status = AppStatus.LAUNCHED;
     app.emit('appStarted');
   })
   .catch((err) => {
-    Logger.error('db connection error');
+    Logger.error('DB connection error');
     state.status = AppStatus.DATABASE_ERROR;
   });;
 
@@ -51,15 +52,15 @@ app.use("/", (req, res, next) => {
   } else {
     next();
   }
-}, routes);
-app.use(errorHandleService.handleError);
+}, AppRouter.routes());
+app.use(errorHandler);
 
 // Launch the server
-app.listen(4001, function(err) {
+app.listen(marmoymConfig.app.port, function(err) {
   if (err) {
     return console.error(err);
   }
-  console.log('Listening at port 4001, wait until bundling is finished');
+  Logger.info('Listening at port: %s', marmoymConfig.app.port);
 });
 
 export default app;

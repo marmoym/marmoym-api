@@ -31,6 +31,9 @@ const dbConfigBase = {
  * ...
  */
 const marmoymConfig = {
+  app: {
+    port: 4001,
+  },
   auth: {
     jwtSecret: 'abcd',
     hashSalt: 1234,

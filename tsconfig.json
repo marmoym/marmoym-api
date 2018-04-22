@@ -10,11 +10,14 @@
     "moduleResolution": "node",
     "outDir": "./tsc_out/",
     "paths": {
-      "@config/*": [
-        "src/config/*"
+      "@config/*": [ 
+        "src/config/*" 
       ],
       "@constants/*": [
         "src/constants/*"
+      ],
+      "@controllers/*": [
+        "src/controllers/*"
       ],
       "@daos/*": [
         "src/daos/*"
@@ -31,8 +34,8 @@
       "@modules/*": [
         "src/modules/*"
       ],
-      "@controllers/*": [
-        "src/controllers/*"
+      "@routes/*": [
+        "src/routes/*"
       ],
       "@src/*": [
         "src/*"
