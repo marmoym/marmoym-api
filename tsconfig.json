@@ -11,7 +11,7 @@
     "outDir": "./tsc_out/",
     "paths": {
       "@config/*": [
-        "src/config/marmoym-config/*"
+        "src/config/*"
       ],
       "@constants/*": [
         "src/constants/*"
@@ -27,6 +27,9 @@
       ],
       "@models/*": [
         "src/models/*"
+      ],
+      "@modules/*": [
+        "src/modules/*"
       ],
       "@controllers/*": [
         "src/controllers/*"

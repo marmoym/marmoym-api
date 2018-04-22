@@ -4,7 +4,7 @@ import db from '../../database';
 import * as UserSelectDAO from '@daos/User/UserSelectDAO';
 import * as UserUpdateDAO from "@daos/User/UserUpdateDAO";
 import { transaction } from '../../database/databaseUtils';
-import authConfig from '@config/authConfig';
+import marmoymConfig from '@config/marmoymConfig';
 import MarmoymError from "../../models/MarmoymError";
 // import ErrorType from '@constants/ErrorType';
 
@@ -14,7 +14,7 @@ export function updateUser(req) {
     let inputUsername = undefined;
 
     if (req.password != undefined && req.password != null) {
-      encodedPw = bcrypt.hashSync(req.password, authConfig.hashSalt);
+      encodedPw = bcrypt.hashSync(req.password, marmoymConfig.auth.hashSalt);
     }
 
     if (req.username != undefined && req.username != null) {

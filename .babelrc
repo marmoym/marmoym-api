@@ -3,13 +3,14 @@
     [
       "module-resolver", {
         "alias": {
-          "@config": "./tsc_out/config/marmoym-config",
+          "@config": "./tsc_out/config",
           "@constants": "./tsc_out/constants",
           "@controllers": "./tsc_out/controllers",
           "@daos": "./tsc_out/daos",
           "@entities": "./tsc_out/entities",
           "@middlewares": "./tsc_out/middlewares",
           "@models": "./tsc_out/models",
+          "@modules": "./tsc_out/modules",
           "@src": "./tsc_out",
           "@utils": "./tsc_out/utils"
         }

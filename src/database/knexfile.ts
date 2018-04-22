@@ -1,12 +1,12 @@
 import * as path from 'path';
 
-import dbConfig from '@config/dbConfig';
+import marmoymConfig from '@config/marmoymConfig';
 
 const MIGRATION_PATH = path.resolve(__dirname, 'migrations');
 const SEED_PATH = path.resolve(__dirname, 'seeds');
 
 const knexfile = {
-  ...dbConfig,
+  ...marmoymConfig.db,
 };
 
 knexfile.development.migrations = {

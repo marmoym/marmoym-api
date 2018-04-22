@@ -5,7 +5,6 @@ import db from '../../database';
 import * as UserInsertDAO from '@daos/User/UserInsertDAO';
 import * as UserSelectDAO from '@daos/User/UserSelectDAO';
 import { transaction } from '../../database/databaseUtils';
-import authConfig from '@config/authConfig';
 import MarmoymError from "@models/MarmoymError";
 
 export async function checkUsernameUsed(req) {

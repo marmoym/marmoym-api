@@ -1,7 +1,7 @@
 import * as jwt from 'jsonwebtoken';
 import * as winston from 'winston';
 
-import authConfig from '@config/authConfig';
+import marmoymConfig from '@config/marmoymConfig';
 import MarmoymError from "@models/MarmoymError";
 // import ErrorType from '@constants/ErrorType';
 
@@ -11,7 +11,7 @@ import MarmoymError from "@models/MarmoymError";
  async function _verifyUserToken(token: string, userId: number) {
   let decoded;
   try {
-    decoded = jwt.verify(token, authConfig.jwtSecret);
+    decoded = jwt.verify(token, marmoymConfig.auth.jwtSecret);
     winston.debug('JWT decoded: ', decoded);
   } catch(err) {
     // throw new MarmoymError(ErrorType.TOKEN_INVALID);
