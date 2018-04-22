@@ -14,8 +14,8 @@
     "preinstall:dev": "./internals/shell/preinstall.sh",
     "rollback:dev": "yarn run build && NODE_ENV=development node ./dist/database/setup.js --rollback",
     "seed:dev": "yarn run build && NODE_ENV=development node ./dist/database/setup.js --seed",
-    "start:dev": "yarn run build && NODE_ENV=development node ./bin/www",
-    "start:prod": "yarn run build && NODE_ENV=production node ./bin/www",
+    "start:dev": "yarn run build && NODE_ENV=development node ./dist/app.js",
+    "start:prod": "yarn run build && NODE_ENV=production node ./dist/app.js",
     "start:dev:debug": "NODE_ENV=development node ./dist/app.js --debug",
     "test": "echo \"Error: no test specified\"",
     "tsc": "./node_modules/typescript/bin/tsc -p ./tsconfig.json"

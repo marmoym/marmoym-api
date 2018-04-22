@@ -1,13 +1,13 @@
 const path = require('path');
 
-const WWW_PATH = path.resolve(__dirname, '../../bin/www');
+const APP_PATH = path.resolve(__dirname, '../../dist/app.js');
 
 module.exports = {
   // http://pm2.keymetrics.io/docs/usage/application-declaration/
   apps: [
     {
       name: 'marmoym-api',
-      script: WWW_PATH,
+      script: APP_PATH,
       env: {
         NODE_ENV: 'development',
       },

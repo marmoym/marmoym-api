@@ -15,11 +15,13 @@ import KnexDAO from '@daos/knex/KnexDAO';
 
 const app: express.Application = express();
 
-export const state = {
+// State that changes according to the DB launch status
+const state = {
   status: AppStatus.LAUNCHING,
   dirname: __dirname,
 };
 
+// Connect to Database and check sanity
 KnexDAO.getMigrations(db, {})
   .then((res) => {
     Logger.info('db connection success');
@@ -51,5 +53,13 @@ app.use("/", (req, res, next) => {
   }
 }, routes);
 app.use(errorHandleService.handleError);
+
+// Launch the server
+app.listen(4001, function(err) {
+  if (err) {
+    return console.error(err);
+  }
+  console.log('Listening at port 3001, wait until bundling is finished');
+});
 
 export default app;
