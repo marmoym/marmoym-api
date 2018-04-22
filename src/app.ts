@@ -59,7 +59,7 @@ app.listen(4001, function(err) {
   if (err) {
     return console.error(err);
   }
-  console.log('Listening at port 3001, wait until bundling is finished');
+  console.log('Listening at port 4001, wait until bundling is finished');
 });
 
 export default app;
