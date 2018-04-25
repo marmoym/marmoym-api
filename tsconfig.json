@@ -16,14 +16,14 @@
       "@constants/*": [
         "src/constants/*"
       ],
-      "@controllers/*": [
-        "src/controllers/*"
+      "@services/*": [
+        "src/services/*"
       ],
       "@daos/*": [
         "src/daos/*"
       ],
       "@entities/*": [
-        "src/entities/*"
+        "src/database/entities/*"
       ],
       "@middlewares/*": [
         "src/middlewares/*"

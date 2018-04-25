@@ -3,8 +3,8 @@ import { Router, Request, Response } from 'express'
 import asyncWrapper from '@middlewares/asyncWrapper';
 import * as ApiURL from '@constants/ApiURL';
 import db from '../../database';
-import * as DefinitionAddController from '../../controllers/Definition/DefinitionAddController';
-import DefinitionGetController from '../../controllers/Definition/DefinitionGetController';
+// import DefinitionAddService from '@services/Definition/DefinitionAddController';
+import DefinitionGetService from '@services/Definition/DefinitionGetService';
 import DefinitionGetParam from '@models/definition/DefinitionGetParam';
 import respond from '@src/modules/respond';
 import { requireNonEmpty, optional } from '@src/utils/objectUtils';
@@ -22,7 +22,7 @@ function definitionRoute(router) {
         search: req.body.search,
       });
       
-      return DefinitionGetController.getDefinitions(param);
+      return DefinitionGetService.getDefinitions(param);
     })));
 
   // router.route(ApiURL.DEFINITIONS_NEW)

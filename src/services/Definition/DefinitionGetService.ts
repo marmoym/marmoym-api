@@ -10,7 +10,7 @@ import { transaction } from '../../database/databaseUtils';
 import DefinitionGetParam from '@models/definition/DefinitionGetParam';
 import DefinitionGetResult from '@models/definition/DefinitionGetResult';
 
-export default class DefinitionGetController {
+export default class DefinitionGetService {
   public static async getDefinitions(param) {
     try {
       const data = await DefinitionSelectDAO.selectDefinitions(1, 10);
