@@ -1,17 +1,38 @@
-interface Cookie {
-  maxAge: number;
-  name: string;
-  value: string;
-}
+import Cookie from '@models/Cookie';
+import Record from '@models/Record';
 
-export interface ApiParamParam {
-  cookies?: Cookie[];
-}
-
-export default class ApiResult {
-  public cookies: Cookie[] = undefined;
-
-  constructor(param: ApiParamParam) {
-    this.cookies = param.cookies ? param.cookies : undefined;
+/**
+ * ...
+ */
+export default function ApiResult(defaultValues) {
+  if (this instanceof ApiResult) {
+    throw new Error();
   }
+  
+  const ApiResultProtoType = class ApiResult extends Record(defaultValues) {
+    private cookies: Cookie[] = undefined;
+    public static [IS_API_RESULT] = true;
+
+    constructor(data) {
+      super(data);
+      this.cookies = [];
+    }
+
+    getCookies() {
+      return this.cookies;
+    }
+  
+    setCookie(cookie: Cookie) {
+      this.cookies.push(cookie);
+      return this;
+    }
+  
+    deleteCookie() {
+      delete this.cookies;
+    }
+  };
+
+  return ApiResultProtoType;
 };
+
+export const IS_API_RESULT = '__isApiResult';

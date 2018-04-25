@@ -11,21 +11,28 @@ import DefinitionGetParam from '@models/definition/DefinitionGetParam';
 import DefinitionGetResult from '@models/definition/DefinitionGetResult';
 
 export default class DefinitionGetController {
-  public static async getDefinitions() {
-    
+  public static async getDefinitions(param) {
+    try {
+      const data = await DefinitionSelectDAO.selectDefinitions(1, 10);
+      
+      const result = new DefinitionGetResult(data);
+      return result;
+    } catch (err) {
+      // todos
+    }  
   }
 };
 
-export async function getDefinitions(param: DefinitionGetParam): Promise<any> {
-  try {
-    const data = await DefinitionSelectDAO.selectDefinitions(1, 10);
+// export async function getDefinitions(param: DefinitionGetParam): Promise<any> {
+//   try {
+//     const data = await DefinitionSelectDAO.selectDefinitions(1, 10);
     
-    const result = DefinitionGetResult.ofMany(data);
-    return result;
-  } catch (err) {
-    // todos
-  }
-}
+//     const result = DefinitionGetResult.ofMany(data);
+//     return result;
+//   } catch (err) {
+//     // todos
+//   }
+// }
 // export async function getDefinitionByDefIds(param: GetDefinitionsParam)
 //   : Promise<GetDefinitionsResult> {
     

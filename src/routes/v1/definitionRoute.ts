@@ -4,12 +4,10 @@ import asyncWrapper from '@middlewares/asyncWrapper';
 import * as ApiURL from '@constants/ApiURL';
 import db from '../../database';
 import * as DefinitionAddController from '../../controllers/Definition/DefinitionAddController';
-import * as DefinitionGetController from '../../controllers/Definition/DefinitionGetController';
+import DefinitionGetController from '../../controllers/Definition/DefinitionGetController';
 import DefinitionGetParam from '@models/definition/DefinitionGetParam';
 import respond from '@src/modules/respond';
-import { requireNonNull, optional } from '@src/utils/objectUtils';
-
-
+import { requireNonEmpty, optional } from '@src/utils/objectUtils';
 
 function definitionRoute(router) {
   router.route(ApiURL.DEFINITIONS)
@@ -17,19 +15,15 @@ function definitionRoute(router) {
      * /api/v1/definitions
      * Definitions 가져오기
      */
-    .post((asyncWrapper(async (req: Request, res: Response) => {
-
+    .post((asyncWrapper(async (req, res) => {
       const param = new DefinitionGetParam({
-        page: requireNonNull(req.body.page),
-        search: req.body.search
-      })
-
+        page: optional(req.body.page).orElse(1),
+        // page: optional(req.body.page).orElse(1),
+        search: req.body.search,
+      });
       
-      // return new Promise((resolve, reject) => {
-      // ));
       return DefinitionGetController.getDefinitions(param);
-
-    })))
+    })));
 
   // router.route(ApiURL.DEFINITIONS_NEW)
   //   /**

@@ -1,23 +1,57 @@
-import MarmoymError from '@models/MarmoymError';
-// import ErrorType from '@constants/ErrorType';
+export class EnhancedTypeError extends Error {
+  public code;
 
-/**
- * ErrorMeta is an object of two properties: Error Type and Error Message.
- */
-export function requireNonNull(obj, err?: {}) {
-  if (obj === undefined || null) {
-    // throw (err)
-      // ? err
-      // : new MarmoymError(ErrorType.RESOURCE_NOT_FOUND);
+  constructor(message) {
+    super(message);
+    this.code = 'TYPE_INVALID';
+  }
+}
+
+function isEmpty(str: string) {
+  return (!str || 0 === str.length);
+}
+
+export function requireOneOf(val, candidates) {
+  if (!candidates.length) {
+    new Error('Candidate is not given');
+  }
+
+  for (let i = 0; i < candidates.length; i++) {
+    if (val === candidates[i]) {
+      return val;
+    }
+  }
+
+  throw new TypeError(`require one of ${candidates}, but given ${val}`);
+};
+
+export function requireNonEmpty(obj, err?) {
+  if (obj === undefined || null || isEmpty(obj)) {
+    throw err
+      ? err
+      : new EnhancedTypeError(`require non empty`);
   } else {
     return obj;
   }
-}
+};
 
-export function optional(val) {
-  return {
-    orElse: function(val2) {
-      return val ? val : val2;
-    }
+export function requireNonNull(obj, err?) {
+  if (obj === undefined || null) {
+    throw (err)
+      ? err
+      : new TypeError();
+  } else {
+    return obj;
   }
-}
+};
+
+export function optional(val1) {
+  return {
+    orElse: (val2) => {
+      return val1 ? val1 : val2;
+    },
+    onlyIfNull: (val2) => {
+      return val2 ? null : val1;
+    },
+  };
+};

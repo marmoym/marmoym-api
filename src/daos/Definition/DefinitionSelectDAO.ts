@@ -8,8 +8,34 @@ import DefinitionUsage from '@entities/DefinitionUsage';
 import Usage from '@entities/Usage';
 import User from '@entities/User';  
 
+export default class getDefinitions {
+  public static getDefinitions({
+    page,
+    search,
+  }) {
+    return db.raw(`
+      select 
+        def.${Definition.ID} as definition_id,
+        def.${Definition.TERM_ID} as term_id,
+        term.${Term.LABEL} as term_label,
+        def.${Definition.LABEL} as definition_label,
+        pos.${Pos.LABEL} as pos,
+        usage.${Usage.LABEL} as usage,
+        def.${Definition.CREATED_AT},
+        def.${Definition.UPDATED_AT}
+      from ${Definition._NAME} def
+      left join ${Term._NAME} as term on def.${Definition.TERM_ID} = term.${Term.ID}
+      left join ${DefinitionPos._NAME} as defpos on def.${Definition.ID} = defpos.${DefinitionPos.DEF_ID}
+      left join ${Pos._NAME} as pos on defpos.${DefinitionPos.POS_ID} = pos.${Pos.ID}
+      left join ${DefinitionUsage._NAME} as defusage on def.${Definition.ID} = defusage.${DefinitionUsage.DEF_ID}
+      left join ${Usage._NAME} as usage on defusage.${DefinitionUsage.USAGE_ID} = usage.${Usage.ID}
+    `)
+    .then((res) => res.rows);
+  }
+};
+
+
 export function selectDefinitions(page: number, limit: number) {
-  console.log(Term.ID, Definition.TERM_ID);
   return db.raw(`
     select 
       def.${Definition.ID} as definition_id,

@@ -6,6 +6,7 @@ import definitionRoute from './definitionRoute';
 export default class RouterV1 {
   public static routes() {
     let router: Router = Router();
+    
     definitionRoute(router);    
 
     return router;
