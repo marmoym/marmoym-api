@@ -167,3 +167,4 @@ tsc_out/
 dist/
 /src/config/marmoym-config
 .vscode/
+./package-lock.json
