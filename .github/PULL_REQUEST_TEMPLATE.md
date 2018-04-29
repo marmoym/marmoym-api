@@ -1,11 +1,8 @@
 <!--- 
-Thanks for the contribution. We appreciate it.
-Be sure to checkout our guideline.
--->
-## Related Issues
+We appreciate your contribution. Be sure to check our guideline beforehand.
+https://github.com/tymsai/marmoym-dev-support/blob/dev/CONTRIBUTING.md#commit-messages
 
-## Checklist
-- [ ] Tested successfully.
-- [ ] Titles of commit message and PR are in English.
-- [ ] PR number at the title will be removed when `squash and merge`.
-- [ ] [Guideline](https://github.com/tymsai/marmoym-dev-support/blob/dev/CONTRIBUTING.md#commit-messages) is followed. 
+- Including the issue URL in the commit message will be of great help
+- Commit message is advised to have semantic tagging, e.g. `refactor: [title]`
+- No merge commit. Use `squash` when merging with the Title not having `PR-NUMBER`
+-->
