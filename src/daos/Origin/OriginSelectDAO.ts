@@ -1,4 +1,4 @@
-import db from '../../database';
+import db from '@database/db';
 import EntityCommonStatus from '@constants/Status/EntityCommonStatus';
 import Origin from '@entities/Origin';
 

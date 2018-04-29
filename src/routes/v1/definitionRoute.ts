@@ -1,12 +1,11 @@
 import { Router, Request, Response } from 'express'
 
 import asyncWrapper from '@middlewares/asyncWrapper';
-import * as ApiURL from '@constants/ApiURL';
-import db from '../../database';
+import ApiURL from '@models/ApiURL';
+import db from '@database/db';
 // import DefinitionAddService from '@services/Definition/DefinitionAddController';
 import DefinitionGetService from '@services/Definition/DefinitionGetService';
 import DefinitionGetParam from '@models/definition/DefinitionGetParam';
-import respond from '@src/modules/respond';
 import { requireNonEmpty, optional } from '@src/utils/objectUtils';
 
 function definitionRoute(router) {

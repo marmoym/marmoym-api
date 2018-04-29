@@ -2,22 +2,20 @@ import { format } from 'util';
 
 import HttpStatus from '@constants/HttpStatus';
 import Logger from '@src/modules/Logger';
-import MarmoymError from '@models/MarmoymError';
+import AppError from '@models/AppError';
 import { PROD_ENV } from '@utils/envUtils';
 import ResponseType from '@models/ResponseType';
 
-/**
- * 
- * @version 0.0.1
- */
 export default function errorHandler(err, req, res, next) {
   if (!(err instanceof Error)) {
-    // err = MarmoymError.ofType(null, ResponseType.NOT_ERROR_OBJECT);
+    err = AppError.of({
+      type: ResponseType.NOT_ERROR_OBJECT,
+    });
   }
 
   if (!err.code) {
-    err.code = ResponseType.UNDEFINED_TYPE_ERROR.code;
-    err.message = ResponseType.UNDEFINED_TYPE_ERROR.message;
+    err.code = ResponseType.RESPONSE_TYPE_UNDEFINED.code;
+    err.message += ' ' + ResponseType.RESPONSE_TYPE_UNDEFINED.message;
   }
 
   // When TypeError, prints request information
@@ -25,7 +23,7 @@ export default function errorHandler(err, req, res, next) {
     err.message = format(err.message, req.query, req.body);
   }
 
-  Logger.error('[%s] %s %s', err.code, err.name, err.message);
+  Logger.error('[%s] %s %s', err.code, err.name);
   Logger.debug('[%s] %s', err.code, err.stack);
 
   res.status(HttpStatus.ERROR)

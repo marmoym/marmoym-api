@@ -35,9 +35,9 @@ const marmoymConfig = {
     port: 4001,
   },
   auth: {
-    jwtSecret: 'abcd',
     hashSalt: 1234,
-    tokenExpireDuration: '1d',
+    privateKey: 'abcd',
+    tokenDuration: '1d',
   },
   db: {
     development: {

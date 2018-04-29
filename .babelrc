@@ -5,13 +5,14 @@
         "alias": {
           "@config": "./tsc_out/config",
           "@constants": "./tsc_out/constants",
-          "@services": "./tsc_out/services",
+          "@database": "./tsc_out/database",
           "@daos": "./tsc_out/daos",
           "@entities": "./tsc_out/database/entities",
           "@middlewares": "./tsc_out/middlewares",
           "@models": "./tsc_out/models",
           "@modules": "./tsc_out/modules",
           "@routes": "./tsc_out/routes",
+          "@services": "./tsc_out/services",
           "@src": "./tsc_out",
           "@utils": "./tsc_out/utils"
         }

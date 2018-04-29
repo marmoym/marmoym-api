@@ -2,7 +2,7 @@ import * as jwt from 'jsonwebtoken';
 import * as winston from 'winston';
 
 import marmoymConfig from '@config/marmoymConfig';
-import MarmoymError from "@models/MarmoymError";
+import AppError from "@models/AppError";
 // import ErrorType from '@constants/ErrorType';
 
 /**
@@ -14,13 +14,13 @@ import MarmoymError from "@models/MarmoymError";
     decoded = jwt.verify(token, marmoymConfig.auth.jwtSecret);
     winston.debug('JWT decoded: ', decoded);
   } catch(err) {
-    // throw new MarmoymError(ErrorType.TOKEN_INVALID);
+    // throw new AppError(ErrorType.TOKEN_INVALID);
   }
 
   if (decoded.id == userId) {
     return decoded;
   } else {
-    // throw new MarmoymError(ErrorType.TOKEN_AND_USER_ID_INCOMPATIBLE);
+    // throw new AppError(ErrorType.TOKEN_AND_USER_ID_INCOMPATIBLE);
   }
 };
 

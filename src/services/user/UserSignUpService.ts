@@ -1,11 +1,11 @@
 // import * as bcrypt from 'bcrypt';
 
-// import db from '../../database';
+// import db from '@database/db';
 // import * as UserInsertDAO from '@daos/User/UserInsertDAO';
 // import * as UserSelectDAO from '@daos/User/UserSelectDAO';
 // import { transaction } from '../../database/databaseUtils';
 // import authConfig from '@config/authConfig';
-// import MarmoymError from "../../models/MarmoymError";
+// import AppError from "../../models/AppError";
 // // import ErrorType from '@constants/ErrorType';
 // import SignUpUserParam from '@models/requestParam/SignUpUserParam';
 
@@ -24,9 +24,9 @@
 
 //       return 'UserSignUpSuccess'
 //     } else if (userSelectedByEmail.length == 0) {
-//       // throw new MarmoymError(ErrorType.EMAIL_ALREADY_USED);
+//       // throw new AppError(ErrorType.EMAIL_ALREADY_USED);
 //     } else {
-//       // throw new MarmoymError(ErrorType.USERNAME_ALREADY_USED);
+//       // throw new AppError(ErrorType.USERNAME_ALREADY_USED);
 //     }
 //   });
 // }

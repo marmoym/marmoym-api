@@ -10,7 +10,6 @@ export default class AppRouter extends RouterBase {
     router.use("/api/v1", RouterV1.routes());
 
     // debugRoutes(router);
-    // router.use(ApiURL.API_V1, RouterV1.routes());
     // router.use(ApiURL.API_V1_1, RouterV1_1.routes());
 
     return router;

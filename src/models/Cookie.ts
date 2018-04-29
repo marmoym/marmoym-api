@@ -1,15 +1,15 @@
 export default class Cookie {
+  public key: string;
   public maxAge: number;
-  public name: string;
   public value: string;
 
   constructor({
+    key,
     maxAge,
-    name,
     value,
   }) {
     this.maxAge = maxAge;
-    this.name = name;
+    this.key = key;
     this.value = value;
   }
 };

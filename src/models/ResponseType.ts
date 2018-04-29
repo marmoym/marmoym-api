@@ -4,6 +4,11 @@ export default {
     code: 401005,
     message: 'email already used'
   },
+  NOT_ERROR_OBJECT: {
+    label: 'NOT_ERROR_OBJECT',
+    code: 401006,
+    message: 'Not error object',
+  },
   REQUEST_TYPE_UNKNOWN: {
     label: 'REQUEST_TYPE_UNKNOWN',
     code: 999001,
@@ -44,18 +49,18 @@ export default {
     code: 400002,
     message: 'TypeError occurred',
   },
-  UNDEFINED_TYPE_ERROR: {
-    label: 'UNDEFINED_ERROR',
+  RESPONSE_TYPE_UNDEFINED: {
+    label: 'RESPONSE_TYPE_UNDEFINED',
     code: 400001,
-    message: 'Response type is not defined'
+    message: 'Response type is not defined. Most likely Error, not AppError, is thrown',
   },
   USER_DELETE_FAIL: {
     label: 'USER_DELETE_FAIL',
     code: 401003,
     message: 'no user deleted'
   },
-  USER_INCORRECT_PASSWORD: {
-    label: 'USER_INCORRECT_PASSWORD',
+  USER_CREDENTIAL_INVALID: {
+    label: 'USER_CREDENTIAL_INVALID',
     code: 401001,
     message: 'text' // TODO: to be changed soon
   },

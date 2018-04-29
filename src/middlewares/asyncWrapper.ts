@@ -1,28 +1,31 @@
-import ApiResult from '@models/ApiResult';
-// import DashboardError from '@models/DashboardError';
+import ApiResult, { IS_API_RESULT } from '@models/ApiResult';
+import AppError from '@models/AppError';
 import HttpStatus from '@constants/HttpStatus';
-// import Logger from '@modules/Logger';
+import Logger from '@modules/Logger';
 import ResponseType from '@models/ResponseType';
 
-export default function asyncWrap(fn) {
+export default function asyncWrapper(fn) {
   return (req, res, next) => {
     Promise.resolve(fn(req, res, next))
       .then((payload) => {
-        // if (!(payload instanceof ApiResult)) {
-        //   throw DashboardError.ofType(null, ResponseType.NOT_RESULT_TYPE);
-        // }
+        if (!(payload[IS_API_RESULT])) {
+          throw AppError.of({
+            args: [ payload ],
+            type: ResponseType.RESPONSE_TYPE_UNDEFINED,
+          });
+        }
 
         // Set cookie in the response header
-        // if (payload.cookies) {
-        //   // Logger.debug('Cookie will be set %j', payload.cookies);
-        //   payload.cookies.map((cookie) => {
-        //     res.cookie(cookie.name, cookie.value, {
-        //       httpOnly: true,
-        //       maxAge: cookie.maxAge,
-        //     });
-        //   });
-        //   delete payload.cookies;
-        // }
+        const cookies = payload.getCookies();
+        if (cookies.length > 0) {
+          Logger.debug('Cookies (%s) is set: %j', cookies.length, cookies);
+          payload.getCookies().map((cookie) => {
+            res.cookie(cookie.key, cookie.value, {
+              httpOnly: true,
+              maxAge: cookie.maxAge,
+            });
+          });
+        }
 
         res.status(HttpStatus.SUCCESS)
           .send({
@@ -39,3 +42,6 @@ export default function asyncWrap(fn) {
       });
   };
 };
+
+const VERSION = '__version';
+asyncWrapper[VERSION] = '0.0.1';

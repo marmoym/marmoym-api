@@ -1,14 +1,13 @@
-import db from '../../database';
+import db from '@database/db';
 import * as DefinitionInsertDAO from '@daos/Definition/DefinitionInsertDAO';
 import * as TermSelectDAO from '@daos/Term/TermSelectDAO';
 import * as TermInsertDAO from '@daos/Term/TermInsertDAO';
 import * as TermUpdateDAO from '@daos/Term/TermUpdateDAO';
 import * as UsageInsertDAO from '@daos/Usage/UsageInsertDAO';
 import * as OriginInsertDAO from '@daos/Origin/OriginInsertDAO';
-import { transaction } from '../../database/databaseUtils';
 
 export function addDefinition(req) {
-  return transaction(async trx => {
+  return async trx => {
     let term = await TermSelectDAO.selectTermByLabel(req.term);
 
     if (term.length != 0) {
@@ -39,5 +38,5 @@ export function addDefinition(req) {
       }
     }
     return 'success';
-  });
+  };
 }

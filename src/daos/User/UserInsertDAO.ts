@@ -1,4 +1,4 @@
-import db from '../../database';
+import db from '@database/db';
 import UserStatus from '@constants/Status/UserStatus';
 import User from '@entities/User';
 

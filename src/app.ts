@@ -9,10 +9,11 @@ import * as morgan from 'morgan';
 import AppRouter from '@routes/AppRouter';
 import AppStatus from '@constants/AppStatus';
 import errorHandler from './middlewares/errorHandler';
-import db from '@src/database';
+import db from '@database/db';
 import KnexDAO from '@daos/knex/KnexDAO';
 import Logger from '@modules/Logger';
 import marmoymConfig from '@config/marmoymConfig';
+import Token from '@modules/Token';
 
 const app: express.Application = express();
 
@@ -21,6 +22,14 @@ const state = {
   status: AppStatus.LAUNCHING,
   dirname: __dirname,
 };
+
+/**
+ * Initialize
+ */
+Token.initialize({
+  privateKey: marmoymConfig.auth.privateKey,
+  tokenDuration: marmoymConfig.auth.tokenDuration,
+});
 
 // Connect to Database and check sanity
 KnexDAO.getMigrations(db, {})
@@ -32,7 +41,7 @@ KnexDAO.getMigrations(db, {})
   .catch((err) => {
     Logger.error('DB connection error');
     state.status = AppStatus.DATABASE_ERROR;
-  });;
+  });
 
 app.use(morgan('tiny'))
 app.use(cors());
