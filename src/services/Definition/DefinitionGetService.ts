@@ -1,20 +1,48 @@
 import db from '@database/db';
 import * as TermSelectDAO from '@daos/Term/TermSelectDAO';
 import * as UserSelectDAO from '@daos/User/UserSelectDAO';
-import * as DefinitionSelectDAO from '@daos/Definition/DefinitionSelectDAO';
+import DefinitionSelectDAO from '@daos/Definition/DefinitionSelectDAO';
 import * as PosSelectDAO from '@daos/Pos/PosSelectDAO';
 import * as UsageSelectDAO from '@daos/Usage/UsageSelectDAO';
 import * as OriginSelectDAO from '@daos/Origin/OriginSelectDAO';
 import AppError from '@models/AppError';
 import DefinitionGetParam from '@models/definition/DefinitionGetParam';
 import DefinitionGetResult from '@models/definition/DefinitionGetResult';
+import { define } from 'mime';
 
 export default class DefinitionGetService {
   public static async getDefinitions(param) {
     try {
-      const data = await DefinitionSelectDAO.selectDefinitions(1, 10);
-      
-      const result = new DefinitionGetResult(data);
+      const data = await DefinitionSelectDAO.selectDefinitions({});
+      let _data = [];
+      data.map((d) => {
+        if (_data[d.definition_id] === undefined) {
+          _data[d.definition_id] = {
+            definition_id: d.definition_id,
+            definition_label: d.definition_label,
+            term_id: d.term_id,
+            term_label: d.term_label,
+            pos: [],
+            usage: [],
+            created_at: d.created_at,
+            updated_at: d.updated_at
+          };
+          if (d.pos_label !== null) {
+            _data[d.definition_id]['pos'].push(d.pos_label);
+          }
+          if (d.usage_label !== null) {
+            _data[d.definition_id]['usage'].push(d.usage_label);
+          }
+        } else {
+          if ((d.pos_label !== null) && (_data[d.definition_id]['pos'].indexOf(d.pos_label) === -1)) {
+            _data[d.definition_id]['pos'].push(d.pos_label);
+          }
+          if ((d.usage_label !== null) && (_data[d.definition_id]['usage'].indexOf(d.usage_label) === -1)) {
+            _data[d.definition_id]['usage'].push(d.usage_label);
+          }
+        }
+      });
+      const result = new DefinitionGetResult(_data);
       return result;
     } catch (err) {
       // todos

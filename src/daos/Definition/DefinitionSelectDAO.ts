@@ -8,19 +8,26 @@ import DefinitionUsage from '@entities/DefinitionUsage';
 import Usage from '@entities/Usage';
 import User from '@entities/User';  
 
-export default class getDefinitions {
-  public static getDefinitions({
-    page,
-    search,
+export default class selectDefinitions {
+  public static selectDefinitions({
   }) {
     return db.raw(`
       select 
         def.${Definition.ID} as definition_id,
+        def.${Definition.LABEL} as definition_label,
+        def.${Definition.STATUS} as definition_status,
         def.${Definition.TERM_ID} as term_id,
         term.${Term.LABEL} as term_label,
-        def.${Definition.LABEL} as definition_label,
-        pos.${Pos.LABEL} as pos,
-        usage.${Usage.LABEL} as usage,
+        term.${Term.ROMAN} as term_loman,
+        term.${Term.STATUS} as term_status,
+        pos.${Pos.ID} as pos_id,
+        pos.${Pos.LABEL} as pos_label,
+        pos.${Pos.LABEL_EN} as pos_label_en,
+        pos.${Pos.STATUS} as pos_status,
+        usage.${Usage.ID} as usage_id,
+        usage.${Usage.NO} as usage_no,
+        usage.${Usage.LABEL} as usage_label,
+        usage.${Usage.STATUS} as usage_status,
         def.${Definition.CREATED_AT},
         def.${Definition.UPDATED_AT}
       from ${Definition._NAME} def
@@ -33,28 +40,6 @@ export default class getDefinitions {
     .then((res) => res.rows);
   }
 };
-
-
-export function selectDefinitions(page: number, limit: number) {
-  return db.raw(`
-    select 
-      def.${Definition.ID} as definition_id,
-      def.${Definition.TERM_ID} as term_id,
-      term.${Term.LABEL} as term_label,
-      def.${Definition.LABEL} as definition_label,
-      pos.${Pos.LABEL} as pos,
-      usage.${Usage.LABEL} as usage,
-      def.${Definition.CREATED_AT},
-      def.${Definition.UPDATED_AT}
-    from ${Definition._NAME} def
-    left join ${Term._NAME} as term on def.${Definition.TERM_ID} = term.${Term.ID}
-    left join ${DefinitionPos._NAME} as defpos on def.${Definition.ID} = defpos.${DefinitionPos.DEF_ID}
-    left join ${Pos._NAME} as pos on defpos.${DefinitionPos.POS_ID} = pos.${Pos.ID}
-    left join ${DefinitionUsage._NAME} as defusage on def.${Definition.ID} = defusage.${DefinitionUsage.DEF_ID}
-    left join ${Usage._NAME} as usage on defusage.${DefinitionUsage.USAGE_ID} = usage.${Usage.ID}
-  `)
-  .then((res) => res.rows);
-}
 // select * from ${Definition._NAME} inner join ${Term._NAME} on ${Definition.TERM_ID} = ${Term.ID}
 
 
