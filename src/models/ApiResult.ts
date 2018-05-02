@@ -1,41 +1,34 @@
 import Cookie from '@models/Cookie';
 import Record from '@models/Record';
 
+const COOKIES = Symbol('cookies');
+
+export const IS_API_RESULT = '__isApiResult';
+export const VERSION = '__version';
+
 /**
  * ...
  */
 export default function ApiResult(defaultValues) {
-  if (this instanceof ApiResult) {
-    throw new Error('ApiResult is not to be used with `new` operator');
-  }
+  let isInitialized = false;
 
-  const ApiResultProtoType = class ApiResult extends Record(defaultValues) {
-    static [VERSION] = '0.0.1'; 
-
-    constructor(data) {
-      super(data);
-      this[COOKIE_SYMBOL] = [];
+  const ApiResult = class extends Record(defaultValues) {
+    constructor(values) {
+      super(values);
+      this[COOKIES] = [];
     }
 
-    getCookies() {
-      return this[COOKIE_SYMBOL];
+    public getCookies() {
+      return this[COOKIES];
     }
-  
-    setCookie(cookie: Cookie) {
-      console.log('set cookies', cookie);
-      this[COOKIE_SYMBOL].push(cookie);
+
+    public setCookie(cookie: Cookie) {
+      this[COOKIES].push(cookie);
       return this;
     }
-  
-    // deleteCookie() {
-    //   delete this.cookies;
-    // }
-  };
+  }
 
-  ApiResultProtoType.prototype[IS_API_RESULT] = true;
-  return ApiResultProtoType;
+  ApiResult.prototype[IS_API_RESULT] = true;
+  ApiResult[VERSION] = '0.1.0';
+  return ApiResult;
 };
-
-const COOKIE_SYMBOL = Symbol('COOKIE');
-export const IS_API_RESULT = '__isApiResult';
-export const VERSION = '__version';

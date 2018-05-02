@@ -4,6 +4,8 @@ import HttpStatus from '@constants/HttpStatus';
 import Logger from '@modules/Logger';
 import ResponseType from '@models/ResponseType';
 
+const VERSION = '__version';
+
 export default function asyncWrapper(fn) {
   return (req, res, next) => {
     Promise.resolve(fn(req, res, next))
@@ -30,7 +32,7 @@ export default function asyncWrapper(fn) {
         res.status(HttpStatus.SUCCESS)
           .send({
             code: ResponseType.SUCCESS.code,
-            payload,
+            payload: payload.toJSON(),
           });
       })
 
@@ -43,5 +45,4 @@ export default function asyncWrapper(fn) {
   };
 };
 
-const VERSION = '__version';
-asyncWrapper[VERSION] = '0.0.1';
+asyncWrapper[VERSION] = '0.0.2';

@@ -49,45 +49,9 @@ export default class UserSignInService {
         });
       }
     } catch (err) {
-      throw err;
+      throw AppError.of({
+        type: ResponseType.USER_NOT_FOUND,
+      });
     }
   }
 };
-
-// export async function signInUser(param) {
-//   const userSelected = await UserSelectDAO.selectUserByEmail(param.email);
-  
-//   if (userSelected.length == 0) {
-//     // throw new AppError(ErrorType.USER_NOT_FOUND);
-//   } else {
-//     const userInfo = userSelected[0];
-    
-//     if (userInfo.status == 'P') {
-//       // throw new AppError(ErrorType.USER_STATUS_PENDING);
-//     }
-
-//     if (bcrypt.compareSync(param.password, userInfo.password)) {
-//       const token = jwt.sign(
-//         {
-//           userId: userInfo.id,
-//           username: userInfo.username,
-//           email: userInfo.email,
-//         },
-//         authConfig.jwtSecret,
-//         {
-//           expiresIn: authConfig.tokenExpireDuration
-//         }
-//       );
-
-//       return {
-//         id: userInfo.id,
-//         token,
-//         username: userInfo.username,
-//         email: userInfo.email,
-//       };
-
-//     } else {
-//       // throw new AppError(ErrorType.USER_INCORRECT_PASSWORD);
-//     }
-//   }
-// }
