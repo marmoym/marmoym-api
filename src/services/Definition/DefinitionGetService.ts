@@ -5,9 +5,9 @@ import DefinitionGetParam from '@models/definition/DefinitionGetParam';
 import DefinitionGetResult from '@models/definition/DefinitionGetResult';
 
 export default class DefinitionGetService {
-  public static async getDefinitions(param) {
+  public static async getDefinitions(param: DefinitionGetParam) {
     try {
-      const data = await DefinitionSelectDAO.selectDefinitions({});
+      const data = await DefinitionSelectDAO.selectDefinitions(param.values());
       let _data = [];
       data.map((d) => {
         if (_data[d.definition_id] === undefined) {

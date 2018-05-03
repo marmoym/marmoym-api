@@ -1,5 +1,6 @@
 export default class ApiURL {
   public static DEFINITIONS = '/definitions'; 
+  public static DEFINITIONS_DEFINITIONID = '/definitions/:definitionId';
   public static DEFINITIONS_NEW = '/definitions/new';
   public static DEFINITIONS_IDS = '/definitions/ids'
 

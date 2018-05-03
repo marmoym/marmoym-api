@@ -14,7 +14,7 @@ function definitionRoute(router) {
      * /api/v1/definitions
      * Definitions 가져오기
      */
-    .post((asyncWrapper(async (req, res) => {
+    .post(asyncWrapper(async (req, res) => {
       const param = new DefinitionGetParam({
         page: optional(req.body.page).orElse(1),
         // page: optional(req.body.page).orElse(1),
@@ -22,7 +22,16 @@ function definitionRoute(router) {
       });
       
       return DefinitionGetService.getDefinitions(param);
-    })));
+    }));
+
+  router.route(ApiURL.DEFINITIONS_DEFINITIONID)
+    .post(asyncWrapper(async (req, res) => {
+      const param = new DefinitionGetParam({
+        definitionId: requireNonEmpty(req.body.definitionId),
+      });
+
+      return DefinitionGetService.getDefinitions(param);
+    }));
 
   // router.route(ApiURL.DEFINITIONS_NEW)
   //   /**

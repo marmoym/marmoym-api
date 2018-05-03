@@ -10,6 +10,7 @@ import User from '@entities/User';
 
 export default class selectDefinitions {
   public static selectDefinitions({
+    definitionId,
   }) {
     return db.raw(`
       select 
@@ -36,6 +37,8 @@ export default class selectDefinitions {
       left join ${Pos._NAME} as pos on defpos.${DefinitionPos.POS_ID} = pos.${Pos.ID}
       left join ${DefinitionUsage._NAME} as defusage on def.${Definition.ID} = defusage.${DefinitionUsage.DEF_ID}
       left join ${Usage._NAME} as usage on defusage.${DefinitionUsage.USAGE_ID} = usage.${Usage.ID}
+      where 1 = 1
+        ${definitionId ? `and def.id = ${definitionId}` : ''}
     `)
     .then((res) => res.rows);
   }
