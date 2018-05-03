@@ -1,5 +1,5 @@
 import db from '@database/db';
-import EntityCommonStatus from '@constants/Status/EntityCommonStatus';
+import EntityCommonStatus from '@entities/enums/EntityCommonStatus';
 import Usage from '@entities/Usage';
 
 export function insertUsage(trx, label: string, no: number) {

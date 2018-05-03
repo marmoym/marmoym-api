@@ -1,5 +1,6 @@
 import db from '@database/db';
-import EntityCommonStatus from '@constants/Status/EntityCommonStatus';import Term from '@entities/Term';
+import EntityCommonStatus from '@entities/enums/EntityCommonStatus';
+import Term from '@entities/Term';
 ;
 
 export function updateTermOnlyUpdatedAt(trx, termId: number) {

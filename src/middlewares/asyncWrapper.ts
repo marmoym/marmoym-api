@@ -10,10 +10,16 @@ export default function asyncWrapper(fn) {
   return (req, res, next) => {
     Promise.resolve(fn(req, res, next))
       .then((payload) => {
+        if (payload === undefined) {
+          throw AppError.of({
+            type: ResponseType.RESPONSE_NOT_PROVIDED,
+          });
+        }
+
         if (!(payload[IS_API_RESULT])) {
           throw AppError.of({
             args: [ payload ],
-            type: ResponseType.RESPONSE_TYPE_UNDEFINED,
+            type: ResponseType.RESPONSE_TYPE_NOT_API_RESULT,
           });
         }
 
@@ -45,4 +51,4 @@ export default function asyncWrapper(fn) {
   };
 };
 
-asyncWrapper[VERSION] = '0.0.2';
+asyncWrapper[VERSION] = '0.0.3';

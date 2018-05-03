@@ -1,6 +1,3 @@
-/**
- * Copyright Marmoym 2017
- */
 import { Router, Request, Response } from 'express'
 
 import asyncWrapper from '@middlewares/asyncWrapper';
@@ -9,26 +6,30 @@ import ApiURL from '@models/ApiURL';
 import { requireNonEmpty } from '@utils/objectUtils';
 import tokenHandler from '@src/middlewares/tokenHandler';
 import UserService from '@services/user/UserService';
-import UserSignInParam from '@models/user/UserSignInParam';
+import UserParam from '@models/user/UserParam';
 
-function userRoute(router) {
-  
+export default function userRoute(router) {
   router.route(ApiURL.USERS_NEW)
     /**
-     * 회원가입
+     * User sign up
      */
     .post(asyncWrapper(async (req: Request, res: Response) => {
-      // const param: SignUpUserParam = req[Constant.VALIDATED_PARAM];
-      // const payload = await UserSignUpController.signUpUser(param);
-      // return payload;
+      const param = new UserParam({
+        email: requireNonEmpty(req.body.email),
+        password: requireNonEmpty(req.body.password),
+        username: requireNonEmpty(req.body.username),
+      });
+
+      const result = await UserService.signUpUser(param);
+      return result;
     }))
   
   router.route(ApiURL.SESSION_NEW)
     /**
-     * 로그인
+     * User sign in
      */
     .post(asyncWrapper(async (req: Request, res: Response) => {
-      const param = new UserSignInParam({
+      const param = new UserParam({
         email: requireNonEmpty(req.body.email),
         password: requireNonEmpty(req.body.password),
       });
@@ -83,6 +84,4 @@ function userRoute(router) {
 
     //   respond(response, payload);
     // })
-} 
-
-export default userRoute;
+};

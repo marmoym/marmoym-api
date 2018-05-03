@@ -6,7 +6,7 @@ require('winston-daily-rotate-file');
 
 import { PROD_ENV } from '@utils/envUtils';
 
-const LOG_PATH = path.resolve(__dirname, '../../../logs');
+const LOG_PATH = path.resolve(__dirname, '../../logs');
 if (!fs.existsSync(LOG_PATH)){
   fs.mkdirSync(LOG_PATH);
 }

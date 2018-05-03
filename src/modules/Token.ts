@@ -2,7 +2,7 @@ import * as jwt from 'jsonwebtoken';
 import * as ms from 'ms';
 
 export const VERSION = '__version';
-export const TOKEN_ERROR = {
+const TOKEN_ERROR = {
   TOKEN_CREATE_ERROR: 'TOKEN_CREATE_ERROR',
   TOKEN_DECODE_ERROR: 'TOKEN_DECODE_ERROR',
   TOKEN_INITIALIZE_ERROR: 'TOKEN_INITIALIZE_ERROR',
@@ -44,6 +44,7 @@ export default class Token {
           },
           (err, token) => {
             if (token.length) {
+              
               resolve(token);
             } else {
               reject({ error: TOKEN_ERROR.TOKEN_CREATE_ERROR });

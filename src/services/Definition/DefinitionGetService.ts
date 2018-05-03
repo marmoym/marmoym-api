@@ -1,14 +1,8 @@
-import db from '@database/db';
-import * as TermSelectDAO from '@daos/Term/TermSelectDAO';
-import * as UserSelectDAO from '@daos/User/UserSelectDAO';
-import DefinitionSelectDAO from '@daos/Definition/DefinitionSelectDAO';
-import * as PosSelectDAO from '@daos/Pos/PosSelectDAO';
-import * as UsageSelectDAO from '@daos/Usage/UsageSelectDAO';
-import * as OriginSelectDAO from '@daos/Origin/OriginSelectDAO';
 import AppError from '@models/AppError';
+import db from '@database/db';
+import DefinitionSelectDAO from '@daos/Definition/DefinitionSelectDAO';
 import DefinitionGetParam from '@models/definition/DefinitionGetParam';
 import DefinitionGetResult from '@models/definition/DefinitionGetResult';
-import { define } from 'mime';
 
 export default class DefinitionGetService {
   public static async getDefinitions(param) {

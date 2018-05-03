@@ -1,5 +1,5 @@
 import db from '@database/db';
-import UserStatus from '@constants/Status/UserStatus';
+import UserStatus from '@entities/enums/UserStatus';
 import User from '@entities/User';
 
 export function insertUser(trx, data: any, encodedPw: string) {

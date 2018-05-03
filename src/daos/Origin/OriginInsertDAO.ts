@@ -1,5 +1,5 @@
 import db from '@database/db';
-import EntityCommonStatus from '@constants/Status/EntityCommonStatus';
+import EntityCommonStatus from '@entities/enums/EntityCommonStatus';
 import Origin from '@entities/Origin';
 
 export function insertOrigin(trx, label: string, defId: number) {

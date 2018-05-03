@@ -1,5 +1,5 @@
 import db from '@database/db';
-import EntityCommonStatus from '@constants/Status/EntityCommonStatus';
+import EntityCommonStatus from '@entities/enums/EntityCommonStatus';
 import User from '@entities/User';
 
 export function deleteUserByUserId(trx, userId: number) {

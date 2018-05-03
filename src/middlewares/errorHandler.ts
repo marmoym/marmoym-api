@@ -14,17 +14,12 @@ export default function errorHandler(err, req, res, next) {
   }
 
   if (!err.code) {
-    err.code = ResponseType.RESPONSE_TYPE_UNDEFINED.code;
-    err.message += ' ' + ResponseType.RESPONSE_TYPE_UNDEFINED.message;
-  }
-
-  // When TypeError, prints request information
-  if (err.code === ResponseType.TYPE_ERROR.code) {
-    err.message = format(err.message, req.query, req.body);
+    err.code = ResponseType.RESPONSE_TYPE_NOT_API_RESULT.code;
+    err.message = ResponseType.RESPONSE_TYPE_NOT_API_RESULT.message + ': ' + err.message;
   }
 
   Logger.error('[%s] %s %s', err.code, err.name);
-  Logger.debug('[%s] %s', err.code, err.stack);
+  Logger.debug('[%s] %s \n %s', err.code, err.message, err.stack);
 
   res.status(HttpStatus.ERROR)
     .send({

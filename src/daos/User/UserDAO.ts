@@ -1,10 +1,9 @@
-import UserStatus from '@constants/Status/UserStatus';
+import UserStatus from '@entities/enums/UserStatus';
 import User from '@entities/User';
 
-export default class UserSelectDAO {
+export default class UserDAO {
   public static selectUserByEmail(conn, {
     email,
-    password,
   }) {
     return conn.raw(`
       select 
@@ -13,6 +12,31 @@ export default class UserSelectDAO {
       from public.user
       where email = '${email}';
     `).then((res) => res.rows[0]);
+  }
+
+  public static insertUser(conn, {
+    email,
+    password,
+    username,
+  }) {
+    return conn.raw(`
+      insert
+        into public.user (
+          email,
+          password,
+          status,
+          username
+        )
+        values (
+          '${email}',
+          '${password}',
+          '${UserStatus.PENDING}',
+          '${username}'
+        );
+    `).then((res) => {
+      return res;
+      // throw Error('errrrr')
+    });
   }
 };
 

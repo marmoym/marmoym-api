@@ -1,5 +1,7 @@
 import { format } from 'util';
 
+import ResponeType from '@models/ResponseType';
+
 export const VERSION = '__version';
 
 export default class AppError extends Error {
@@ -11,17 +13,21 @@ export default class AppError extends Error {
     super();
   }
 
-  static of(param: {
-    args?,
-    error?
+  static of({
+    args,
+    error,
+    type,
+  }: {
+    args?: any[],
+    error?,
     type,
   }) {
     const apiError = new AppError();
-    apiError.code = param.type.code;
-    apiError.name = param.type.name;
-    apiError.message = format(param.type.message, ...param.args)
-    apiError.stack = param.error && param.error.stack
-      ? `${apiError.stack}'\nThe error originating from:\n${param.error.stack}`
+    apiError.code = type.code;
+    apiError.name = type.name;
+    apiError.message = args ? format(type.message, ...args) : type.message;
+    apiError.stack = error && error.stack
+      ? `${apiError.stack}'\nThe error originating from:\n${error.stack}`
       : apiError.stack;
     return apiError;
   }
