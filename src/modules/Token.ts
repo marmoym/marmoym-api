@@ -43,11 +43,11 @@ export default class Token {
             expiresIn: state.tokenDuration,
           },
           (err, token) => {
-            if (token.length) {
-              
-              resolve(token);
-            } else {
+            if (err) {
+              console.error(err);
               reject({ error: TOKEN_ERROR.TOKEN_CREATE_ERROR });
+            } else {
+              resolve(token);
             }
           });
       });
