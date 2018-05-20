@@ -1,4 +1,4 @@
-import {Column, Entity,} from 'typeorm';
+import {Column, Entity} from 'typeorm';
 
 import BaseEntity from '@entities/BaseEntity';
 import {DB1} from '@database/db';

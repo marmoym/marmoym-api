@@ -1,4 +1,4 @@
-import { getConnection, getRepository } from "typeorm";
+import {createConnection, getConnection, getCustomRepository, getRepository} from 'typeorm';
 import { Router, Request, Response } from 'express'
 
 import ApiURL from '@models/ApiURL';
@@ -14,10 +14,13 @@ import Term from '@entities/Term';
 import Usage from '@entities/Usage';
 import User from '@entities/User';
 import Comment from '@entities/Comment';
+import {CommentRepository} from '@src/repositories/CommentRepository';
+import {DefinitionRepository} from '@src/repositories/DefinitionRepository';
 
 function definitionRoute(router) {
   router.route(ApiURL.DEFINITIONS)
     .post(asyncWrapper(async (req, res) => {
+      console.log(12312312313123);
       const term = new Term();
       term.label = '앙 기모띠';
       term.roman = 'ang';
@@ -39,11 +42,9 @@ function definitionRoute(router) {
       definition.user = user;
       definition.pos = [ pos ];
       definition.usage = [ usage ];
-      const comment = new Comment();
-      comment.parentId
 
+      const definitionRepo = getCustomRepository(DefinitionRepository,DB1);
 
-      const definitionRepo = getConnection(DB1).getRepository(Definition);
 
       definitionRepo.save(definition)
         .then((definition) => {
