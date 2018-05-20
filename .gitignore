@@ -162,9 +162,13 @@ fabric.properties
 
 yarn.lock
 .idea/
-_backup/
 tsc_out/
 dist/
 /src/config/marmoym-config
 .vscode/
+
+# ...
+__temp/
+
+# ...
 ./package-lock.json
