@@ -1,14 +1,15 @@
 export default class ApiURL {
+  public static DEFINITION_NEW = '/definition/new';
+
   public static DEFINITIONS = '/definitions'; 
-  public static DEFINITIONS_DEFINITIONID = '/definitions/:definitionId';
-  public static DEFINITIONS_NEW = '/definitions/new';
-  public static DEFINITIONS_IDS = '/definitions/ids'
+  public static DEFINITIONS_$DEFINITIONID = '/definitions/:definitionId';
 
   public static SEARCH = '/search'
 
+  public static USER_NEW = '/user/new';
+  
   public static USERS = '/users';
-  public static USERS_NEW = '/users/new';
-  public static USERS_USERID = '/users/:userId';
+  public static USERS_$USERID = '/users/:userId';
 
   public static SESSION_NEW = '/session/new';
   public static SESSION = '/session';

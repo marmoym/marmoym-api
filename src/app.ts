@@ -42,7 +42,6 @@ app.use("/", (req, res, next) => {
         message: ResponseType.INITIALIZATION_ERROR.message,
       });
   } else {
-    console.log(123, 3);
     next();
   }
 }, AppRouter.routes());

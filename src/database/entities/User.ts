@@ -6,7 +6,8 @@ import {
   PrimaryGeneratedColumn, 
 } from "typeorm";
 
-import { DB1 } from '@database/connections';
+
+import { DB1 } from '@database/db';
 
 @Entity({ database: DB1 })
 export default class User {
@@ -16,6 +17,8 @@ export default class User {
   @Column()
   label: string;
 
-  @Column()
+  @Column({
+    default: 'N',
+  })
   status: string;
 };

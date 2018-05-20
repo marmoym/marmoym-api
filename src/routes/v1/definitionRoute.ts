@@ -1,39 +1,45 @@
+import { getConnection, getRepository } from "typeorm";
 import { Router, Request, Response } from 'express'
 
-import asyncWrapper from '@middlewares/asyncWrapper';
 import ApiURL from '@models/ApiURL';
-import db from '@database/db';
+import asyncWrapper from '@middlewares/asyncWrapper';
+import db, { DB1 } from '@database/db';
+import Definition from '@entities/Definition';
+import Pos from "@database/entities/Pos";
 // import DefinitionAddService from '@services/Definition/DefinitionAddController';
-import DefinitionGetService from '@services/Definition/DefinitionGetService';
+// import DefinitionGetService from '@services/Definition/DefinitionGetService';
 import DefinitionGetParam from '@models/definition/DefinitionGetParam';
 import { requireNonEmpty, optional } from '@src/utils/objectUtils';
-
-import { getConnection, getRepository } from "typeorm";
-import Definition from '@entities/Definition';
 import Term from '@entities/Term';
+import Usage from '@entities/Usage';
 import User from '@entities/User';
 
 function definitionRoute(router) {
   router.route(ApiURL.DEFINITIONS)
-    /**
-     * /api/v1/definitions
-     * Definitions 가져오기
-     */
     .post(asyncWrapper(async (req, res) => {
       const term = new Term();
       term.label = '앙 기모띠';
       term.roman = 'ang';
       term.status = 'N';
 
+      const user = new User();
+      user.id = 1;
+
+      const usage = new Usage();
+      usage.label = 'usage22';
+      
+      const pos = new Pos();
+      pos.label = 'label';
+      pos.labelEn = 'labelEn';
+
       const definition = new Definition();
       definition.label = '기분이 좋다2';
       definition.term = term;
-
-      const user = new User();
-      user.id = 2;
       definition.user = user;
-            
-      const definitionRepo = getConnection('db1').getRepository(Definition);
+      definition.pos = [ pos ];
+      definition.usage = [ usage ];
+
+      const definitionRepo = getConnection(DB1).getRepository(Definition);
 
       definitionRepo.save(definition)
         .then((definition) => {
@@ -49,14 +55,16 @@ function definitionRoute(router) {
       // return DefinitionGetService.getDefinitions(param);
       return "1";
     }));
-
-  router.route(ApiURL.DEFINITIONS_DEFINITIONID)
+    
+  router.route(ApiURL.DEFINITIONS_$DEFINITIONID)
     .post(asyncWrapper(async (req, res) => {
-      const param = new DefinitionGetParam({
-        definitionId: requireNonEmpty(req.body.definitionId),
+      
+      const definitionRepo = getConnection(DB1).getRepository(Definition);
+      const def = await definitionRepo.find();
+      def.map((d) => {
+        console.log(123, d);
+        console.log(123, d.usage);
       });
-
-      return DefinitionGetService.getDefinitions(param);
     }));
 
   // router.route(ApiURL.DEFINITIONS_NEW)

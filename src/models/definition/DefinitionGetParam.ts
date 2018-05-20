@@ -1,20 +1,17 @@
 import ApiParam from '@models/ApiParam';
+import Definition from '@entities/Definition';
 
 export default class DefinitionGetParam extends ApiParam {
-  public definitionId: string;
-  public page: number;
-  public search: string;  
+  public definitions: Definition[];
 
   constructor(param) {
     super();
-    this.definitionId = param.definitionId;
-    this.page = param.page;    
-    this.search = param.search;
+    this.definitions = param.definitions;
   }
 
   values(): any {
     return {
-      ...(this.definitionId ? {definitionId: this.definitionId} : {}),
+      definitions: this.definitions,
     };
   }
 };

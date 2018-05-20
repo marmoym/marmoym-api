@@ -1,6 +1,7 @@
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn, 
@@ -8,16 +9,23 @@ import {
 
 import BaseEntity from '@entities/BaseEntity';
 import { DB1 } from '@database/db';
+import Term from '@entities/Term';
+import User from '@entities/User';
 
 @Entity({ database: DB1 })
-export default class Term extends BaseEntity {
+export default class Vote extends BaseEntity {
   @Column()
-  label: string;
+  targetType: string;
 
   @Column()
-  roman: string;
+  targetId: number;
+
+  @Column()
+  upVoteCount: number;
+
+  @Column()
+  downVoteCount: number;
 
   @Column()
   status: string;
-  
 };

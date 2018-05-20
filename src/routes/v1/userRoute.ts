@@ -9,7 +9,7 @@ import UserService from '@services/user/UserService';
 import UserParam from '@models/user/UserParam';
 
 export default function userRoute(router) {
-  router.route(ApiURL.USERS_NEW)
+  router.route(ApiURL.USER_NEW)
     /**
      * User sign up
      */
@@ -38,7 +38,7 @@ export default function userRoute(router) {
       return result; 
     }))
 
-  router.route(ApiURL.USERS_USERID)
+  router.route(ApiURL.USERS_$USERID)
     /**
     * 회원정보가져오기
     */

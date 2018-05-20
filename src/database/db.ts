@@ -1,11 +1,23 @@
-// import * as knex from 'knex';
+import { createConnections } from "typeorm";
+import * as path from 'path';
 
-// import knexFile from './knexfile';
-// import Logger from '@src/modules/Logger';
+import marmoymConfig from '@config/marmoymConfig';
 
-// const ENV = process.env.NODE_ENV;
-// Logger.info(`knex config: ${JSON.stringify(knexFile[ENV])}`);
+const dbConfig = marmoymConfig.db;
+const ENTITIES_PATH = path.resolve(__dirname, 'entities');
+const env = process.env.NODE_ENV || 'development';
 
-// export default knex(knexFile[ENV]);
+export default function db() {
+  return createConnections([
+    {
+      name: DB1,
+      entities: [
+        `${ENTITIES_PATH}/**/*.js`
+      ],
+      synchronize: true,
+      ...dbConfig[DB1][env],
+    },
+  ]);
+};
 
-export default {};
+export const DB1 = 'db1';
