@@ -1,17 +1,7 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  JoinTable,
-  ManyToMany,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  OneToOne, 
-} from "typeorm";
+import {Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne,} from 'typeorm';
 
 import BaseEntity from '@entities/BaseEntity';
-import { DB1 } from '@database/db';
+import {DB1} from '@database/db';
 import Pos from '@entities/Pos';
 import Term from '@entities/Term';
 import Usage from '@entities/Usage';
@@ -21,7 +11,7 @@ import Vote from '@entities/Vote';
 @Entity({ database: DB1 })
 export default class Definition extends BaseEntity {
   @Column()
-  label: string;
+  public label: string;
 
   @ManyToOne((type) => Term, {
     cascade: true,
@@ -29,30 +19,30 @@ export default class Definition extends BaseEntity {
   @JoinColumn({
     name: 'termId',
   })
-  term: Term;
+  public term: Term;
 
   @ManyToOne((type) => User)
   @JoinColumn({
     name: 'userId',
   })
-  user: User;
+  public user: User;
 
   @Column({
     default: 'N',
   })
-  status: string;
+  public status: string;
   
-  @ManyToMany(type => Pos)
+  @ManyToMany((type) => Pos)
   @JoinTable()
-  pos: Pos[];
+  public pos: Pos[];
 
-  @OneToMany(type => Usage, usage => usage.definition, {
+  @OneToMany((type) => Usage, (usage) => usage.definition, {
     cascade: true,
     eager: true,
   })
-  usage: Usage[];
+  public usage: Usage[];
 
-  @OneToOne(type => Vote)
+  @OneToOne((type) => Vote)
   @JoinColumn()
-  vote: Vote;
+  public vote: Vote;
 };

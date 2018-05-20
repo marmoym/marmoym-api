@@ -1,35 +1,27 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToMany,
-  ManyToOne,
-  PrimaryGeneratedColumn, 
-} from "typeorm";
+import {Column, Entity, JoinColumn, ManyToOne} from 'typeorm';
 
 import BaseEntity from '@entities/BaseEntity';
-import { DB1 } from '@database/db';
-import Term from '@entities/Term';
+import {DB1} from '@database/db';
 import User from '@entities/User';
 
 @Entity({ database: DB1 })
 export default class VoteInstance extends BaseEntity {
   @Column()
-  targetType: string;
+  public targetType: string;
 
   @Column()
-  targetId: number;
+  public targetId: number;
 
   @ManyToOne((type) => User)
   @JoinColumn({
     name: 'userId',
   })
-  user: User;
+  public user: User;
 
   @Column()
-  action: string;
+  public action: string;
 
   @Column()
-  status: string;
-  
+  public status: string;
+
 };

@@ -1,30 +1,20 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToMany,
-  ManyToOne,
-  
-  PrimaryGeneratedColumn, 
-} from "typeorm";
+import {Column, Entity,} from 'typeorm';
 
 import BaseEntity from '@entities/BaseEntity';
-import { DB1 } from '@database/db';
-import Term from '@entities/Term';
-import User from '@entities/User';
+import {DB1} from '@database/db';
 
 @Entity({ database: DB1 })
 export default class Pos extends BaseEntity {
   @Column()
-  label: string;
+  public label: string;
 
   @Column({
     nullable: true,
   })
-  labelEn: string;
+  public labelEn: string;
 
   @Column({
     default: 'N',
   })
-  status: string;
+  public status: string;
 };

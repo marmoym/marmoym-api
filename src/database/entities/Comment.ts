@@ -8,28 +8,28 @@ import Vote from '@entities/Vote';
 @Entity({database: DB1})
 export default class Comment extends BaseEntity {
   @Column()
-  private parentId: number;
+  public parentId: number;
 
   @Column()
-  private gparentId: number;
+  public gparentId: number;
 
   @Column()
-  private targetType: string;
+  public targetType: string;
 
   @Column()
-  private targetId: number;
+  public targetId: number;
 
   @ManyToOne((type) => User)
   @JoinColumn({
     name: 'userId',
   })
-  private user: User;
+  public user: User;
 
-  @OneToOne(type => Vote)
+  @OneToOne((type) => Vote)
   @JoinColumn()
-  private vote: Vote;
+  public vote: Vote;
 
   @Column()
-  private status: string;
+  public status: string;
 };
   

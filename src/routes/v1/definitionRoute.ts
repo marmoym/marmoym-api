@@ -13,6 +13,7 @@ import { requireNonEmpty, optional } from '@src/utils/objectUtils';
 import Term from '@entities/Term';
 import Usage from '@entities/Usage';
 import User from '@entities/User';
+import Comment from '@entities/Comment';
 
 function definitionRoute(router) {
   router.route(ApiURL.DEFINITIONS)
@@ -38,6 +39,9 @@ function definitionRoute(router) {
       definition.user = user;
       definition.pos = [ pos ];
       definition.usage = [ usage ];
+      const comment = new Comment();
+      comment.parentId
+
 
       const definitionRepo = getConnection(DB1).getRepository(Definition);
 

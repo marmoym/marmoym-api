@@ -1,24 +1,18 @@
-import {
-  Column,
-  Entity,
-  ManyToMany,
-  ManyToOne,
-  PrimaryGeneratedColumn, 
-} from "typeorm";
+import {Column, Entity, PrimaryGeneratedColumn,} from 'typeorm';
 
 
-import { DB1 } from '@database/db';
+import {DB1} from '@database/db';
 
 @Entity({ database: DB1 })
 export default class User {
   @PrimaryGeneratedColumn()
-  id: number;
+  public id: number;
 
   @Column()
-  label: string;
+  public label: string;
 
   @Column({
     default: 'N',
   })
-  status: string;
+  public status: string;
 };
