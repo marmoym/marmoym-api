@@ -19,8 +19,8 @@
   "author": "tymsai",
   "license": "ISC",
   "devDependencies": {
-    "@types/body-parser": "^1.16.3",
-    "@types/express": "^4.0.35",
+    "@types/body-parser": "^1.17.0",
+    "@types/express": "^4.11.1",
     "@types/mocha": "^2.2.41",
     "@types/node": "^7.0.14",
     "@types/sequelize": "^4.0.51",
@@ -37,6 +37,7 @@
     "gulp-typescript": "^4.0.2",
     "mocha": "^3.4.2",
     "morgan": "^1.9.0",
+    "reflect-metadata": "^0.1.12",
     "tslint": "^5.8.0",
     "typescript": "^2.8.3",
     "winston-daily-rotate-file": "^3.0.2"
@@ -45,15 +46,12 @@
     "bcrypt": "^1.0.3",
     "body-parser": "^1.17.1",
     "cors": "^2.8.4",
-    "express": "^4.15.2",
+    "express": "^4.16.3",
     "jsonwebtoken": "^7.4.0",
     "knex": "^0.13.0",
-    "mariasql": "^0.2.6",
     "ms": "^2.1.1",
-    "mysql": "^2.14.1",
-    "mysql2": "^1.4.2",
-    "pg": "^7.4.1",
-    "sequelize": "^3.30.4",
+    "pg": "^7.4.3",
+    "typeorm": "^0.2.5",
     "winston": "3.0.0-rc4"
   }
 }

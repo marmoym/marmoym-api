@@ -1,16 +1,21 @@
-import BaseEntity from '@entities/BaseEntity';
+import {
+  Column,
+  Entity,
+  ManyToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn, 
+} from "typeorm";
 
-class User extends BaseEntity {
-  public static _NAME: string = 'user';
-  public static USERNAME: string = 'username';
-  public static PASSWORD: string = 'password';
-  public static EMAIL: string = 'email';
-  public static KARMA: string = 'karma';
-  public static STATUS: string = 'status';
+import { DB1 } from '@database/connections';
 
-  constructor(param: User) {
-    super();
-  }
-}
+@Entity({ database: DB1 })
+export default class User {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-export default User;
+  @Column()
+  label: string;
+
+  @Column()
+  status: string;
+};

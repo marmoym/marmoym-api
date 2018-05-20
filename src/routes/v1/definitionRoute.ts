@@ -8,6 +8,11 @@ import DefinitionGetService from '@services/Definition/DefinitionGetService';
 import DefinitionGetParam from '@models/definition/DefinitionGetParam';
 import { requireNonEmpty, optional } from '@src/utils/objectUtils';
 
+import { getConnection, getRepository } from "typeorm";
+import Definition from '@entities/Definition';
+import Term from '@entities/Term';
+import User from '@entities/User';
+
 function definitionRoute(router) {
   router.route(ApiURL.DEFINITIONS)
     /**
@@ -15,13 +20,34 @@ function definitionRoute(router) {
      * Definitions 가져오기
      */
     .post(asyncWrapper(async (req, res) => {
-      const param = new DefinitionGetParam({
-        page: optional(req.body.page).orElse(1),
-        // page: optional(req.body.page).orElse(1),
-        search: req.body.search,
-      });
+      const term = new Term();
+      term.label = '앙 기모띠';
+      term.roman = 'ang';
+      term.status = 'N';
+
+      const definition = new Definition();
+      definition.label = '기분이 좋다2';
+      definition.term = term;
+
+      const user = new User();
+      user.id = 2;
+      definition.user = user;
+            
+      const definitionRepo = getConnection('db1').getRepository(Definition);
+
+      definitionRepo.save(definition)
+        .then((definition) => {
+          console.log(123, definition);
+        });
+
+      // const param = new DefinitionGetParam({
+      //   page: optional(req.body.page).orElse(1),
+      //   // page: optional(req.body.page).orElse(1),
+      //   search: req.body.search,
+      // });
       
-      return DefinitionGetService.getDefinitions(param);
+      // return DefinitionGetService.getDefinitions(param);
+      return "1";
     }));
 
   router.route(ApiURL.DEFINITIONS_DEFINITIONID)

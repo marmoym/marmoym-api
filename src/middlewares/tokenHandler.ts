@@ -11,7 +11,7 @@ import AppError from "@models/AppError";
  async function _verifyUserToken(token: string, userId: number) {
   let decoded;
   try {
-    decoded = jwt.verify(token, marmoymConfig.auth.jwtSecret);
+    decoded = jwt.verify(token, marmoymConfig.auth['jwtSecret']);
     winston.debug('JWT decoded: ', decoded);
   } catch(err) {
     // throw new AppError(ErrorType.TOKEN_INVALID);

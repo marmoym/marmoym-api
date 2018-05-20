@@ -1,16 +1,33 @@
-import BaseEntity from '@entities/BaseEntity';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn, 
+} from "typeorm";
 
-class Definition extends BaseEntity {
-  public static _NAME: string = 'definition';
-  public static LABEL: string = 'label';
-  public static TERM_ID: string = 'term_id';
-  public static USER_ID: string = 'user_id';
-  public static VOTE_ID: string = 'vote_id';
-  public static STATUS: string = 'status';
+import { DB1 } from '@database/connections';
+import Term from '@entities/Term';
+import User from '@entities/User';
 
-  constructor(param: Definition) {
-    super();
-  }
-}
+@Entity({ database: DB1 })
+export default class Definition {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-export default Definition;
+  @Column()
+  label: string;
+
+  @ManyToOne((type) => Term, {
+    cascade: true,
+  })
+  @JoinColumn({
+    name: 'term_id',
+  })
+  term: Term;
+
+  @ManyToOne((type) => User)
+  user: User;
+
+};

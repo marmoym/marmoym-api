@@ -4,6 +4,11 @@ export default {
     label: 'EMAIL_ALREADY_USED',
     message: 'email already used'
   },
+  INITIALIZATION_ERROR: {
+    code: 500000,
+    label: 'INITIALIZATION_ERROR',
+    message: 'App is not initialized',
+  },
   NOT_ERROR_OBJECT: {
     code: 401006,
     label: 'NOT_ERROR_OBJECT',

@@ -2,10 +2,8 @@
   "compilerOptions": {
     "allowJs": true,
     "baseUrl": "./",
-    "lib": [
-      "es6",
-      "es7"
-    ],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "module": "commonjs",  
     "moduleResolution": "node",
     "outDir": "./tsc_out/",
@@ -47,12 +45,17 @@
         "src/utils/*"
       ]
     },
+    "lib": [
+      "es6",
+      "es7"
+    ],
     "target": "es6"
   },
   "include": [
     "src/**/*"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "**/*/__temp"
   ]
 }

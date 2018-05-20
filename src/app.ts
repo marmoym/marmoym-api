@@ -9,11 +9,10 @@ import * as morgan from 'morgan';
 import AppRouter from '@routes/AppRouter';
 import AppStatus from '@constants/AppStatus';
 import errorHandler from './middlewares/errorHandler';
-import db from '@database/db';
-import KnexDAO from '@daos/knex/KnexDAO';
+import initialize from './initialize';
 import Logger from '@modules/Logger';
 import marmoymConfig from '@config/marmoymConfig';
-import Token from '@modules/Token';
+import ResponseType from '@models/ResponseType';
 
 const app: express.Application = express();
 
@@ -23,25 +22,9 @@ const state = {
   dirname: __dirname,
 };
 
-/**
- * Initialize
- */
-Token.initialize({
-  privateKey: marmoymConfig.auth.privateKey,
-  tokenDuration: marmoymConfig.auth.tokenDuration,
+initialize().then((res) => {
+  state.status = AppStatus.LAUNCHED;
 });
-
-// Connect to Database and check sanity
-KnexDAO.getMigrations(db, {})
-  .then((res) => {
-    Logger.info('DB connection success');
-    state.status = AppStatus.LAUNCHED;
-    app.emit('appStarted');
-  })
-  .catch((err) => {
-    Logger.error('DB connection error');
-    state.status = AppStatus.DATABASE_ERROR;
-  });
 
 app.use(morgan('tiny'))
 app.use(cors());
@@ -55,10 +38,11 @@ app.use("/", (req, res, next) => {
   } else if (state.status === AppStatus.DATABASE_ERROR) {
     res.status(500)
       .send({
-        // code: ResponseType.DATABASE_CONNECTION_FAIL.code,
-        // message: ResponseType.DATABASE_CONNECTION_FAIL.message,
+        code: ResponseType.INITIALIZATION_ERROR.code,
+        message: ResponseType.INITIALIZATION_ERROR.message,
       });
   } else {
+    console.log(123, 3);
     next();
   }
 }, AppRouter.routes());

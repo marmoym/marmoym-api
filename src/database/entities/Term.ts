@@ -1,14 +1,27 @@
-import BaseEntity from '@entities/BaseEntity';
+import {
+  Column,
+  Entity,
+  ManyToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn, 
+} from "typeorm";
 
-class Term extends BaseEntity {
-  public static _NAME: string = 'term';
-  public static LABEL: string = 'label';
-  public static ROMAN: string = 'roman';
-  public static STATUS: string = 'status';
+import { DB1 } from '@database/connections';
 
-  constructor(param: Term) {
-    super();
-  }
-}
+@Entity({ database: DB1 })
+export default class Term {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-export default Term;
+  @Column()
+  label: string;
+
+  @Column()
+  roman: string;
+
+  @Column()
+  status: string;
+
+  
+  
+};
