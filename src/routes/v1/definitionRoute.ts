@@ -2,7 +2,7 @@ import ApiURL from '@models/ApiURL';
 import asyncWrapper from '@middlewares/asyncWrapper';
 
 import DefinitionGetParam from '@models/definition/DefinitionGetParam';
-import {optional} from '@src/utils/objectUtils';
+import {optional, requireNonEmpty} from '@src/utils/objectUtils';
 import DefinitionGetService from '@services/Definition/DefinitionGetService';
 
 function definitionRoute(router) {
@@ -20,6 +20,11 @@ function definitionRoute(router) {
     
   router.route(ApiURL.DEFINITIONS_$DEFINITIONID)
     .post(asyncWrapper(async (req, res) => {
+      const param = new DefinitionGetParam({
+        definitionId: requireNonEmpty(req.params.definitionId),
+      });
+      console.log(param.definitionId);
+      return DefinitionGetService.getDefinitionById(param);
 
     }));
 }

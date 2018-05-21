@@ -21,6 +21,18 @@ export default class DefinitionGetService {
       // todos
     }  
   }
+
+  public static async getDefinitionById(param: DefinitionGetParam) {
+    try {
+
+      const definitionRepo = getCustomRepository(DefinitionRepository, DB1);
+      const data = await definitionRepo.findOne(param.definitionId);
+      const result = new DefinitionGetResult(data);
+      return result;
+    } catch (err) {
+      // todos
+    }
+  }
 };
 
 // export async function getDefinitions(param: DefinitionGetParam): Promise<any> {

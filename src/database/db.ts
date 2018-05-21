@@ -15,7 +15,6 @@ export default function db() {
         `${ENTITIES_PATH}/**/*.js`
       ],
       synchronize: true,
-      dropSchema: true,
       ...dbConfig[DB1][env],
     },
   ]);

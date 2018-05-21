@@ -2,20 +2,20 @@ import ApiParam from '@models/ApiParam';
 import Definition from '@entities/Definition';
 
 export default class DefinitionGetParam extends ApiParam {
-  public definitions: Definition[];
+  public definitionId: number;
   public limit: number;
   public offset: number;
 
   constructor(param) {
     super();
-    this.definitions = param.definitions;
+    this.definitionId = param.definitionId;
     this.limit = param.limit;
     this.offset = param.offset;
   }
 
   values(): any {
     return {
-      definitions: this.definitions,
+      ...(this.definitionId ? {definitionId: this.definitionId} : {}),
     };
   }
 };
