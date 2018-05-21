@@ -13,15 +13,24 @@ export default class Definition extends BaseEntity {
   @Column()
   public label: string;
 
+  @Column()
+  public termId: number;
+
   @ManyToOne((type) => Term, {
     cascade: true,
+    eager: true,
   })
   @JoinColumn({
     name: 'termId',
   })
   public term: Term;
 
-  @ManyToOne((type) => User)
+  @Column()
+  public userId: number;
+
+  @ManyToOne((type) => User, {
+    eager: true,
+  })
   @JoinColumn({
     name: 'userId',
   })
@@ -32,7 +41,9 @@ export default class Definition extends BaseEntity {
   })
   public status: string;
   
-  @ManyToMany((type) => Pos)
+  @ManyToMany((type) => Pos, {
+    eager: true,
+  })
   @JoinTable()
   public poss: Pos[];
 
@@ -42,7 +53,14 @@ export default class Definition extends BaseEntity {
   })
   public usages: Usage[];
 
-  @OneToOne((type) => Vote)
-  @JoinColumn()
+  @Column()
+  public voteId: number;
+
+  @OneToOne((type) => Vote, {
+    eager: true,
+  })
+  @JoinColumn({
+    name: 'voteId',
+  })
   public vote: Vote;
 };

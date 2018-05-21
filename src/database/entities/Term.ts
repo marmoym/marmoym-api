@@ -1,7 +1,8 @@
-import {Column, Entity} from 'typeorm';
+import {Column, Entity, JoinColumn, ManyToOne} from 'typeorm';
 
 import BaseEntity from '@entities/BaseEntity';
 import {DB1} from '@database/db';
+import User from '@entities/User';
 
 @Entity({ database: DB1 })
 export default class Term extends BaseEntity {
@@ -13,5 +14,10 @@ export default class Term extends BaseEntity {
 
   @Column()
   public status: string;
-  
+
+  @ManyToOne((type) => User)
+  @JoinColumn({
+    name: 'userId',
+  })
+  public user: User;
 };

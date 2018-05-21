@@ -13,4 +13,6 @@ export default class ApiURL {
 
   public static SESSION_NEW = '/session/new';
   public static SESSION = '/session';
+
+  public static DEBUG_MAKESEED = '/debug/makeSeed';
 };

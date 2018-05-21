@@ -14,10 +14,10 @@ export default class User extends BaseEntity {
   public password: string;
 
   @Column()
-  public emaiil: string;
+  public email: string;
 
   @Column()
-  public karma: string;
+  public karma: number;
 
   @Column({
     default: 'N',
