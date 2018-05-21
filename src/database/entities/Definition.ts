@@ -34,13 +34,13 @@ export default class Definition extends BaseEntity {
   
   @ManyToMany((type) => Pos)
   @JoinTable()
-  public pos: Pos[];
+  public poss: Pos[];
 
   @OneToMany((type) => Usage, (usage) => usage.definition, {
     cascade: true,
     eager: true,
   })
-  public usage: Usage[];
+  public usages: Usage[];
 
   @OneToOne((type) => Vote)
   @JoinColumn()
