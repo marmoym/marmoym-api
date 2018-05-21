@@ -1,43 +1,22 @@
 import AppError from '@models/AppError';
-import db from '@database/db';
-// import DefinitionSelectDAO from '@daos/Definition/DefinitionSelectDAO';
+import {DB1} from '@database/db';
 import DefinitionGetParam from '@models/definition/DefinitionGetParam';
+import {DefinitionRepository} from '@src/repositories/DefinitionRepository';
+import {getCustomRepository} from 'typeorm';
 import DefinitionGetResult from '@models/definition/DefinitionGetResult';
 
 export default class DefinitionGetService {
+
   public static async getDefinitions(param: DefinitionGetParam) {
     try {
-      // const data = await DefinitionSelectDAO.selectDefinitions(param.values());
-      // let _data = [];
-      // data.map((d) => {
-      //   if (_data[d.definition_id] === undefined) {
-      //     _data[d.definition_id] = {
-      //       definition_id: d.definition_id,
-      //       definition_label: d.definition_label,
-      //       term_id: d.term_id,
-      //       term_label: d.term_label,
-      //       pos: [],
-      //       usage: [],
-      //       created_at: d.created_at,
-      //       updated_at: d.updated_at
-      //     };
-      //     if (d.pos_label !== null) {
-      //       _data[d.definition_id]['pos'].push(d.pos_label);
-      //     }
-      //     if (d.usage_label !== null) {
-      //       _data[d.definition_id]['usage'].push(d.usage_label);
-      //     }
-      //   } else {
-      //     if ((d.pos_label !== null) && (_data[d.definition_id]['pos'].indexOf(d.pos_label) === -1)) {
-      //       _data[d.definition_id]['pos'].push(d.pos_label);
-      //     }
-      //     if ((d.usage_label !== null) && (_data[d.definition_id]['usage'].indexOf(d.usage_label) === -1)) {
-      //       _data[d.definition_id]['usage'].push(d.usage_label);
-      //     }
-      //   }
-      // });
-      // const result = new DefinitionGetResult(_data);
-      // return result;
+
+      const definitionRepo = getCustomRepository(DefinitionRepository,DB1);
+      const data = await definitionRepo.find({
+        skip: param.offset,
+        take: param.limit,
+      });
+      const result = new DefinitionGetResult(data);
+      return result;
     } catch (err) {
       // todos
     }  
