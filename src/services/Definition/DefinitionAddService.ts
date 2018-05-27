@@ -1,4 +1,3 @@
-import db from '@database/db';
 // import * as DefinitionInsertDAO from '@daos/Definition/DefinitionInsertDAO';
 // import * as TermSelectDAO from '@daos/Term/TermSelectDAO';
 // import * as TermInsertDAO from '@daos/Term/TermInsertDAO';

@@ -1,18 +1,18 @@
 // For TypeORM
 import "reflect-metadata";
 
-import db from '@database/db';
+import Database from '@modules/Database';
 import Logger from '@modules/Logger';
 import marmoymConfig from '@config/marmoymConfig';
 import Token from '@modules/Token';
 
-export default async function initialize() {
+export default function initialize() {
   Token.initialize({
     privateKey: marmoymConfig.auth.privateKey,
     tokenDuration: marmoymConfig.auth.tokenDuration,
   });
 
-  const conn = db();
+  const conn = Database.initialize();
   conn.then((connections) => {
     Logger.info('Total %d Connections: %j', connections.length, connections.map((c) => {
       return c.options;

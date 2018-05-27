@@ -1,7 +1,7 @@
 import {Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne} from 'typeorm';
 
 import BaseEntity from '@entities/BaseEntity';
-import {DB1} from '@database/db';
+import { DB1 } from '@modules/Database';
 import Pos from '@entities/Pos';
 import Term from '@entities/Term';
 import Usage from '@entities/Usage';

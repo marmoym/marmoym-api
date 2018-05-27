@@ -1,5 +1,5 @@
 import AppError from '@models/AppError';
-import {DB1} from '@database/db';
+import { DB1 } from '@modules/Database';
 import DefinitionGetParam from '@models/definition/DefinitionGetParam';
 import {DefinitionRepository} from '@src/repositories/DefinitionRepository';
 import {getCustomRepository} from 'typeorm';

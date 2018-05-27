@@ -1,4 +1,6 @@
 export default class ApiURL {
+  public static DEBUG = '/debug';
+
   public static DEFINITION_NEW = '/definition/new';
 
   public static DEFINITIONS = '/definitions'; 
@@ -14,5 +16,5 @@ export default class ApiURL {
   public static SESSION_NEW = '/session/new';
   public static SESSION = '/session';
 
-  public static DEBUG_MAKESEED = '/debug/makeSeed';
+  public static ADMIN_SEED = '/admin/seed';
 };

@@ -6,17 +6,17 @@ import * as cors from 'cors';
 import * as bodyParser from 'body-parser';
 import * as morgan from 'morgan';
 
-import AppRouter from '@routes/AppRouter';
+// import AppRouter from '@routes/AppRouter';
 import AppStatus from '@constants/AppStatus';
 import errorHandler from './middlewares/errorHandler';
 import initialize from './initialize';
 import Logger from '@modules/Logger';
 import marmoymConfig from '@config/marmoymConfig';
 import ResponseType from '@models/ResponseType';
+import routes from '@routes/routes';
 
 const app: express.Application = express();
 
-// State that changes according to the DB launch status
 const state = {
   status: AppStatus.LAUNCHING,
   dirname: __dirname,
@@ -30,7 +30,7 @@ app.use(morgan('tiny'))
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use("/", (req, res, next) => {
+app.use((req, res, next) => {
   if (state.status === AppStatus.LAUNCHING) {
     res.send({
       message: 'App is launching. Reload after 15 seconds.',
@@ -44,10 +44,10 @@ app.use("/", (req, res, next) => {
   } else {
     next();
   }
-}, AppRouter.routes());
+});
+routes(app);
 app.use(errorHandler);
 
-// Launch the server
 app.listen(marmoymConfig.app.port, function(err) {
   if (err) {
     return console.error(err);
@@ -56,3 +56,6 @@ app.listen(marmoymConfig.app.port, function(err) {
 });
 
 export default app;
+export {
+  state,
+};

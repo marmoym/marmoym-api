@@ -17,11 +17,8 @@
       "@daos/*": [
         "src/daos/*"
       ],
-      "@database/*": [
-        "src/database/*"
-      ],
       "@entities/*": [
-        "src/database/entities/*"
+        "src/entities/*"
       ],
       "@middlewares/*": [
         "src/middlewares/*"

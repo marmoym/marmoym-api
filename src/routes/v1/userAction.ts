@@ -1,7 +1,6 @@
 import { Router, Request, Response } from 'express'
 
 import asyncWrapper from '@middlewares/asyncWrapper';
-import db from '@database/db';
 import ApiURL from '@models/ApiURL';
 import { requireNonEmpty } from '@utils/objectUtils';
 import tokenHandler from '@src/middlewares/tokenHandler';

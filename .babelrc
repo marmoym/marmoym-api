@@ -5,9 +5,8 @@
         "alias": {
           "@config": "./tsc_out/config",
           "@constants": "./tsc_out/constants",
-          "@database": "./tsc_out/database",
           "@daos": "./tsc_out/daos",
-          "@entities": "./tsc_out/database/entities",
+          "@entities": "./tsc_out/entities",
           "@middlewares": "./tsc_out/middlewares",
           "@models": "./tsc_out/models",
           "@modules": "./tsc_out/modules",

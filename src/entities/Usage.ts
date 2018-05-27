@@ -1,7 +1,7 @@
 import {Column, Entity, ManyToOne} from 'typeorm';
 
 import BaseEntity from '@entities/BaseEntity';
-import {DB1} from '@database/db';
+import { DB1 } from '@modules/Database';
 import Definition from '@entities/Definition';
 
 @Entity({ database: DB1 })

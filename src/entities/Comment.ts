@@ -1,7 +1,7 @@
 import {Column, Entity, JoinColumn, ManyToOne, OneToOne} from 'typeorm';
 
 import BaseEntity from '@entities/BaseEntity';
-import {DB1} from '@database/db';
+import { DB1 } from '@modules/Database';
 import User from '@entities/User';
 import Vote from '@entities/Vote';
 

@@ -5,7 +5,6 @@ import * as ms from 'ms';
 import AppError from "@models/AppError";
 import Cookie from '@models/Cookie';
 import Crypt from '@modules/Crypt';
-import db from '@database/db';
 import Logger from '@modules/Logger'
 import ResponseType from '@models/ResponseType';
 import Token from '@modules/Token';

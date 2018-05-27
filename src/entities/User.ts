@@ -1,7 +1,7 @@
 import {Column, Entity} from 'typeorm';
 
 
-import {DB1} from '@database/db';
+import { DB1 } from '@modules/Database';
 import BaseEntity from '@entities/BaseEntity';
 
 @Entity({ database: DB1 })
