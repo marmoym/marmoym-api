@@ -12,10 +12,15 @@ export default [
     path: ApiURL.DEFINITIONS,
   },
   {
-    action: DefinitionAction.postDefinitions,
+    action: DefinitionAction.postDefinitionsDefinitionid,
     method: HttpMethod.POST,
-    path: ApiURL.DEFINITION_NEW,
+    path: ApiURL.DEFINITIONS_$DEFINITIONID,
   },
+  // {
+  //   action: DefinitionAction.postDefinitionNew,
+  //   method: HttpMethod.POST,
+  //   path: ApiURL.DEFINITION_NEW,
+  // },
   {
     action: AdminAction.postAdminSeed,
     method: HttpMethod.GET,
