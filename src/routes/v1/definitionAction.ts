@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 
-import ApiURL from '@models/ApiURL';
 import DefinitionGetParam from '@models/definition/DefinitionGetParam';
-import DefinitionGetService from '@services/Definition/DefinitionGetService';
+import DefinitionService from '@services/Definition/DefinitionService';
 import { optional, requireNonEmpty } from '@src/utils/objectUtils';
+import DefinitionAddParam from '@models/definition/DefinitionAddParam';
 
 export async function postDefinitions(request: Request, response: Response) {
   const param = new DefinitionGetParam({
@@ -12,12 +12,21 @@ export async function postDefinitions(request: Request, response: Response) {
     search: request.body.search,
   });
   
-  return DefinitionGetService.getDefinitions(param);
+  return DefinitionService.getDefinitions(param);
 };
 
 export async function postDefinitionsDefinitionid(request: Request, response: Response) {
   const param = new DefinitionGetParam({
     definitionId: requireNonEmpty(request.params.definitionId),
   });
-  return DefinitionGetService.getDefinitionById(param);
+  return DefinitionService.getDefinitionById(param);
 };
+
+export async function postDefinitionNew(request: Request, response: Response) {
+
+  console.log(request.body);
+  const param = new DefinitionAddParam({
+    definition: requireNonEmpty(request.body.definition),
+  });
+  return DefinitionService.addDefinition(param);
+}

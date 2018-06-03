@@ -17,11 +17,11 @@ export default [
     method: HttpMethod.POST,
     path: ApiURL.DEFINITIONS_$DEFINITIONID,
   },
-  // {
-  //   action: DefinitionAction.postDefinitionNew,
-  //   method: HttpMethod.POST,
-  //   path: ApiURL.DEFINITION_NEW,
-  // },
+  {
+    action: DefinitionAction.postDefinitionNew,
+    method: HttpMethod.POST,
+    path: ApiURL.DEFINITION_NEW,
+  },
   {
     action: AdminAction.postAdminSeed,
     method: HttpMethod.GET,

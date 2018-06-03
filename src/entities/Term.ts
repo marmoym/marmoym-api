@@ -9,7 +9,9 @@ export default class Term extends BaseEntity {
   @Column()
   public label: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   public roman: string;
 
   @Column()

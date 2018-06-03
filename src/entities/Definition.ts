@@ -17,7 +17,6 @@ export default class Definition extends BaseEntity {
   public termId: number;
 
   @ManyToOne((type) => Term, {
-    cascade: true,
     eager: true,
   })
   @JoinColumn({
@@ -58,6 +57,7 @@ export default class Definition extends BaseEntity {
 
   @OneToOne((type) => Vote, {
     eager: true,
+    cascade: true,
   })
   @JoinColumn({
     name: 'voteId',

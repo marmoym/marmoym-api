@@ -12,7 +12,9 @@ export default class User extends BaseEntity {
   })
   public username: string;
 
-  @Column()
+  @Column({
+    select: false,
+  })
   public password: string;
 
   @Column()

@@ -4,8 +4,12 @@ import DefinitionGetParam from '@models/definition/DefinitionGetParam';
 import {DefinitionRepository} from '@src/repositories/DefinitionRepository';
 import {getCustomRepository} from 'typeorm';
 import DefinitionGetResult from '@models/definition/DefinitionGetResult';
+import DefinitionAddParam from '@models/definition/DefinitionAddParam';
+import {TermRepository} from '@src/repositories/TermRepository';
+import Term from '@entities/Term';
+import Vote from '@entities/Vote';
 
-export default class DefinitionGetService {
+export default class DefinitionService {
 
   public static async getDefinitions(param: DefinitionGetParam) {
     try {
@@ -17,19 +21,57 @@ export default class DefinitionGetService {
       const result = new DefinitionGetResult(data);
       return result;
     } catch (err) {
-      // todo
+      // todos
     }  
   }
 
   public static async getDefinitionById(param: DefinitionGetParam) {
     try {
-
       const definitionRepo = getCustomRepository(DefinitionRepository, DB1);
       const data = await definitionRepo.findOne(param.definitionId);
       const result = new DefinitionGetResult(data);
       return result;
     } catch (err) {
       // todos
+    }
+  }
+
+  public static async addDefinition(param: DefinitionAddParam) {
+    try {
+      console.log("INN");
+      console.log(param.definition);
+      console.log(param.definition.term);
+      console.log(param.definition.term.label);
+      const termRepo = getCustomRepository(TermRepository, DB1);
+      const checkTerm = await termRepo.findAndCount({label: param.definition.term.label});
+      if (checkTerm[1] === 0) {
+        const term = new Term();
+        term.label = param.definition.term.label;
+        term.status = 'N';
+        const insertedTerm = await termRepo.save(term)
+        console.log('insertedTerm', insertedTerm);
+        param.definition.termId = insertedTerm.id;
+      } else {
+        console.log(232323, checkTerm[0][0].id);
+        param.definition.termId = checkTerm[0][0].id;
+      }
+      param.definition.userId = 1;
+
+      // const vote = new Vote();
+      // vote.downVoteCount = 0;
+      // vote.upVoteCount = 0;
+      // vote.targetType = 'D';
+      // vote.targetId = i;
+      // vote.status = 'N';
+      param.definition.status = "N";
+
+      console.log(1,param.definition);
+      const definitionRepo = getCustomRepository(DefinitionRepository, DB1);
+      const data = await definitionRepo.save(param.definition);
+      console.log("RESULT", data);
+      return data;
+    } catch (err) {
+
     }
   }
 };
