@@ -1,17 +1,21 @@
-import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcrypt';
+import { getCustomRepository } from 'typeorm';
+import * as jwt from 'jsonwebtoken';
 import * as ms from 'ms';
 
 import AppError from "@models/AppError";
 import Cookie from '@models/Cookie';
 import Crypt from '@modules/Crypt';
+import { DB1 } from '@modules/Database';
 import Logger from '@modules/Logger'
+import marmoymConfig from '@config/marmoymConfig';
 import ResponseType from '@models/ResponseType';
 import Token from '@modules/Token';
-// import UserDAO from '@daos/User/UserDAO';
+import User from '@entities/User';
+import UserParam from '@models/user/UserParam';
 import UserSignInResult from '@models/user/UserSignInResult';
 import UserSignUpResult from '@models/user/UserSignUpResult';
-import marmoymConfig from '@config/marmoymConfig';
+import { UserRepository } from '@repos/UserRepository';
 
 export default class UserSignInService {
   public static async signInUser(param) {
@@ -58,32 +62,36 @@ export default class UserSignInService {
 
   public static async signUpUser(param) {
     try {
-      // Validate if the credential can be registered.
-      // const user = await UserDAO.selectUserByEmail(db, param.values());
-      // if (user !== undefined) {
-      //   throw AppError.of({
-      //     type: ResponseType.USER_ALREADY_REGISTERED,
-      //   });
-      // }
+      const userRepo = getCustomRepository(UserRepository, DB1);
+      
+      const user = await userRepo.find({
+        where: {  
+          email: param.email,
+        },
+      });
 
-      // const hashedPassword = await Crypt.hash({
-      //   data: param.password,
-      //   hashSalt: marmoymConfig.auth.hashSalt,
-      // });
+      if (user.length > 0) {
+        throw AppError.of({
+          type: ResponseType.USER_ALREADY_REGISTERED,
+        });
+      }
 
-      // const result = await db.transaction(async (trx) => {
-      //   const userInserted = await UserDAO.insertUser(trx, {
-      //     ...param.values(),
-      //     password: hashedPassword, 
-      //   });
-      //   return userInserted.rowCount;
-      // });
+      const hashedPassword = await Crypt.hash({
+        data: param.password,
+        hashSalt: marmoymConfig.auth.hashSalt,
+      });
 
-      // return new UserSignUpResult({
-      //   user: {
-      //     email: param.email,
-      //   },
-      // });
+      const result = await userRepo.save(new User({
+        email: param.email,
+        password: hashedPassword,
+        username: param.username,
+      }));
+
+      return new UserSignUpResult({
+        user: {
+          username: result.username,
+        },
+      });
     } catch (err) {
       throw err;
     }

@@ -1,13 +1,15 @@
 import { format } from 'util';
 
-import ResponeType from '@models/ResponseType';
+import ResponseType, { ResponseTypeEntry } from '@models/ResponseType';
 
-export const VERSION = '__version';
+export const VERSION = Symbol('version');
 
 export default class AppError extends Error {
-  public code;
-  public name;
-  static [VERSION] = '0.0.1';
+  static [VERSION] = '0.0.2';
+
+  public code: number;
+  public desc: string;
+  public label: string;
 
   constructor() {
     super();
@@ -19,16 +21,13 @@ export default class AppError extends Error {
     type,
   }: {
     args?: any[],
-    error?,
-    type,
+    error?: Error,
+    type: ResponseTypeEntry,
   }) {
     const apiError = new AppError();
     apiError.code = type.code;
-    apiError.name = type.name;
-    apiError.message = args ? format(type.message, ...args) : type.message;
-    apiError.stack = error && error.stack
-      ? `${apiError.stack}'\nThe error originating from:\n${error.stack}`
-      : apiError.stack;
+    apiError.label = type.label;
+    apiError.desc = args ? format(type.desc, ...args) : type.desc;
     return apiError;
   }
 };

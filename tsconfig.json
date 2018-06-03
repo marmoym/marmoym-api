@@ -8,7 +8,7 @@
     "moduleResolution": "node",
     "outDir": "./tsc_out/",
     "paths": {
-      "@config/*": [ 
+      "@config/*": [
         "src/config/*" 
       ],
       "@constants/*": [
@@ -28,6 +28,9 @@
       ],
       "@modules/*": [
         "src/modules/*"
+      ],
+      "@repos/*": [
+        "src/repositories/*"
       ],
       "@routes/*": [
         "src/routes/*"

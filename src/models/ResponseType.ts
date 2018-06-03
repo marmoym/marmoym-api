@@ -1,92 +1,101 @@
-export default {
+const ResponseType: {
+  [label: string]: ResponseTypeEntry;
+} = {
   EMAIL_ALREADY_USED: {
     code: 401005,
+    desc: 'email already used',
     label: 'EMAIL_ALREADY_USED',
-    message: 'email already used'
   },
   INITIALIZATION_ERROR: {
     code: 500000,
+    desc: 'App is not initialized',
     label: 'INITIALIZATION_ERROR',
-    message: 'App is not initialized',
   },
   NOT_ERROR_OBJECT: {
     code: 401006,
+    desc: 'Not error object',
     label: 'NOT_ERROR_OBJECT',
-    message: 'Not error object',
   },
   REQUEST_TYPE_UNKNOWN: {
     code: 999001,
+    desc: 'Neither validator is defined or incorrect request',
     label: 'REQUEST_TYPE_UNKNOWN',
-    message: 'Neither validator is defined or incorrect request',
   },
   REQUEST_PARAMETER_INSUFFICIENT: {
     code: 999002,
+    desc: 'Parameter is not sufficiently provided',
     label: 'REQUEST_PARAMETER_INSUFFICIENT',
-    message: 'Parameter is not sufficiently provided',
   },
   RESOURCE_NOT_FOUND: {
     code: 404001,
+    desc: 'Resource is not found',
     label: 'RESOURCE_NOT_FOUND',
-    message: 'Resource is not found',
   },
   RESPONSE_NOT_PROVIDED: {
     code: 404002,
+    desc: 'Request is routed but did not get the response',
     label: 'RESPONSE_NOT_PROVIDED',
-    message: 'Request is routed but did not get the response',
   },
   SUCCESS: {
     code: 200000,
+    desc: 'SUCCESS',
     label: 'SUCCESS',
-    message: 'SUCCESS' 
   },
   TERM_NOT_FOUND: {
     code: 403001,
+    desc: 'Term not exist',
     label: 'TERM_NOT_FOUND',
-    message: 'Term not exist' 
   },
   TOKEN_INVALID: {
     code: 402001,
+    desc: 'Invalid token',
     label: 'TOKEN_INVALID',
-    message: 'Invalid token'
   },
   TOKEN_AND_USER_ID_INCOMPATIBLE: {
     code: 402002,
+    desc: 'Not equal user id',
     label: 'TOKEN_AND_USER_ID_INCOMPATIBLE',
-    message: 'Not equal user id'
   },
   RESPONSE_TYPE_NOT_API_RESULT: {
     code: 400001,
+    desc: 'Internal Error has occurred',
     label: 'RESPONSE_TYPE_NOT_API_RESULT',
-    message: 'Response type is not ApiResult. Most likely some undefined Error has occurred',
   },
   USER_DELETE_FAIL: {
     code: 401003,
+    desc: 'no user deleted',
     label: 'USER_DELETE_FAIL',
-    message: 'no user deleted'
   },
   USER_CREDENTIAL_INVALID: {
     code: 401001,
+    desc: 'user credential is invalid: %s',
     label: 'USER_CREDENTIAL_INVALID',
-    message: 'user credential is invalid: %s',
   },
   USER_NOT_FOUND: {
     code: 401000,
+    desc: 'text',
     label: 'USER_NOT_FOUND',
-    message: 'text' // TODO: to be changed soon
   },
   USER_STATUS_PENDING: {
     code: 401006,
+    desc: 'User Status is Pending',
     label: 'USER_STATUS_PENDING',
-    message: 'User Status is Pending'
   },
   USER_UPDATE_VALUES_EMPTY: {
     code: 401002,
+    desc: 'user update values are empty',
     label: 'USER_UPDATE_VALUES_EMPTY',
-    message: 'user update values are empty'
   },
   USER_ALREADY_REGISTERED: {
     code: 401004,
+    desc: 'username is already registered: %s',
     label: 'USER_ALREADY_REGISTERED',
-    message: 'username is already registered: %s',
   },
-}
+};
+
+export default ResponseType;
+export interface ResponseTypeEntry {
+  code: number;
+  desc: string;
+  label: string;
+};

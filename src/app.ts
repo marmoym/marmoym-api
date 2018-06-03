@@ -6,7 +6,6 @@ import * as cors from 'cors';
 import * as bodyParser from 'body-parser';
 import * as morgan from 'morgan';
 
-// import AppRouter from '@routes/AppRouter';
 import AppStatus from '@constants/AppStatus';
 import errorHandler from './middlewares/errorHandler';
 import initialize from './initialize';
@@ -39,7 +38,7 @@ app.use((req, res, next) => {
     res.status(500)
       .send({
         code: ResponseType.INITIALIZATION_ERROR.code,
-        message: ResponseType.INITIALIZATION_ERROR.message,
+        message: ResponseType.INITIALIZATION_ERROR.desc,
       });
   } else {
     next();
