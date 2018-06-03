@@ -8,6 +8,7 @@ import DefinitionAddParam from '@models/definition/DefinitionAddParam';
 import {TermRepository} from '@src/repositories/TermRepository';
 import Term from '@entities/Term';
 import Vote from '@entities/Vote';
+import User from '@entities/User';
 
 export default class DefinitionService {
 
@@ -38,10 +39,6 @@ export default class DefinitionService {
 
   public static async addDefinition(param: DefinitionAddParam) {
     try {
-      console.log("INN");
-      console.log(param.definition);
-      console.log(param.definition.term);
-      console.log(param.definition.term.label);
       const termRepo = getCustomRepository(TermRepository, DB1);
       const checkTerm = await termRepo.findAndCount({label: param.definition.term.label});
       if (checkTerm[1] === 0) {
@@ -49,26 +46,25 @@ export default class DefinitionService {
         term.label = param.definition.term.label;
         term.status = 'N';
         const insertedTerm = await termRepo.save(term)
-        console.log('insertedTerm', insertedTerm);
-        param.definition.termId = insertedTerm.id;
+        param.definition.term.id = insertedTerm.id;
       } else {
-        console.log(232323, checkTerm[0][0].id);
-        param.definition.termId = checkTerm[0][0].id;
+        param.definition.term.id = checkTerm[0][0].id;
       }
-      param.definition.userId = 1;
 
-      // const vote = new Vote();
-      // vote.downVoteCount = 0;
-      // vote.upVoteCount = 0;
-      // vote.targetType = 'D';
-      // vote.targetId = i;
-      // vote.status = 'N';
-      param.definition.status = "N";
+      /// temp user setting
+      const user = new User();
+      user.id = 1;
+      param.definition.user = user;
 
-      console.log(1,param.definition);
+      const vote = new Vote();
+      vote.downVoteCount = 0;
+      vote.upVoteCount = 0;
+      vote.targetType = 'D';
+      vote.status = 'N';
+
+      param.definition.vote = vote;
       const definitionRepo = getCustomRepository(DefinitionRepository, DB1);
       const data = await definitionRepo.save(param.definition);
-      console.log("RESULT", data);
       return data;
     } catch (err) {
 

@@ -70,24 +70,15 @@ export async function postAdminSeed(request: Request, response: Response) {
   await termRepo.save(terms);
   console.log('term Inserted');
 
-  const votes = [];
-  for (let i = 1; i <= 9; i++) {
-    const vote = new Vote();
-    vote.downVoteCount = 0;
-    vote.upVoteCount = 0;
-    vote.targetType = 'D';
-    vote.targetId = i;
-    vote.status = 'N';
-    votes.push(vote);
-  }
-  await voteRepo.save(votes);
-  console.log('vote Inserted');
-
   const defs = [];
   for (let i = 0; i < 9; i++) {
+    console.log(1);
     const def = new Definition();
+    console.log(def);
     def.label = defLabels[i];
-    def.termId = i + 1;
+    const term = new Term();
+    term.id = i + 1;
+    def.term = term;
     const pos = new Pos();
     pos.id = (i % 2) + 1;
     console.log(pos.id);
@@ -96,8 +87,18 @@ export async function postAdminSeed(request: Request, response: Response) {
     usage.label = defUsages[i];
     usage.status = 'N';
     def.usages = [ usage ];
-    def.voteId = i + 1;
-    def.userId = i + 1;
+    const user = new User();
+    user.id = i + 1;
+    def.user = user;
+
+    const vote = new Vote();
+    vote.downVoteCount = 0;
+    vote.upVoteCount = 0;
+    vote.targetType = 'D';
+    vote.status = 'N';
+    def.vote = vote;
+
+    console.log(def);
     defs.push(def);
   }
   await defRepo.save(defs);

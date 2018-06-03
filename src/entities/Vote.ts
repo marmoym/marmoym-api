@@ -8,8 +8,8 @@ export default class Vote extends BaseEntity {
   @Column()
   public targetType: string;
 
-  @Column()
-  public targetId: number;
+  // @Column()
+  // public targetId: number;
 
   @Column()
   public upVoteCount: number;

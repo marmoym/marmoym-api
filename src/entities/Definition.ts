@@ -13,8 +13,8 @@ export default class Definition extends BaseEntity {
   @Column()
   public label: string;
 
-  @Column()
-  public termId: number;
+  // @Column()
+  // public termId: number;
 
   @ManyToOne((type) => Term, {
     eager: true,
@@ -24,8 +24,8 @@ export default class Definition extends BaseEntity {
   })
   public term: Term;
 
-  @Column()
-  public userId: number;
+  // @Column()
+  // public userId: number;
 
   @ManyToOne((type) => User, {
     eager: true,
@@ -52,8 +52,8 @@ export default class Definition extends BaseEntity {
   })
   public usages: Usage[];
 
-  @Column()
-  public voteId: number;
+  // @Column()
+  // public voteId: number;
 
   @OneToOne((type) => Vote, {
     eager: true,
