@@ -171,4 +171,4 @@ dist/
 __temp/
 
 # ...
-./package-lock.json
+package-lock.json
