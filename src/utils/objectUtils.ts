@@ -1,15 +1,6 @@
-export class EnhancedTypeError extends Error {
-  public code;
-
-  constructor(message) {
-    super(message);
-    this.code = 'TYPE_INVALID';
-  }
-}
-
-function isEmpty(str: string) {
-  return (!str || 0 === str.length);
-}
+export function isEmpty(obj: any[] | string) {
+  return obj === undefined || (obj && obj.length === 0) ? true : false;
+};
 
 export function requireOneOf(val, candidates) {
   if (!candidates.length) {
@@ -25,11 +16,13 @@ export function requireOneOf(val, candidates) {
   throw new TypeError(`require one of ${candidates}, but given ${val}`);
 };
 
-export function requireNonEmpty(obj, err?) {
-  if (obj === undefined || null || isEmpty(obj)) {
+export function requireNonEmpty(obj: string, err?) {
+  if (obj === undefined
+    || obj === null 
+    || isEmpty(obj)) {
     throw err
       ? err
-      : new EnhancedTypeError(`require non empty`);
+      : new TypeError('object is empty');
   } else {
     return obj;
   }

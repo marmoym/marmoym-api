@@ -1,6 +1,5 @@
-import { Router, Request, Response } from 'express'
+import { Router, Request, Response } from 'express';
 
-import asyncWrapper from '@middlewares/asyncWrapper';
 import ApiURL from '@models/ApiURL';
 import { requireNonEmpty } from '@utils/objectUtils';
 import tokenHandler from '@src/middlewares/tokenHandler';
@@ -22,7 +21,6 @@ export async function postSessionNew(req: Request, res: Response) {
   const param = new UserParam({
     email: requireNonEmpty(req.body.email),
     password: requireNonEmpty(req.body.password),
-    username: requireNonEmpty(req.body.username),
   });
 
   const result = await UserService.signInUser(param);

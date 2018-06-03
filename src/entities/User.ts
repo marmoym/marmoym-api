@@ -1,4 +1,4 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, Index } from 'typeorm';
 
 import { DB1 } from '@modules/Database';
 import BaseEntity from '@entities/BaseEntity';
@@ -7,12 +7,18 @@ import BaseEntity from '@entities/BaseEntity';
 export default class User extends BaseEntity {
 
   @Column()
+  @Index({
+    unique: true,
+  })
   public username: string;
 
   @Column()
   public password: string;
 
   @Column()
+  @Index({
+    unique: true,
+  })
   public email: string;
 
   @Column({

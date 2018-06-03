@@ -9,8 +9,7 @@ export default class DefinitionGetService {
 
   public static async getDefinitions(param: DefinitionGetParam) {
     try {
-
-      const definitionRepo = getCustomRepository(DefinitionRepository,DB1);
+      const definitionRepo = getCustomRepository(DefinitionRepository, DB1);
       const data = await definitionRepo.find({
         skip: param.offset,
         take: param.limit,
@@ -18,7 +17,7 @@ export default class DefinitionGetService {
       const result = new DefinitionGetResult(data);
       return result;
     } catch (err) {
-      // todos
+      // todo
     }  
   }
 

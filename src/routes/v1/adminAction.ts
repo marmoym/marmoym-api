@@ -2,7 +2,6 @@ import {getCustomRepository} from 'typeorm';
 import {Request, Response} from 'express';
 
 import ApiURL from '@models/ApiURL';
-import asyncWrapper from '@middlewares/asyncWrapper';
 import DefinitionGetParam from '@models/definition/DefinitionGetParam';
 import DefinitionGetService from '@services/Definition/DefinitionGetService';
 import { DB1 } from '@modules/Database';

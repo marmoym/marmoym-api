@@ -15,6 +15,7 @@ export default class Database {
         entities: [
           `${ENTITIES_PATH}/**/*.js`
         ],
+        logging: env === 'development' ? true : false,
         synchronize: true,
         ...dbConfig[DB1][env],
       },

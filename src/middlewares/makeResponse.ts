@@ -1,6 +1,6 @@
 import { Response } from 'express';
 
-import ApiResult, { IS_API_RESULT } from '@models/ApiResult';
+import ApiResult from '@models/ApiResult';
 import AppError from '@models/AppError';
 import HttpStatus from '@constants/HttpStatus';
 import Logger from '@modules/Logger';
@@ -13,7 +13,7 @@ export default function makeResponse(payload, response: Response) {
     });
   }
 
-  if (!(payload[IS_API_RESULT])) {
+  if (!(payload instanceof ApiResult)) {
     throw AppError.of({
       args: [ payload ],
       type: ResponseType.RESPONSE_TYPE_NOT_API_RESULT,
@@ -35,6 +35,6 @@ export default function makeResponse(payload, response: Response) {
   response.status(HttpStatus.SUCCESS)
     .send({
       code: ResponseType.SUCCESS.code,
-      payload: payload.toJSON(),
+      payload,
     });
   };

@@ -1,6 +1,8 @@
 import * as jwt from 'jsonwebtoken';
 import * as ms from 'ms';
 
+import Logger from '@modules/Logger';
+
 export const VERSION = '__version';
 const TOKEN_ERROR = {
   TOKEN_CREATE_ERROR: 'TOKEN_CREATE_ERROR',
@@ -47,6 +49,7 @@ export default class Token {
               console.error(err);
               reject({ error: TOKEN_ERROR.TOKEN_CREATE_ERROR });
             } else {
+              Logger.debug(`Token is generated: %s`, token);
               resolve(token);
             }
           });

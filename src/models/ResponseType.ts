@@ -1,6 +1,4 @@
-const ResponseType: {
-  [label: string]: ResponseTypeEntry;
-} = {
+const ResponseType = {
   EMAIL_ALREADY_USED: {
     code: 401005,
     desc: 'email already used',
@@ -73,7 +71,7 @@ const ResponseType: {
   },
   USER_NOT_FOUND: {
     code: 401000,
-    desc: 'text',
+    desc: 'User is not found, email: %s',
     label: 'USER_NOT_FOUND',
   },
   USER_STATUS_PENDING: {

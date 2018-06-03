@@ -1,12 +1,14 @@
 import ApiResult from '@models/ApiResult';
-import Record from '@models/Record';
 
-export default class UserSignUpResult extends ApiResult({
-  user: {
-    email: '',
-  },
-}) {
-  constructor(values) {
-    super(values);
+export interface UserIF {
+  email: string;
+};
+
+export default class UserSignUpResult extends ApiResult {
+  public user: UserIF;
+
+  constructor(data) {
+    super();
+    this.user = data;
   }
 };
