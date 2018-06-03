@@ -9,9 +9,9 @@ export default class Crypt {
     hash,
   }) {
     return new Promise((resolve, reject) => {
-      bcrypt.compare(src, hash, (err, hash) => {
-        if (err) resolve(false);
-        resolve(true);
+      bcrypt.compare(src, hash, (err, res: boolean) => {
+        err && resolve(false);
+        resolve(res);
       });
     });
   }

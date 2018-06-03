@@ -22,6 +22,7 @@ export default class UserSignInService {
     try {
       const userRepo = getCustomRepository(UserRepository, DB1);
       const user = (await userRepo.find({
+        select: [ 'username', 'password' ],
         where: {
           email: param.email,
         },
