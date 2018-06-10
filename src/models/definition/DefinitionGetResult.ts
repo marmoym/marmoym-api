@@ -17,7 +17,6 @@ export default class DefinitionGetResult extends ApiResult {
   public definitions: DefinitionIF[];
 
   constructor(data) {
-    console.log(123, 4);
     super();
     this.definitions = data;
   }

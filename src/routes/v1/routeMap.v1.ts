@@ -5,8 +5,19 @@ import * as AdminAction from './adminAction';
 import * as DefinitionAction from './definitionAction';
 import * as UserAction from './userAction';
 import HttpMethod from '@constants/HttpMethod';
+import * as CommentAction from './commentAction';
 
 export default [
+  {
+    action: CommentAction.getComments,
+    method: HttpMethod.GET,
+    path: ApiURL.COMMENTS,
+  },
+  {
+    action: CommentAction.postComment,
+    method: HttpMethod.POST,
+    path: ApiURL.COMMENT,
+  },
   {
     action: DefinitionAction.postDefinitions,
     method: HttpMethod.POST,

@@ -1,19 +1,37 @@
-import {Column, Entity, JoinColumn, ManyToOne, OneToOne} from 'typeorm';
+import {
+  Column, 
+  Entity, 
+  JoinColumn, 
+  ManyToOne, 
+  OneToOne,
+  Tree,
+  TreeChildren,
+  TreeParent,
+} from 'typeorm';
 
 import BaseEntity from '@entities/BaseEntity';
 import { DB1 } from '@modules/Database';
 import User from '@entities/User';
 import Vote from '@entities/Vote';
 
-@Entity({database: DB1})
+@Entity({ database: DB1 })
+@Tree('materialized-path')
 export default class Comment extends BaseEntity {
   @Column()
-  public parentId: number;
+  public content: string;
 
-  @Column()
-  public gparentId: number;
+  @TreeChildren()
+  children: Comment[];
+  
+  @TreeParent()
+  parent: Comment;
 
-  @Column()
+  /**
+   * ...
+   */
+  @Column({
+    default: 'D'
+  })
   public targetType: string;
 
   @Column()
@@ -29,7 +47,8 @@ export default class Comment extends BaseEntity {
   @JoinColumn()
   public vote: Vote;
 
-  @Column()
+  @Column({
+    default: 'N',
+  })
   public status: string;
 };
-  

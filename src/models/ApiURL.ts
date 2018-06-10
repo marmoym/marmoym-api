@@ -1,4 +1,9 @@
 export default class ApiURL {
+  public static ADMIN_SEED = '/admin/seed';
+
+  public static COMMENT = '/comment';
+  public static COMMENTS = '/comments';
+
   public static DEBUG = '/debug';
 
   public static DEFINITION_NEW = '/definition/new';
@@ -8,13 +13,11 @@ export default class ApiURL {
 
   public static SEARCH = '/search'
 
+  public static SESSION_NEW = '/session/new';
+  public static SESSION = '/session';
+
   public static USER_NEW = '/user/new';
   
   public static USERS = '/users';
   public static USERS_$USERID = '/users/:userId';
-
-  public static SESSION_NEW = '/session/new';
-  public static SESSION = '/session';
-
-  public static ADMIN_SEED = '/admin/seed';
 };

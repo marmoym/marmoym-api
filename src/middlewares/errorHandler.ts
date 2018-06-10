@@ -13,14 +13,13 @@ export default function errorHandler(err, req, res, next) {
     });
   }
 
-  if (!err.code) {
-    err.code = ResponseType.RESPONSE_TYPE_NOT_API_RESULT.code;
-    err.label = ResponseType.RESPONSE_TYPE_NOT_API_RESULT.label;
-    err.desc = ResponseType.RESPONSE_TYPE_NOT_API_RESULT.desc;
+  if (!(err instanceof AppError)) {
+    const _err = err;
+    err = ResponseType.RESPONSE_TYPE_NOT_API_RESULT;
+    err.stack = format('Original object: %j', _err);
   }
 
-  Logger.error('[%s] %s', err.code, err.label);
-  Logger.debug('[%s] %s\n%s', err.code, err.label, err.stack);
+  Logger.error('[%s] %s\n%s', err.code, err.label, err.stack);
 
   res.status(HttpStatus.ERROR)
     .send({
