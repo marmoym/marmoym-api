@@ -21,11 +21,6 @@ export default class ApiURL {
   public static USERS = '/users';
   public static USERS_$USERID = '/users/:userId';
 
-  public static SESSION_NEW = '/session/new';
-  public static SESSION = '/session';
-
   public static VOTE_UP = '/vote/up';
   public static VOTE_DOWN = '/vote/down';
-
-  public static ADMIN_SEED = '/admin/seed';
 };
