@@ -4,6 +4,7 @@ import ApiURL from '@models/ApiURL';
 import * as AdminAction from './adminAction';
 import * as DefinitionAction from './definitionAction';
 import * as UserAction from './userAction';
+import * as VoteAction from './voteAction';
 import HttpMethod from '@constants/HttpMethod';
 import * as CommentAction from './commentAction';
 
@@ -47,5 +48,15 @@ export default [
     action: UserAction.postSessionNew,
     method: HttpMethod.POST,
     path: ApiURL.SESSION_NEW,
+  },
+  {
+    action: VoteAction.upVote,
+    method: HttpMethod.POST,
+    path: ApiURL.VOTE_UP,
+  },
+  {
+    action: VoteAction.downVote,
+    method: HttpMethod.POST,
+    path: ApiURL.VOTE_DOWN,
   },
 ];

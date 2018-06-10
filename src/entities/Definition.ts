@@ -56,8 +56,8 @@ export default class Definition extends BaseEntity {
   // public voteId: number;
 
   @OneToOne((type) => Vote, {
-    eager: true,
     cascade: true,
+    eager: true,
   })
   @JoinColumn({
     name: 'voteId',
