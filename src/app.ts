@@ -2,11 +2,11 @@
  * Copyright Marmoym 2017
  */
 import * as express from 'express';
-import * as cors from 'cors';
 import * as bodyParser from 'body-parser';
 import * as morgan from 'morgan';
 
 import AppStatus from '@constants/AppStatus';
+import corsHandler from '@middlewares/corsHandler';
 import errorHandler from './middlewares/errorHandler';
 import initialize from './initialize';
 import Logger from '@modules/Logger';
@@ -26,7 +26,7 @@ initialize().then((res) => {
 });
 
 app.use(morgan('tiny'))
-app.use(cors());
+app.use(corsHandler());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use((req, res, next) => {

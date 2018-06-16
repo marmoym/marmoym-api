@@ -35,6 +35,11 @@ export default {
     tokenDuration: '1d',
     ...config.auth,
   },
+  cors: {
+    whitelist: [
+      'http://localhost',
+    ],
+  },
   db: {
     db1: {
       development: {
