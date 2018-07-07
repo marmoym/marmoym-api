@@ -5,13 +5,9 @@
   "scripts": {
     "build": "./node_modules/.bin/gulp --gulpfile ./internals/gulp/gulpfile.js build",
     "lint": "./node_modules/.bin/tslint -t stylish -p ./tsconfig.json",
-    "migrate:dev": "yarn run build && cross-env NODE_ENV=development node ./dist/database/setup.js --migrate",
-    "migrate:prod": "yarn run build && cross-env NODE_ENV=production node ./dist/database/setup.js --migrate",
     "pm2:deploy": "pm2 deploy ./internals/pm2/ecosystem.config.js production",
     "pm2:start:prod": "yarn run build && pm2 startOrRestart ./internals/pm2/ecosystem.config.js --env production",
     "preinstall": "./internals/shell/preinstall.sh",
-    "rollback:dev": "yarn run build && cross-env NODE_ENV=development node ./dist/database/setup.js --rollback",
-    "seed:dev": "yarn run build && cross-env NODE_ENV=development node ./dist/database/setup.js --seed",
     "start:dev": "yarn run build && cross-env NODE_ENV=development node ./dist/app.js",
     "start:prod": "yarn run build && cross-env NODE_ENV=production node ./dist/app.js",
     "test": ""
@@ -48,7 +44,6 @@
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "jsonwebtoken": "^7.4.0",
-    "knex": "^0.13.0",
     "ms": "^2.1.1",
     "pg": "^7.4.3",
     "typeorm": "^0.2.5",
