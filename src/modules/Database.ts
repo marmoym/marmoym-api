@@ -2,6 +2,7 @@ import { createConnections } from "typeorm";
 import * as path from 'path';
 
 import marmoymConfig from '@config/marmoymConfig';
+import Logger from '@modules/Logger';
 
 const dbConfig = marmoymConfig.db;
 const ENTITIES_PATH = path.resolve(__dirname, '../entities');
@@ -18,8 +19,18 @@ export default class Database {
         logging: env === 'development' ? true : false,
         synchronize: true,
         ...dbConfig[DB1][env],
-      },
-    ]);  
+      }
+    ]).then((connections) => {
+      Logger.info(
+        'Total %d Connections: %j', 
+        connections.length, 
+        connections.map((c) => c.options));
+
+      return connections;
+    }).catch((err) => {
+      Logger.error('Failed to connect to DB: %o', err);
+      throw err;
+    })
   }
 }
 

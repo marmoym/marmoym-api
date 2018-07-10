@@ -6,7 +6,6 @@ import Logger from '@modules/Logger';
 import makeResponse from '@middlewares/makeResponse';
 import routeMapDefault from './default/routeMap.default';
 import routeMap1 from './v1/routeMap.v1';
-import { state } from '@src/app';
 
 export default function (app) {
   const routerDefault: Router = registerRoutes(routeMapDefault);
