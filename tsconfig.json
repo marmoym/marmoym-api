@@ -49,6 +49,7 @@
       "es6",
       "es7"
     ],
+    "strictNullChecks": true,
     "target": "es6"
   },
   "include": [
@@ -57,5 +58,5 @@
   "exclude": [
     "node_modules",
     "**/*/__temp"
-  ]
+  ],
 }

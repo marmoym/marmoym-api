@@ -3,7 +3,7 @@ import {Request, Response} from 'express';
 
 import ApiURL from '@models/ApiURL';
 import DefinitionGetParam from '@models/definition/DefinitionGetParam';
-import DefinitionGetService from '@services/Definition/DefinitionService';
+// import DefinitionGetService from '@services/Definition/DefinitionService';
 import { DB1 } from '@modules/Database';
 import {DefinitionRepository} from '@src/repositories/DefinitionRepository';
 import User from '@entities/User';
@@ -18,13 +18,15 @@ import Usage from '@entities/Usage';
 import Vote from '@entities/Vote';
 import {VoteRepository} from '@src/repositories/VoteRepository';
 
-export async function postAdminSeed(request: Request, response: Response) {
+export async function seed(request: Request, response: Response) {
   console.log('makeSeed!!');
+
   const userRepo = getCustomRepository(UserRepository, DB1);
   const termRepo = getCustomRepository(TermRepository, DB1);
   const posRepo = getCustomRepository(PosRepository, DB1);
   const voteRepo = getCustomRepository(VoteRepository, DB1);
   const defRepo = getCustomRepository(DefinitionRepository, DB1);
+  
   const posLabels = ['명사', '동사'];
   const posLabelEns = ['noun', 'verb'];
   const termLabels = ['앙기모띠', '사과', '바나나', '포도', '트로피카나', '코코넛', '비트코인', '이오스', '가즈아'];
@@ -32,7 +34,7 @@ export async function postAdminSeed(request: Request, response: Response) {
   const defLabels = ['기분좋다라고하는뜻', '과일종류중 하나 애쁠이다', '과일종류중 하나 바나나', '과일종류중 하나 포도', '포도톡톡 트로피카나~', '과일종류중 하나 코코넛', '암호화폐 기축통화', '미래의 이더리움', '가자의 변형'];
   const defUsages = ['앙 기모띠~~ 여러분들 감사합니다', '사과 톡톡톡 트로피카나~', '바나나 먹으면 바나나', '포도 톡톡톡 트로피카나~', '트로피카나 스파클링~', '코코넛밀크', '비트코인 연말 1억가즈아', '이오스 6월5만원가즈아~', '떡상 가즈아~']
 
-  const users = [];
+  const users: User[] = [];
   for (let i = 1; i <= 20; i++) {
     const user = new User();
     user.username = 'seeduser' + i;
@@ -45,7 +47,7 @@ export async function postAdminSeed(request: Request, response: Response) {
   await userRepo.save(users);
   console.log('user Inserted');
   
-  const poss = [];
+  const poss: Pos[] = [];
   for (let i = 0; i < 2; i++){
     const pos = new Pos();
     pos.label = posLabels[i];
@@ -56,7 +58,7 @@ export async function postAdminSeed(request: Request, response: Response) {
   await posRepo.save(poss);
   console.log('pos Inserted');
 
-  const terms = [];
+  const terms: Term[] = [];
   for (let i = 0; i < 9; i++) {
     const term = new Term();
     term.label = termLabels[i];
@@ -70,7 +72,7 @@ export async function postAdminSeed(request: Request, response: Response) {
   await termRepo.save(terms);
   console.log('term Inserted');
 
-  const defs = [];
+  const defs: Definition[] = [];
   for (let i = 0; i < 9; i++) {
     console.log(1);
     const def = new Definition();

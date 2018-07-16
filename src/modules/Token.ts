@@ -35,7 +35,7 @@ export default class Token {
 
   static create({
     payload,
-  }) {
+  }): Promise<string> {
     if (state._initialized) {
       return new Promise<string>((resolve, reject) => {
         jwt.sign(
@@ -55,7 +55,7 @@ export default class Token {
           });
       });
     } else {
-      throwTokenNotInitializedError();
+      return Promise.reject(throwTokenNotInitializedError());
     }
   }
 
@@ -83,8 +83,6 @@ export default class Token {
 };
 
 function throwTokenNotInitializedError() {
-  // todo: remove
-  console.log('token error');
-
   throw new Error(TOKEN_ERROR.TOKEN_NOT_INITIALIZED);
+  return '';
 }

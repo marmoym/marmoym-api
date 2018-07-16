@@ -1,4 +1,12 @@
-const ResponseType = {
+export interface ResponseTypeEntry {
+  code: number;
+  desc: string;
+  label: string;
+};
+
+const ResponseType: {
+  [x: string]: ResponseTypeEntry
+} = {
   EMAIL_ALREADY_USED: {
     code: 401005,
     desc: 'email already used',
@@ -33,6 +41,11 @@ const ResponseType = {
     code: 404002,
     desc: 'Request is routed but did not get the response',
     label: 'RESPONSE_NOT_PROVIDED',
+  },
+  ROUTE_NOT_DEFINED: {
+    code: 404003,
+    desc: 'Route is not defined',
+    label: 'ROUTE_NOT_DEFINED',
   },
   SUCCESS: {
     code: 200000,
@@ -92,8 +105,4 @@ const ResponseType = {
 };
 
 export default ResponseType;
-export interface ResponseTypeEntry {
-  code: number;
-  desc: string;
-  label: string;
-};
+

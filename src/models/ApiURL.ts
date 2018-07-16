@@ -24,3 +24,8 @@ export default class ApiURL {
   public static VOTE_UP = '/vote/up';
   public static VOTE_DOWN = '/vote/down';
 };
+
+export const API = {
+  DEFAULT: '',
+  V1: '/api/v1',
+};

@@ -13,6 +13,7 @@ import errorHandler from './middlewares/errorHandler';
 import Logger from '@modules/Logger';
 import marmoymConfig from '@config/marmoymConfig';
 import ResponseType from '@models/ResponseType';
+import routeNoMatchHandler from '@middlewares/routeNoMatchHandler';
 import routes from '@routes/routes';
 import Token from '@modules/Token';
 
@@ -65,8 +66,9 @@ const state = {
     }
   });
   routes(app);
+  app.use(routeNoMatchHandler);
   app.use(errorHandler);
-
+  
   app.listen(marmoymConfig.app.port, function(err) {
     if (err) {
       return console.error(err);

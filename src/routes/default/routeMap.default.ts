@@ -1,20 +1,16 @@
 import { Router, Request, Response } from 'express';
 
 import ApiURL from '@models/ApiURL';
-import DebugAction from './DebugAction';
+import * as DebugService from '@services/debugService';
 import HttpMethod from '@constants/HttpMethod';
+import { Route } from '../routes';
 
-const routeMap: RouteIF[] = [
+const routeMap: Route[] = [
   {
-    action: DebugAction.getDebug,
+    action: DebugService.getDebug,
     method: HttpMethod.GET,
     path: ApiURL.DEBUG,
   },
 ];
 
 export default routeMap;
-export interface RouteIF {
-  action: Function,
-  method: string,
-  path: string,
-};

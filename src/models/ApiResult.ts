@@ -1,11 +1,13 @@
 import Cookie from '@models/Cookie';
-import Record from '@models/Record';
 
 const COOKIES = Symbol('cookies');
 
-export default class ApiResult {
-  constructor() {
+export default class ApiResult<T> {
+  payload: T
+
+  constructor(payload) {
     this[COOKIES] = [];
+    this.payload = payload;
   }
 
   public getCookies() {

@@ -6,6 +6,9 @@ import HttpStatus from '@constants/HttpStatus';
 import Logger from '@modules/Logger';
 import ResponseType from '@models/ResponseType';
 
+/**
+ * @deprecated
+ */
 export default function makeResponse(payload, response: Response) {
   if (payload === undefined) {
     throw AppError.of({

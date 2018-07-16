@@ -18,9 +18,6 @@ export default function corsHandler() {
         if (appConfig.cors.whitelist.indexOf(origin) !== -1) {
           callback(null, true);
         } else {
-          /**
-           * This should be handled in a different way.
-           */
           Logger.warn('Request origin not listed in whitelist: %s', origin);
           callback(null, true);
           // process.env.NODE_ENV === 'development'
