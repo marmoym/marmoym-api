@@ -11,7 +11,6 @@ import marmoymConfig from '@config/marmoymConfig';
 import ResponseType from '@models/ResponseType';
 import Token from '@modules/Token';
 import User from '@entities/User';
-import UserParam from '@models/user/UserParam';
 import { UserRepository } from '@repos/UserRepository';
 
 export async function signInUser(param: UserParam) {

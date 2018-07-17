@@ -1,3 +1,5 @@
+import { Request, Response } from 'express';
+
 import ApiURL from '@models/ApiURL';
 import * as definitionService from '@services/Definition/definitionService';
 import * as userService from '@services/User/userService';
@@ -23,7 +25,7 @@ const pathOrderedRouteMap: Route[] = [
   // },
   {
     action: definitionService.getDefinitions,
-    createParam: (req) => {
+    createParam: (req: Request) => {
       return {
         limit: optional(req.body.limit).orElse(10),
         offset: optional(req.body.offset).orElse(0),
@@ -45,14 +47,27 @@ const pathOrderedRouteMap: Route[] = [
   // },
   {
     action: userService.signUpUser,
+    createParam: (req: Request) => {
+      return {
+        email: requireNonEmpty(req.body.email),
+        password: requireNonEmpty(req.body.password),
+        username: requireNonEmpty(req.body.username),
+      };
+    },
     method: HttpMethod.POST,
     path: ApiURL.USER_NEW,
   },
-  // {
-  //   action: UserAction.postSessionNew,
-  //   method: HttpMethod.POST,
-  //   path: ApiURL.SESSION_NEW,
-  // },
+  {
+    action: userService.signInUser,
+    createParam: (req: Request) => {
+      return {
+        email: requireNonEmpty(req.body.email),
+        password: requireNonEmpty(req.body.password),
+      };
+    },
+    method: HttpMethod.POST,
+    path: ApiURL.SESSION_NEW,
+  },
   // {
   //   action: VoteAction.upVote,
   //   method: HttpMethod.POST,

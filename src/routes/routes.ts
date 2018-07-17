@@ -6,7 +6,6 @@ import { API } from '@models/ApiURL';
 import AppError from '@models/AppError';
 import HttpStatus from '@constants/HttpStatus';
 import Logger from '@modules/Logger';
-import makeResponse from '@middlewares/makeResponse';
 import ResponseType from '@models/ResponseType';
 import routeMapDefault from './default/routeMap.default';
 import routeMap1 from './v1/routeMap.v1';
