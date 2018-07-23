@@ -35,16 +35,28 @@ const pathOrderedRouteMap: Route[] = [
     method: HttpMethod.POST,
     path: ApiURL.DEFINITIONS,
   },
-  // {
-  //   action: DefinitionAction.postDefinitionsDefinitionid,
-  //   method: HttpMethod.POST,
-  //   path: ApiURL.DEFINITIONS_$DEFINITIONID,
-  // },
-  // {
-  //   action: DefinitionAction.postDefinitionNew,
-  //   method: HttpMethod.POST,
-  //   path: ApiURL.DEFINITION_NEW,
-  // },
+  {
+    action: definitionService.getDefinitionById,
+    createParam: (req: Request) => {
+      return {
+        definitionId: req.body.definitionId,
+        limit: req.body.limit,
+        offset: req.body.offset,
+      };
+    },
+    method: HttpMethod.POST,
+    path: ApiURL.DEFINITIONS_$DEFINITIONID,
+  },
+  {
+    action: definitionService.addDefinition,
+    createParam: (req: Request) => {
+      return {
+        definition: req.body.definition,
+      };
+    },
+    method: HttpMethod.POST,
+    path: ApiURL.DEFINITION_NEW,
+  },
   {
     action: userService.signUpUser,
     createParam: (req: Request) => {

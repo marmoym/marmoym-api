@@ -3,11 +3,11 @@ import AppError from '@models/AppError';
 import { DB1 } from '@modules/Database';
 import Definition from '@entities/Definition';
 import DefinitionGetParam from '@models/definition/DefinitionGetParam';
-import {DefinitionRepository} from '@src/repositories/DefinitionRepository';
-import {getCustomRepository} from 'typeorm';
+import { DefinitionRepository } from '@src/repositories/DefinitionRepository';
+import { getCustomRepository } from 'typeorm';
 // import DefinitionGetResult from '@models/definition/DefinitionGetResult';
 import DefinitionAddParam from '@models/definition/DefinitionAddParam';
-import {TermRepository} from '@src/repositories/TermRepository';
+import { TermRepository } from '@src/repositories/TermRepository';
 import Term from '@entities/Term';
 import Vote from '@entities/Vote';
 import User from '@entities/User';
@@ -40,7 +40,9 @@ export async function getDefinitionById(param: DefinitionGetParam) {
   }
 };
 
-export async function addDefinition(param: DefinitionAddParam) {
+export async function addDefinition(param: {
+  definition: Definition,
+}) {
   try {
     const termRepo = getCustomRepository(TermRepository, DB1);
     const checkTerm = await termRepo.findAndCount({label: param.definition.term.label});
@@ -68,7 +70,7 @@ export async function addDefinition(param: DefinitionAddParam) {
     param.definition.vote = vote;
     const definitionRepo = getCustomRepository(DefinitionRepository, DB1);
     const data = await definitionRepo.save(param.definition);
-    return data;
+    return new ApiResult<Definition>(data);
   } catch (err) {
     throw err;
   }
