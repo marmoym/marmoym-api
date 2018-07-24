@@ -1,29 +1,23 @@
-import {getCustomRepository} from 'typeorm';
-import {Request, Response} from 'express';
+import { getCustomRepository } from 'typeorm';
+import { Request, Response } from 'express';
 
 import ApiURL from '@models/ApiURL';
 import DefinitionGetParam from '@models/definition/DefinitionGetParam';
-// import DefinitionGetService from '@services/Definition/DefinitionService';
 import { DB1 } from '@modules/Database';
-import {DefinitionRepository} from '@src/repositories/DefinitionRepository';
+import { DefinitionRepository } from '@src/repositories/DefinitionRepository';
 import User from '@entities/User';
 import {UserRepository} from '@src/repositories/UserRepository';
 import Definition from '@entities/Definition';
-import {optional} from '@src/utils/objectUtils';
-import Pos from '@entities/Pos';
-import {PosRepository} from '@src/repositories/PosRepository';
 import Term from '@entities/Term';
-import {TermRepository} from '@src/repositories/TermRepository';
-import Usage from '@entities/Usage';
+import { TermRepository } from '@src/repositories/TermRepository';
 import Vote from '@entities/Vote';
-import {VoteRepository} from '@src/repositories/VoteRepository';
+import { VoteRepository } from '@src/repositories/VoteRepository';
 
 export async function seed(request: Request, response: Response) {
   console.log('makeSeed!!');
 
   const userRepo = getCustomRepository(UserRepository, DB1);
   const termRepo = getCustomRepository(TermRepository, DB1);
-  const posRepo = getCustomRepository(PosRepository, DB1);
   const voteRepo = getCustomRepository(VoteRepository, DB1);
   const defRepo = getCustomRepository(DefinitionRepository, DB1);
   
@@ -47,15 +41,6 @@ export async function seed(request: Request, response: Response) {
   await userRepo.save(users);
   console.log('user Inserted');
   
-  const poss: Pos[] = [];
-  for (let i = 0; i < 2; i++){
-    const pos = new Pos();
-    pos.label = posLabels[i];
-    pos.labelEn = posLabelEns[i];
-    pos.status = 'N';
-    poss.push(pos);
-  }
-  await posRepo.save(poss);
   console.log('pos Inserted');
 
   const terms: Term[] = [];
@@ -81,14 +66,7 @@ export async function seed(request: Request, response: Response) {
     const term = new Term();
     term.id = i + 1;
     def.term = term;
-    const pos = new Pos();
-    pos.id = (i % 2) + 1;
-    console.log(pos.id);
-    def.poss = [ pos ];
-    const usage = new Usage();
-    usage.label = defUsages[i];
-    usage.status = 'N';
-    def.usages = [ usage ];
+
     const user = new User();
     user.id = i + 1;
     def.user = user;

@@ -27,7 +27,6 @@ const app: express.Application = express();
 
 const state = {
   appLaunchStatus: APP_LAUNCH_STATUS.NOT_YET_INTIALIZED,
-  dirname: __dirname,
 };
 
 (function prepareModules() {

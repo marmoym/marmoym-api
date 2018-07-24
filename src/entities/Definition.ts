@@ -2,9 +2,7 @@ import {Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany,
 
 import BaseEntity from '@entities/BaseEntity';
 import { DB1 } from '@modules/Database';
-import Pos from '@entities/Pos';
 import Term from '@entities/Term';
-import Usage from '@entities/Usage';
 import User from '@entities/User';
 import Vote from '@entities/Vote';
 
@@ -40,18 +38,6 @@ export default class Definition extends BaseEntity {
   })
   public status: string;
   
-  @ManyToMany((type) => Pos, {
-    eager: true,
-  })
-  @JoinTable()
-  public poss: Pos[];
-
-  @OneToMany((type) => Usage, (usage) => usage.definition, {
-    cascade: true,
-    eager: true,
-  })
-  public usages: Usage[];
-
   // @Column()
   // public voteId: number;
 

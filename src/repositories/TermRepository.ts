@@ -1,6 +1,4 @@
-import {EntityRepository, Repository} from 'typeorm';
-import Origin from '@entities/Origin';
-import Pos from '@entities/Pos';
+import { EntityRepository, Repository } from 'typeorm';
 import Term from '@entities/Term';
 
 @EntityRepository(Term)

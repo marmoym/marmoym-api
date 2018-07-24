@@ -13,7 +13,7 @@ import Token from '@modules/Token';
 import User from '@entities/User';
 import { UserRepository } from '@repos/UserRepository';
 
-export async function signInUser(param: UserParam) {
+export async function signInUser(param) {
   try {
     const userRepo = getCustomRepository(UserRepository, DB1);
     const user = (await userRepo.find({
