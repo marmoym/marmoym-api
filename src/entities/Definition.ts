@@ -10,20 +10,20 @@ import Vote from '@entities/Vote';
 export default class Definition extends BaseEntity {
   @Column()
   public label: string;
-
-  // @Column()
-  // public termId: number;
-
+  
+  @Column({
+    default: 'N',
+  })
+  public status?: string;
+  
   @ManyToOne((type) => Term, {
+    cascade: true,
     eager: true,
   })
   @JoinColumn({
     name: 'termId',
   })
-  public term: Term;
-
-  // @Column()
-  // public userId: number;
+  public term?: Term;
 
   @ManyToOne((type) => User, {
     eager: true,
@@ -31,15 +31,7 @@ export default class Definition extends BaseEntity {
   @JoinColumn({
     name: 'userId',
   })
-  public user: User;
-
-  @Column({
-    default: 'N',
-  })
-  public status: string;
-  
-  // @Column()
-  // public voteId: number;
+  public user?: User;
 
   @OneToOne((type) => Vote, {
     cascade: true,
@@ -49,4 +41,21 @@ export default class Definition extends BaseEntity {
     name: 'voteId',
   })
   public vote: Vote;
+
+  constructor(param?: {
+    id,
+    label,
+    term?,
+    user?,
+    vote,
+  }) {
+    super();
+    if (param) {
+      this.id = param.id;
+      this.label = param.label;
+      this.term = param.term;
+      this.user = param.user;
+      this.vote = param.vote;
+    }
+  }
 };

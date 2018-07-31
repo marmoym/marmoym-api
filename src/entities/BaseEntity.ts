@@ -5,8 +5,8 @@ export default class BaseEntity {
   public id: number;
 
   @CreateDateColumn()
-  public created_at: Date;
+  public created_at?: Date;
 
   @UpdateDateColumn()
-  public updated_at: Date;
+  public updated_at?: Date;
 };

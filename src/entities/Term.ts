@@ -12,14 +12,25 @@ export default class Term extends BaseEntity {
   @Column({
     nullable: true,
   })
-  public roman: string;
+  public roman?: string;
 
-  @Column()
-  public status: string;
-
-  @ManyToOne((type) => User)
-  @JoinColumn({
-    name: 'userId',
+  @Column({
+    default: 'N',
   })
-  public user: User;
+  public status?: string;
+
+  constructor(param?: {
+    id,
+    label,
+    roman?,
+    status?,
+  }) {
+    super();
+    if (param) {
+      this.id = param.id;
+      this.label = param.label;
+      this.roman = param.roman;
+      this.status = param.status;
+    }
+  }
 };

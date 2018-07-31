@@ -1,18 +1,22 @@
 import { Request, Response } from 'express';
 
 import ApiURL from '@models/ApiURL';
-import * as definitionService from '@services/Definition/definitionService';
-import * as userService from '@services/User/userService';
+import definitionService, { 
+  AddDefinitionParam,
+} from '@services/Definition/definitionService';
 import HttpMethod from '@constants/HttpMethod';
+import * as migrateService from '@services/migrateService';
 import { optional, requireNonEmpty } from '@src/utils/objectUtils';
 import { Route } from '@routes/routes';
+import * as userService from '@services/User/userService';
+
 
 const pathOrderedRouteMap: Route[] = [
-  // {
-  //   action: AdminAction.postAdminSeed,
-  //   method: HttpMethod.GET,
-  //   path: ApiURL.ADMIN_SEED,
-  // },
+  {
+    action: migrateService.seed,
+    method: HttpMethod.GET,
+    path: ApiURL.ADMIN_SEED,
+  },
   // {
   //   action: CommentAction.postComment,
   //   method: HttpMethod.POST,

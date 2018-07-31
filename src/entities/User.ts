@@ -5,7 +5,6 @@ import BaseEntity from '@entities/BaseEntity';
 
 @Entity({ database: DB1 })
 export default class User extends BaseEntity {
-
   @Column()
   @Index({
     unique: true,
@@ -26,22 +25,28 @@ export default class User extends BaseEntity {
   @Column({
     default: 0,
   })
-  public karma: number;
+  public karma?: number;
 
   @Column({
     default: 'N',
   })
-  public status: string;
+  public status?: string;
 
   constructor(param?: {
     email,
+    id?,
+    karma?,
     password,
+    status?,
     username,
   }) {
     super();
     if (param) {
       this.email = param.email;
+      this.id = param.id;
+      this.karma = param.karma;
       this.password = param.password;
+      this.status = param.status;
       this.username = param.username;
     }
   }
