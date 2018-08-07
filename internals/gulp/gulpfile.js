@@ -21,7 +21,7 @@ process.chdir('../../');
 console.log('Current working directory %s', process.cwd());
 
 gulp.task('clean', () => {
-  console.log('Remove all the contents in %s', DIST_PATH);
+  console.log('[clean] Remove all the contents in %s', DIST_PATH);
 
   return del([
     `${DIST_PATH}/**/*`,
@@ -29,7 +29,7 @@ gulp.task('clean', () => {
 });
 
 gulp.task('emptylog', () => {
-  console.log('LOG_PATH: %s', LOG_PATH);
+  console.log('[emptylog] LOG_PATH: %s', LOG_PATH);
   
   return del([
     `${LOG_PATH}/**/*`,
@@ -37,16 +37,21 @@ gulp.task('emptylog', () => {
 });
 
 gulp.task('tsc-babel', () => {
-  console.log('DIST_PATH: %s, TSCONFIG_PATH: %s', DIST_PATH, TSCONFIG_PATH);
+  console.log('[tsc-babel] DIST_PATH: %s, TSCONFIG_PATH: %s', DIST_PATH, TSCONFIG_PATH);
 
   const tsProject = ts.createProject(TSCONFIG_PATH);
 
   return tsProject.src()
     .pipe(tsProject())
+    .on('error', (err) => {
+      console.error('[tsc-babel] tsc fails at %s, Process will quit.', err.fullFilename);
+      process.exit();
+    })
     .pipe(sourcemaps.init())
     .pipe(babel())
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(DIST_PATH));
+    .pipe(gulp.dest(DIST_PATH))
+    
 });
 
 gulp.task('build', gulp.series('clean', 'tsc-babel'));
