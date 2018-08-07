@@ -4,9 +4,7 @@ export interface ResponseTypeEntry {
   label: string;
 };
 
-const ResponseType: {
-  [x: string]: ResponseTypeEntry
-} = {
+const ResponseType = {
   EMAIL_ALREADY_USED: {
     code: 401005,
     desc: 'email already used',
@@ -62,25 +60,30 @@ const ResponseType: {
     desc: 'Invalid token',
     label: 'TOKEN_INVALID',
   },
-  TOKEN_AND_USER_ID_INCOMPATIBLE: {
+  TOKEN_VOID: {
     code: 402002,
-    desc: 'Not equal user id',
-    label: 'TOKEN_AND_USER_ID_INCOMPATIBLE',
+    desc: 'Token is not present',
+    label: 'TOKEN_VOID',
   },
   RESPONSE_TYPE_NOT_API_RESULT: {
     code: 400001,
     desc: 'Internal Error has occurred',
     label: 'RESPONSE_TYPE_NOT_API_RESULT',
   },
+  USER_CREDENTIAL_INVALID: {
+    code: 401001,
+    desc: 'user credential is invalid: %s',
+    label: 'USER_CREDENTIAL_INVALID',
+  },
   USER_DELETE_FAIL: {
     code: 401003,
     desc: 'no user deleted',
     label: 'USER_DELETE_FAIL',
   },
-  USER_CREDENTIAL_INVALID: {
-    code: 401001,
-    desc: 'user credential is invalid: %s',
-    label: 'USER_CREDENTIAL_INVALID',
+  USER_EMAIL_ALREADY_REGISTERED: {
+    code: 401005,
+    desc: 'user email is already registered: %s',
+    label: 'USER_EMAIL_ALREADY_REGISTERED',
   },
   USER_NOT_FOUND: {
     code: 401000,
@@ -97,7 +100,7 @@ const ResponseType: {
     desc: 'user update values are empty',
     label: 'USER_UPDATE_VALUES_EMPTY',
   },
-  USER_ALREADY_REGISTERED: {
+  USER_USERNAME_ALREADY_REGISTERED: {
     code: 401004,
     desc: 'username is already registered: %s',
     label: 'USER_ALREADY_REGISTERED',

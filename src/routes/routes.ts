@@ -1,9 +1,10 @@
 import { Router, Request, Response, NextFunction } from 'express';
 
-import ApiParam from '@models/ApiParam';
 import ApiResult from '@models/ApiResult';
 import { API } from '@models/ApiURL';
 import AppError from '@models/AppError';
+import Cookie from '@models/Cookie';
+import Crypt from '@modules/Crypt';
 import HttpStatus from '@constants/HttpStatus';
 import Logger from '@modules/Logger';
 import ResponseType from '@models/ResponseType';
@@ -12,6 +13,7 @@ import routeMap1 from './v1/routeMap.v1';
 
 export interface Route {
   action: (x: object | null) => Promise<ApiResult<any>>,
+  before?: Array<(Request, res: Response, next: NextFunction) => void>,
   createParam?: (req: Request) => object,
   method: 'get' | 'post' | 'put' | 'delete',
   path: string,
@@ -29,14 +31,20 @@ function registerRouter(app, path, routeMap: Route[]) {
 
   routeMap.map((route) => {
     Logger.debug('Route is registered: [%s] %s', route.method, route.path);
-    router[route.method](route.path, (req: Request, res: Response, next: NextFunction) => {
-      const param = route.createParam ? route.createParam(req) : null;
-      return route.action(param)
-        .then(validatePayload)
-        .then(setCookie(res))
-        .then(respond(res))
-        .catch(next);
-    });
+    router[route.method](
+      route.path, 
+      [
+        ...route.before && route.before || [],
+        (req: Request, res: Response, next: NextFunction) => {
+          const param = route.createParam ? route.createParam(req) : null;
+          route.action(param)
+            .then(validatePayload)
+            .then(setCookie(res))
+            .then(respond(res))
+            .catch(next);
+        },
+      ],
+    );
   });
   app.use(path, router);
 }
@@ -62,12 +70,13 @@ function setCookie(res: Response) {
   return function (apiResult: ApiResult<any>) {
     const cookies = apiResult.getCookies();
     if (cookies.length > 0) {
-      Logger.debug('Cookies (%s) is set: %j', cookies.length, cookies);
-      apiResult.getCookies().map((cookie) => {
-        res.cookie(cookie.key, cookie.value, {
-          httpOnly: true,
-          maxAge: cookie.maxAge,
-        });
+      Logger.debug('Cookies (%s) are set: %j', cookies.length, cookies);
+      apiResult.getCookies()
+        .map((cookie: Cookie) => {
+          res.cookie(cookie.key, cookie.value, {
+            httpOnly: true,
+            maxAge: cookie.maxAge,
+          });
       });
     }
     return apiResult;
@@ -82,4 +91,4 @@ function respond(res: Response) {
         payload: apiResult,
       });
   };
-};
+}

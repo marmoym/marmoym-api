@@ -30,10 +30,10 @@ export default {
     port: 4001,
   },
   auth: {
-    hashSalt: 1234,
-    privateKey: 'abcd',
-    tokenDuration: '1d',
     ...config.auth,
+    privateKey: 'abcd',
+    saltRound: 5,
+    tokenDuration: '1d',
   },
   cors: {
     whitelist: [

@@ -1,6 +1,5 @@
 import AppError from '@models/AppError';
 import { DB1 } from '@modules/Database';
-import VoteParam from '@models/vote/VoteParam';
 import {DefinitionRepository} from '@repos/DefinitionRepository';
 import {getCustomRepository} from 'typeorm';
 import {VoteInstanceRepository} from '@repos/VoteInstanceRepository';

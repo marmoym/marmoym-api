@@ -1,6 +1,5 @@
 import { getCustomRepository } from 'typeorm';
 
-import ApiURL from '@models/ApiURL';
 import ApiResult from '@models/ApiResult';
 import { DB1 } from '@modules/Database';
 import { DefinitionRepository } from '@src/repositories/DefinitionRepository';

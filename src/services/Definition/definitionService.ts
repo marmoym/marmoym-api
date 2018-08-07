@@ -1,13 +1,12 @@
+import { getCustomRepository } from 'typeorm';
+
 import ApiResult from '@models/ApiResult';
 import AppError from '@models/AppError';
 import { DB1 } from '@modules/Database';
 import Definition from '@entities/Definition';
-import DefinitionGetParam from '@models/definition/DefinitionGetParam';
 import { DefinitionRepository } from '@src/repositories/DefinitionRepository';
-import { getCustomRepository } from 'typeorm';
-import DefinitionAddParam from '@models/definition/DefinitionAddParam';
-import { TermRepository } from '@src/repositories/TermRepository';
 import Term from '@entities/Term';
+import { TermRepository } from '@src/repositories/TermRepository';
 import Vote from '@entities/Vote';
 import User from '@entities/User';
 

@@ -1,8 +1,5 @@
 import * as bcrypt from 'bcrypt';
 
-/**
- * ...
- */
 export default class Crypt {
   static async compare({
     src,
@@ -10,7 +7,7 @@ export default class Crypt {
   }) {
     return new Promise((resolve, reject) => {
       bcrypt.compare(src, hash, (err, res: boolean) => {
-        err && resolve(false);
+        err && reject(err);
         resolve(res);
       });
     });
@@ -18,13 +15,18 @@ export default class Crypt {
 
   static hash({
     data,
-    hashSalt,
-  }) {
+    saltRound,
+  }: HashParam) {
     return new Promise((resolve, reject) => {
-      bcrypt.hash(data, hashSalt, (err, hash) => {
+      bcrypt.hash(data, saltRound, (err, hash) => {
         if (err) reject(err);
         resolve(hash);
       });  
     });
   }
+};
+
+export interface HashParam {
+  data: string,
+  saltRound: number,
 };

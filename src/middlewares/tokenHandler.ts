@@ -1,42 +1,33 @@
-import * as jwt from 'jsonwebtoken';
-import * as winston from 'winston';
+import { NextFunction, Request, Response } from 'express';
 
-import marmoymConfig from '@config/marmoymConfig';
 import AppError from "@models/AppError";
-// import ErrorType from '@constants/ErrorType';
+import Logger from '@modules/Logger';
+import marmoymConfig from '@config/marmoymConfig';
+import ResponseType from '@models/ResponseType';
+import Token, { AUTH_TOKEN } from '@modules/Token';
 
-/**
- * ...
- */
- async function _verifyUserToken(token: string, userId: number) {
-  let decoded;
-  try {
-    decoded = jwt.verify(token, marmoymConfig.auth['jwtSecret']);
-    winston.debug('JWT decoded: ', decoded);
-  } catch(err) {
-    // throw new AppError(ErrorType.TOKEN_INVALID);
-  }
+export default function tokenAuthHandler(req: Request, res: Response, next: NextFunction) {
+  const token = req.cookies[AUTH_TOKEN];
+  Logger.info(`Token auth handle: %s`, token);
 
-  if (decoded.id == userId) {
-    return decoded;
-  } else {
-    // throw new AppError(ErrorType.TOKEN_AND_USER_ID_INCOMPATIBLE);
-  }
-};
-
-/**
- * ...
- */
-export default function tokenAuthHandler(req, res, next) {
-  const token = req.headers['x-access-token'];
-  const userId = req.body.userId ? req.body.userId : req.params.userId;
-  
-  _verifyUserToken(token, userId)
-    .then(result => {
-      req['_token'] = result;
-      next();
+  if (token) {
+    Token.decode({
+      token,
     })
-    .catch(err => {
-      next(err);
+      .then((tokenDecoded) => {
+        res.locals['username-decoded'] = tokenDecoded['username'];
+        next();
+      })
+      .catch((err) => {
+        throw AppError.of({
+          args: [],
+          type: ResponseType.TOKEN_INVALID,
+        });  
+      });
+  } else {
+    throw AppError.of({
+      args: [ req.cookies ],
+      type: ResponseType.TOKEN_VOID,
     });
+  }
 };

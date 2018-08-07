@@ -5,6 +5,7 @@ import "reflect-metadata";
 
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import * as cookieParser from 'cookie-parser';
 import * as morgan from 'morgan';
 
 import corsHandler from '@middlewares/corsHandler';
@@ -47,6 +48,7 @@ const state = {
 (function defineApp() {
   app.use(morgan('tiny'))
   app.use(corsHandler());
+  app.use(cookieParser());
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
   app.use((req, res, next) => {

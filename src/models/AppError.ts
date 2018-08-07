@@ -1,6 +1,8 @@
 import { format } from 'util';
 
-import ResponseType, { ResponseTypeEntry } from '@models/ResponseType';
+import ResponseType, { 
+  ResponseTypeEntry,
+} from '@models/ResponseType';
 
 export const VERSION = Symbol('version');
 

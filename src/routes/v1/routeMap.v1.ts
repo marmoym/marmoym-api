@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 import ApiURL from '@models/ApiURL';
 import definitionService, { 
@@ -8,8 +8,8 @@ import HttpMethod from '@constants/HttpMethod';
 import * as migrateService from '@services/migrateService';
 import { optional, requireNonEmpty } from '@src/utils/objectUtils';
 import { Route } from '@routes/routes';
-import * as userService from '@services/User/userService';
-
+import userService from '@services/User/userService';
+import tokenAuthHandler from '@middlewares/tokenHandler';
 
 const pathOrderedRouteMap: Route[] = [
   {
@@ -53,6 +53,9 @@ const pathOrderedRouteMap: Route[] = [
   },
   {
     action: definitionService.addDefinition,
+    before: [
+      tokenAuthHandler,
+    ],
     createParam: (req: Request) => {
       return {
         definition: req.body.definition,
