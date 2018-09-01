@@ -20,17 +20,13 @@ export default class Term extends BaseEntity {
   public status?: string;
 
   constructor(param?: {
-    id,
     label,
     roman?,
     status?,
   }) {
     super();
-    if (param) {
-      this.id = param.id;
-      this.label = param.label;
-      this.roman = param.roman;
-      this.status = param.status;
-    }
+    this.label = param && param.label;
+    this.roman = param && param.roman;
+    this.status = param && param.status;
   }
 };

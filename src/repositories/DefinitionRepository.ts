@@ -5,3 +5,4 @@ import Definition from '@entities/Definition';
 export class DefinitionRepository extends Repository<Definition> {
 
 }
+

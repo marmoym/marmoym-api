@@ -34,7 +34,7 @@ function registerRouter(app, path, routeMap: Route[]) {
     router[route.method](
       route.path, 
       [
-        ...route.before && route.before || [],
+        ...(route.before && route.before || []),
         (req: Request, res: Response, next: NextFunction) => {
           const param = route.createParam ? route.createParam(req) : null;
           route.action(param)

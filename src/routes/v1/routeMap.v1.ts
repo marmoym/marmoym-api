@@ -59,6 +59,7 @@ const pathOrderedRouteMap: Route[] = [
     createParam: (req: Request) => {
       return {
         definition: req.body.definition,
+        term: req.body.definition,
       };
     },
     method: HttpMethod.POST,

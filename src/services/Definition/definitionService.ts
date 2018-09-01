@@ -12,22 +12,27 @@ import User from '@entities/User';
 
 export default {
   async addDefinition({
-    definitionLabel,
-    termLabel,
+    definition,
+    term,
   }: AddDefinitionParam) {
     try {
       const termRepo = getCustomRepository(TermRepository, DB1);
-      const [ term, count ] = await termRepo.findAndCount({
-        label: termLabel,
+      const [ _term, count ] = await termRepo.findAndCount({
+        label: term,
       });
 
-      // const definition = new Definition({
+      const newDefinition = new Definition({
+        term: _term[0] || new Term({
+          label: term,
+        }),
+        label: definition,
+      });
 
-      // });
+      console.log(123, newDefinition);
 
-      if (count > 0) {
+      const definitionRepo = getCustomRepository(DefinitionRepository, DB1);
+      definitionRepo.save(newDefinition);
 
-      }
       return new ApiResult<{}>({});
     } catch (err) {
       throw err;
@@ -64,8 +69,8 @@ export default {
 };
 
 export interface AddDefinitionParam {
-  definitionLabel: string,
-  termLabel: string,
+  definition: string,
+  term: string,
 };
 
 export interface GetDefinitionsParam {

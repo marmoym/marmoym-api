@@ -43,19 +43,19 @@ export default class Definition extends BaseEntity {
   public vote: Vote;
 
   constructor(param?: {
-    id,
     label,
     term?,
     user?,
-    vote,
   }) {
     super();
     if (param) {
-      this.id = param.id;
       this.label = param.label;
       this.term = param.term;
       this.user = param.user;
-      this.vote = param.vote;
     }
   }
 };
+
+interface DefinitionParam {
+   
+}

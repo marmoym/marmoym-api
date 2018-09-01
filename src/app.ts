@@ -18,6 +18,8 @@ import routeNoMatchHandler from '@middlewares/routeNoMatchHandler';
 import routes from '@routes/routes';
 import Token from '@modules/Token';
 
+import httpLogger from '@middlewares/httpLogger';
+
 const APP_LAUNCH_STATUS = {
   NOT_YET_INTIALIZED: 'NOT_YET_INTIALIZED',
   INIT_ERROR: 'INIT_ERROR',
@@ -46,11 +48,11 @@ const state = {
 })();
 
 (function defineApp() {
-  app.use(morgan('tiny'))
-  app.use(corsHandler());
-  app.use(cookieParser());
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
+  app.use(httpLogger);
+  app.use(corsHandler());
+  app.use(cookieParser());
   app.use((req, res, next) => {
     if (state.appLaunchStatus === APP_LAUNCH_STATUS.NOT_YET_INTIALIZED) {
       res.send({
