@@ -3,15 +3,16 @@
  */
 import "reflect-metadata";
 
-import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
+import * as express from 'express';
 
 import corsHandler from '@middlewares/corsHandler';
 import db from '@entities/db';
 import errorHandler from './middlewares/errorHandler';
 import httpLogger from '@middlewares/httpLogger';
 import LaunchStatus from '@constants/LaunchStatus';
+import launchStatusChecker from '@middlewares/launchStatusChecker';
 import { dbLog, expressLog, stateLog } from '@modules/Log';
 import marmoymConfig from '@config/marmoymConfig';
 import ResponseType from '@models/ResponseType';
@@ -65,29 +66,19 @@ const state: State = {
 
   app.use(cookieParser());
 
-  app.use((req, res, next) => {
-    if (state.launchStatus === LaunchStatus.NOT_YET_INTIALIZED) {
-      res.send({
-        message: 'App is launching. Reload after a few seconds.',
-      });
-    } else if (state.launchStatus === LaunchStatus.INIT_ERROR) {
-      res.status(500)
-        .send({
-          code: ResponseType.INITIALIZATION_ERROR.code,
-          message: ResponseType.INITIALIZATION_ERROR.desc,
-        });
-    } else {
-      next();
-    }
-  });
+  app.use(launchStatusChecker(state));
+
   routes(app);
+
   app.use(routeNoMatchHandler);
+
   app.use(errorHandler);
   
   app.listen(marmoymConfig.app.port, function(err) {
     if (err) {
-      return console.error(err);
+      console.error(err);
     }
+    
     expressLog.info('Listening at port: %s', marmoymConfig.app.port);
     expressLog.info('Server status: %s', state.launchStatus);
   });
@@ -95,7 +86,7 @@ const state: State = {
 
 export default app;
 
-interface State {
+export interface State {
   launchStatus: string,
   update: ({}) => void,
 }
