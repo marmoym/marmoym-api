@@ -6,10 +6,10 @@ import AppError from '@models/AppError';
 import Cookie from '@models/Cookie';
 import Crypt from '@modules/Crypt';
 import HttpStatus from '@constants/HttpStatus';
-import Logger from '@modules/Logger';
+import { expressLog } from '@modules/Log';
 import ResponseType from '@models/ResponseType';
-import routeMapDefault from './default/routeMap.default';
-import routeMap1 from './v1/routeMap.v1';
+// import routeMapDefault from './default/routeMap.default';
+// import routeMap1 from './v1/routeMap.v1';
 
 export interface Route {
   action: (x: object | null) => Promise<ApiResult<any>>,
@@ -20,8 +20,8 @@ export interface Route {
 };
 
 export default function routes(app) {
-  registerRouter(app, API.DEFAULT, routeMapDefault);
-  registerRouter(app, API.V1, routeMap1);
+  // registerRouter(app, API.DEFAULT, routeMapDefault);
+  // registerRouter(app, API.V1, routeMap1);
 
   return app;
 };
@@ -30,7 +30,7 @@ function registerRouter(app, path, routeMap: Route[]) {
   const router: Router = Router();
 
   routeMap.map((route) => {
-    Logger.debug('Route is registered: [%s] %s', route.method, route.path);
+    expressLog.debug('Route is registered: [%s] %s', route.method, route.path);
     router[route.method](
       route.path, 
       [
@@ -70,7 +70,8 @@ function setCookie(res: Response) {
   return function (apiResult: ApiResult<any>) {
     const cookies = apiResult.getCookies();
     if (cookies.length > 0) {
-      Logger.debug('Cookies (%s) are set: %j', cookies.length, cookies);
+      expressLog.debug('Cookies (%s) are set: %j', cookies.length, cookies);
+
       apiResult.getCookies()
         .map((cookie: Cookie) => {
           res.cookie(cookie.key, cookie.value, {

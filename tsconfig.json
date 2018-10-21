@@ -29,9 +29,6 @@
       "@modules/*": [
         "src/modules/*"
       ],
-      "@repos/*": [
-        "src/repositories/*"
-      ],
       "@routes/*": [
         "src/routes/*"
       ],

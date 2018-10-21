@@ -1,7 +1,7 @@
 import { format } from 'util';
 
 import HttpStatus from '@constants/HttpStatus';
-import Logger from '@src/modules/Logger';
+import { expressLog } from '@modules/Log';
 import AppError from '@models/AppError';
 import { PROD_ENV } from '@utils/envUtils';
 import ResponseType from '@models/ResponseType';
@@ -19,7 +19,7 @@ export default function errorHandler(err, req, res, next) {
     err.stack = format('Original object: %j', _err);
   }
 
-  Logger.error('[%s] %s\n%s', err.code, err.label, err.stack);
+  expressLog.error('[%s] %s\n%s', err.code, err.label, err.stack);
 
   res.status(HttpStatus.ERROR)
     .send({

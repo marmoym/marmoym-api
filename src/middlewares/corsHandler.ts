@@ -2,7 +2,7 @@ import * as cors from 'cors';
 
 import appConfig from '@config/marmoymConfig';
 import AppError from '@models/AppError';
-import Logger from '@modules/Logger';
+import { expressLog } from '@modules/Log';
 import ResponseType from '@models/ResponseType';
 
 export default function corsHandler() {
@@ -18,7 +18,7 @@ export default function corsHandler() {
         if (appConfig.cors.whitelist.indexOf(origin) !== -1) {
           callback(null, true);
         } else {
-          Logger.warn('Request origin not listed in whitelist: %s', origin);
+          expressLog.warn('Request origin not listed in whitelist: %s', origin);
           callback(null, true);
           // process.env.NODE_ENV === 'development'
           //   ? callback(null, true)

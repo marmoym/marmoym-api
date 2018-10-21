@@ -1,35 +1,36 @@
 /**
- * Copyright Marmoym 2017
+ * Copyright Marmoym 2017-2018
  */
 import "reflect-metadata";
 
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
-import * as morgan from 'morgan';
 
 import corsHandler from '@middlewares/corsHandler';
-import Database from '@modules/Database';
+import db from '@entities/db';
 import errorHandler from './middlewares/errorHandler';
-import Logger from '@modules/Logger';
+import httpLogger from '@middlewares/httpLogger';
+import LaunchStatus from '@constants/LaunchStatus';
+import { dbLog, expressLog, stateLog } from '@modules/Log';
 import marmoymConfig from '@config/marmoymConfig';
 import ResponseType from '@models/ResponseType';
 import routeNoMatchHandler from '@middlewares/routeNoMatchHandler';
 import routes from '@routes/routes';
 import Token from '@modules/Token';
 
-import httpLogger from '@middlewares/httpLogger';
-
-const APP_LAUNCH_STATUS = {
-  NOT_YET_INTIALIZED: 'NOT_YET_INTIALIZED',
-  INIT_ERROR: 'INIT_ERROR',
-  INIT_SUCCESS: 'INIT_SUCCESS',
-};
-
 const app: express.Application = express();
 
-const state = {
-  appLaunchStatus: APP_LAUNCH_STATUS.NOT_YET_INTIALIZED,
+const state: State = {
+  launchStatus: LaunchStatus.NOT_YET_INTIALIZED,
+  update(obj = {}) {
+    stateLog.info('state will update with: %o', obj);
+    for (let key in this) {
+      if (obj[key]) {
+        this[key] = obj[key];
+      }
+    }
+  },
 };
 
 (function prepareModules() {
@@ -38,27 +39,38 @@ const state = {
     tokenDuration: marmoymConfig.auth.tokenDuration,
   });
 
-  Database.initialize()
-    .then((connections) => {
-      state.appLaunchStatus = APP_LAUNCH_STATUS.INIT_SUCCESS;
+  db.sequelize.sync()
+    .then((res) => {
+      dbLog.info('db connect success');
+      state.update({
+        launchStatus: LaunchStatus.INIT_SUCCESS,
+      });
     })
     .catch((err) => {
-      state.appLaunchStatus = APP_LAUNCH_STATUS.INIT_ERROR;
+      dbLog.error(err);
+      state.update({
+        launchStatus: LaunchStatus.INIT_ERROR,
+      });
     });
 })();
 
 (function defineApp() {
   app.use(bodyParser.urlencoded({ extended: true }));
+
   app.use(bodyParser.json());
+
   app.use(httpLogger);
+
   app.use(corsHandler());
+
   app.use(cookieParser());
+
   app.use((req, res, next) => {
-    if (state.appLaunchStatus === APP_LAUNCH_STATUS.NOT_YET_INTIALIZED) {
+    if (state.launchStatus === LaunchStatus.NOT_YET_INTIALIZED) {
       res.send({
-        message: 'App is launching. Reload after 15 seconds.',
+        message: 'App is launching. Reload after a few seconds.',
       });
-    } else if (state.appLaunchStatus === APP_LAUNCH_STATUS.INIT_ERROR) {
+    } else if (state.launchStatus === LaunchStatus.INIT_ERROR) {
       res.status(500)
         .send({
           code: ResponseType.INITIALIZATION_ERROR.code,
@@ -76,8 +88,14 @@ const state = {
     if (err) {
       return console.error(err);
     }
-    Logger.info('Listening at port: %s', marmoymConfig.app.port);
+    expressLog.info('Listening at port: %s', marmoymConfig.app.port);
+    expressLog.info('Server status: %s', state.launchStatus);
   });
 })();
 
 export default app;
+
+interface State {
+  launchStatus: string,
+  update: ({}) => void,
+}
