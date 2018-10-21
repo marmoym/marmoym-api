@@ -1,4 +1,4 @@
-import * as cors from 'cors';
+import cors from 'cors';
 
 import appConfig from '@config/marmoymConfig';
 import AppError from '@models/AppError';

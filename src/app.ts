@@ -4,7 +4,7 @@
 import "reflect-metadata";
 
 import * as bodyParser from 'body-parser';
-import * as cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 import * as express from 'express';
 
 import corsHandler from '@middlewares/corsHandler';
@@ -20,7 +20,7 @@ import routeNoMatchHandler from '@middlewares/routeNoMatchHandler';
 import routes from '@routes/routes';
 import Token from '@modules/Token';
 
-const app: express.Application = express();
+const app: express.Application = express['default']();
 
 const state: State = {
   launchStatus: LaunchStatus.NOT_YET_INTIALIZED,
@@ -88,5 +88,5 @@ export default app;
 
 export interface State {
   launchStatus: string,
-  update: ({}) => void,
+  update: (obj: {}) => void,
 }

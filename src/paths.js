@@ -14,5 +14,7 @@ Did you call process.chdir() properly?`);
 })();
 
 module.exports = {
+  dist: path.resolve(ROOT_PATH, 'dist'),
   logs: path.resolve(ROOT_PATH, 'logs'),
+  src: path.resolve(ROOT_PATH, 'src'),
 };

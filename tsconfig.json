@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": false,
     "allowJs": true,
     "baseUrl": "./",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "module": "commonjs",  
+    "module": "commonjs",
     "moduleResolution": "node",
-    "outDir": "./tsc_out/",
+    "noEmit": true,
     "paths": {
       "@config/*": [
         "src/config/*" 
