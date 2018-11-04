@@ -7,7 +7,7 @@
     "pm2:deploy": "pm2 deploy ./internals/pm2/ecosystem.config.js production",
     "pm2:start:prod": "yarn run build && pm2 startOrRestart ./internals/pm2/ecosystem.config.js --env production",
     "preinstall": "./internals/shell/preinstall.sh",
-    "start:dev": "yarn run build && cross-env NODE_ENV=development node ./dist/app.js",
+    "dev:local": "yarn run build && cross-env NODE_ENV=development LOCAL=true node ./dist/app.js",
     "start:prod": "yarn run build && cross-e nv NODE_ENV=production node ./dist/app.js",
     "test": ""
   },

@@ -20,6 +20,8 @@ import routeNoMatchHandler from '@middlewares/routeNoMatchHandler';
 import routes from '@routes/routes';
 import Token from '@modules/Token';
 
+expressLog.info('App is running in NODE_ENV: %s, LOCAL: %s', process.env.NODE_ENV, process.env.LOCAL);
+
 const app: express.Application = express['default']();
 
 const state: State = {

@@ -17,4 +17,5 @@ module.exports = {
   dist: path.resolve(ROOT_PATH, 'dist'),
   logs: path.resolve(ROOT_PATH, 'logs'),
   src: path.resolve(ROOT_PATH, 'src'),
+  tsconfig: path.resolve(ROOT_PATH, 'tsconfig.json'),
 };

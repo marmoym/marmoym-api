@@ -1,36 +1,10 @@
-let importedConfig: MarmoymConfig;
+const localEnv = process.env.LOCAL == 'true';
 
-try {
-  importedConfig = require('./marmoym-config/config');
-} catch (err) {
-  console.error(`'marmoym-config' is not present. The repo is accessible with the previlege.
-It is possible, however, to setup a local configuration to launch the app. You are advised to modify 
-marmoymConfig in whichever you want.`);
-  importedConfig = {
-    app: {},
-    auth: {},
-    cors: {},
-    db: {},
-  };
-}
-
-const dbConfigBase = {
-  database: 'test',
-  host: 'localhost',
-  password: 'test',
-  poolMax: 5,
-  poolMin: 0,
-  port: 3306,
-  username: 'test',
-  type: 'postgres',
-};
-
-const marmoymConfig: MarmoymConfig = {
+let marmoymConfig: MarmoymConfig = {
   app: {
     port: 4001,
   },
   auth: {
-    ...importedConfig.auth,
     privateKey: 'abcd',
     saltRound: 5,
     tokenDuration: '1d',
@@ -40,25 +14,43 @@ const marmoymConfig: MarmoymConfig = {
       'http://localhost',
     ],
   },
-  db: {
-    db1: {
-      development: {
-        ...dbConfigBase,
-      },
-      production: {
-        ...dbConfigBase,
-      },
-      ...(importedConfig.db['db1'] ? importedConfig.db['db1'] : {}),
-    },
-  },
+  db: {},
 };
+
+try {
+  const importedConfig = require('./marmoym-config/config');
+  marmoymConfig = importedConfig;
+} catch (err) {
+  console.error(`
+'marmoym-config' is not present. The repo is accessible with the previlege.
+It is possible, however, to setup a local configuration to launch the app. You are advised to modify
+marmoymConfig in whichever you want.`);
+}
+
+const localDBConfig = {
+  database: 'marmoym-local',
+  host: "localhost",
+  password: "marmoym-local",
+  poolMax: 5,
+  poolMin: 0,
+  port: 5432,
+  type: "postgres",
+  username: "marmoym-local",
+};
+
+(function assignLocalDBSettings() {
+  marmoymConfig.db['db1'] = {
+    ...marmoymConfig.db['db1'],
+    local: localDBConfig,
+  };
+})();
 
 export default marmoymConfig;
 
 interface MarmoymConfig {
-  app,
-  auth,
-  cors,
+  app: SingleLevelObject,
+  auth: AuthConfig,
+  cors: SingleLevelObject,
   db: {
     [dbName: string]: {
       [env: string]: {
@@ -73,4 +65,14 @@ interface MarmoymConfig {
       },
     },
   },
+}
+
+interface SingleLevelObject {
+  [key: string]: string | number | Array<any>,
+}
+
+interface AuthConfig {
+  privateKey: string,
+  saltRound: number,
+  tokenDuration: string,
 }
