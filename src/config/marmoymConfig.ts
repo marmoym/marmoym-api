@@ -1,5 +1,3 @@
-const localEnv = process.env.LOCAL == 'true';
-
 let marmoymConfig: MarmoymConfig = {
   app: {
     port: 4001,
@@ -27,7 +25,7 @@ It is possible, however, to setup a local configuration to launch the app. You a
 marmoymConfig in whichever you want.`);
 }
 
-const localDBConfig = {
+const _localDBConfig = {
   database: 'marmoym-local',
   host: "localhost",
   password: "marmoym-local",
@@ -41,7 +39,13 @@ const localDBConfig = {
 (function assignLocalDBSettings() {
   marmoymConfig.db['db1'] = {
     ...marmoymConfig.db['db1'],
-    local: localDBConfig,
+    local: {
+      ..._localDBConfig,
+    },
+    'local-container': {
+      ..._localDBConfig,
+      host: 'docker.for.mac.host.internal',
+    }
   };
 })();
 
@@ -53,7 +57,7 @@ interface MarmoymConfig {
   cors: SingleLevelObject,
   db: {
     [dbName: string]: {
-      [env: string]: {
+      [dbEnv: string]: {
         database: string,
         host: string,
         password: string,

@@ -16,7 +16,7 @@ export default function errorHandler(err, req, res, next) {
   if (!(err instanceof AppError)) {
     const _err = err;
     err = ResponseType.RESPONSE_TYPE_NOT_API_RESULT;
-    err.stack = format('Original object: %j', _err);
+    err.stack = format('Error original object: %j', _err);
   }
 
   expressLog.error('[%s] %s\n%s', err.code, err.label, err.stack);

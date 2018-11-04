@@ -4,10 +4,12 @@
   "description": "marmoym-api",
   "scripts": {
     "build": "./node_modules/.bin/gulp --gulpfile ./internals/gulp/gulpfile.js build",
+    "docker-create": "docker build -f ./internals/docker/Dockerfile -t marmoym-local .",
+    "docker-run": "docker run -d -p 4001:4001 marmoym-local",
+    "dev:local": "yarn run build && cross-env NODE_ENV=development DB=local node ./dist/app.js",
+    "get-config": "./internals/shell/preinstall.sh",
     "pm2:deploy": "pm2 deploy ./internals/pm2/ecosystem.config.js production",
     "pm2:start:prod": "yarn run build && pm2 startOrRestart ./internals/pm2/ecosystem.config.js --env production",
-    "preinstall": "./internals/shell/preinstall.sh",
-    "dev:local": "yarn run build && cross-env NODE_ENV=development LOCAL=true node ./dist/app.js",
     "start:prod": "yarn run build && cross-e nv NODE_ENV=production node ./dist/app.js",
     "test": ""
   },

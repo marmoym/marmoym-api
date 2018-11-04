@@ -13,7 +13,7 @@ const sourcemaps = require('gulp-sourcemaps');
 const ts = require('gulp-typescript');
 const util = require('util');
 
-const babelRc = require('../babel/.babelRc');
+const babelRc = require('../babel/.babelrc');
 const paths = require('../../src/paths');
 
 const Task = {

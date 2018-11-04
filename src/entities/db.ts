@@ -9,10 +9,10 @@ const basename = path.basename(__filename);
 const db: DB = {
   sequelize: undefined,
 };
-const env = (process.env.LOCAL == 'true' && 'local') || process.env.NODE_ENV || 'development';
-const db1Config = marmoymConfig.db['db1'][env];
+const dbEnv = process.env.DB || process.env.NODE_ENV || 'development';
+const db1Config = marmoymConfig.db['db1'][dbEnv];
 
-dbLog.info('dbConfig is retrieved in env: %s,\n%o', env, db1Config);
+dbLog.info('dbConfig is retrieved in dbEnv: %s,\n%o', dbEnv, db1Config);
 
 const sequelize = new Sequelize({
   database: db1Config.database,
