@@ -15,7 +15,7 @@ Did you call process.chdir() properly?`);
 
 module.exports = {
   dist: path.resolve(ROOT_PATH, 'dist'),
-  entities: path.resolve(ROOT_PATH, 'src/entities'),
+  distEntities: path.resolve(ROOT_PATH, 'dist/entities'),
   logs: path.resolve(ROOT_PATH, 'logs'),
   src: path.resolve(ROOT_PATH, 'src'),
   tsconfig: path.resolve(ROOT_PATH, 'tsconfig.json'),

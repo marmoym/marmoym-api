@@ -32,13 +32,14 @@ const sequelize = new Sequelize({
 });
 
 fs
-  .readdirSync(paths.entities)
+  .readdirSync(paths.distEntities)
   .filter(file => {
     return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
   })
   .forEach(file => {
-    const entity = sequelize['import'](path.join(paths.entities, file));
-    dbLog.info('entity is registered, filename: %s, entityName: %s', file, entity.name);
+    const filePath = path.join(paths.distEntities, file);
+    const entity = sequelize['import'](filePath);
+    dbLog.info('entity is imported by sequelize. File: %s, EntityName: %s', file, entity.name);
     db[entity.name] = entity;
   });
 
@@ -60,7 +61,9 @@ export async function initializeDB(): Promise<boolean> {
     await db.sequelize.authenticate();
     dbLog.info('authenticate() success, db is connectable');
 
-    await db.sequelize.sync();
+    await db.sequelize.sync({
+      force: true,
+    });
     dbLog.info('sync() success');
 
     return true;
