@@ -1,8 +1,4 @@
 module.exports = {
-  "presets": [
-    "@babel/preset-env",
-    "@babel/preset-typescript",
-  ],
   "plugins": [
     [
       "module-resolver", {
@@ -33,5 +29,16 @@ module.exports = {
     "@babel/plugin-syntax-import-meta",
     ["@babel/plugin-proposal-class-properties", { "loose": false }],
     "@babel/plugin-proposal-json-strings"
+  ],
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": "current",
+        }
+      }
+    ],
+    "@babel/preset-typescript",
   ],
 }

@@ -19,6 +19,7 @@ const sequelize = new Sequelize({
   database: dbConfig.database,
   dialect: dbConfig.type,
   host: dbConfig.host,
+  operatorsAliases: false,
   password: dbConfig.password,
   pool: {
     acquire: 30000,
@@ -53,6 +54,21 @@ db.sequelize = sequelize;
 // db.Sequelize = Sequelize;
 
 export default db;
+
+export async function initializeDB(): Promise<boolean> {
+  try {
+    await db.sequelize.authenticate();
+    dbLog.info('authenticate() success, db is connectable');
+
+    await db.sequelize.sync();
+    dbLog.info('sync() success');
+
+    return true;
+  } catch (err) {
+    dbLog.error('db authenticate() fail: %o', err);
+    return false;
+  }
+}
 
 interface DB {
   [entity: string]: any,

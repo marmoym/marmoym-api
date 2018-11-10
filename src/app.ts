@@ -8,7 +8,7 @@ import cookieParser from 'cookie-parser';
 import * as express from 'express';
 
 import corsHandler from '@middlewares/corsHandler';
-import db from '@entities/db';
+import db, { initializeDB } from '@entities/db';
 import errorHandler from './middlewares/errorHandler';
 import httpLogger from '@middlewares/httpLogger';
 import LaunchStatus from '@constants/LaunchStatus';
@@ -35,25 +35,16 @@ const state: State = {
   },
 };
 
-(function prepareModules() {
+(async function prepareModules() {
   Token.initialize({
     privateKey: marmoymConfig.auth.privateKey,
     tokenDuration: marmoymConfig.auth.tokenDuration,
   });
 
-  db.sequelize.sync()
-    .then((res) => {
-      dbLog.info('db connect success');
-      state.update({
-        launchStatus: LaunchStatus.INIT_SUCCESS,
-      });
-    })
-    .catch((err) => {
-      dbLog.error('db connect fail: %o', err);
-      state.update({
-        launchStatus: LaunchStatus.INIT_ERROR,
-      });
-    });
+  const dbIsInitialized = await initializeDB();
+  state.update({
+    launchStatus: dbIsInitialized ? LaunchStatus.INIT_SUCCESS : LaunchStatus.INIT_ERROR,
+  });
 })();
 
 (function defineApp() {
