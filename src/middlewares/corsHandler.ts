@@ -15,7 +15,7 @@ export default function corsHandler() {
     cors({
       credentials: true,
       origin: function (origin, callback) {
-        if (appConfig.cors.whitelist.indexOf(origin) !== -1) {
+        if (appConfig.cors.whitelist['indexOf'](origin) !== -1) {
           callback(null, true);
         } else {
           expressLog.warn('Request origin not listed in whitelist: %s', origin);

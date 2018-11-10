@@ -15,7 +15,6 @@ import LaunchStatus from '@constants/LaunchStatus';
 import launchStatusChecker from '@middlewares/launchStatusChecker';
 import { dbLog, expressLog, stateLog } from '@modules/Log';
 import marmoymConfig from '@config/marmoymConfig';
-import ResponseType from '@models/ResponseType';
 import routeNoMatchHandler from '@middlewares/routeNoMatchHandler';
 import routes from '@routes/routes';
 import Token from '@modules/Token';
@@ -50,7 +49,7 @@ const state: State = {
       });
     })
     .catch((err) => {
-      dbLog.error(err);
+      dbLog.error('db connect fail: %o', err);
       state.update({
         launchStatus: LaunchStatus.INIT_ERROR,
       });

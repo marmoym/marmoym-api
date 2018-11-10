@@ -25,7 +25,7 @@ It is possible, however, to setup a local configuration to launch the app. You a
 marmoymConfig in whichever you want.`);
 }
 
-const _localDBConfig = {
+const localDBConfig = {
   database: 'marmoym-local',
   host: "localhost",
   password: "marmoym-local",
@@ -37,13 +37,13 @@ const _localDBConfig = {
 };
 
 (function assignLocalDBSettings() {
-  marmoymConfig.db['db1'] = {
-    ...marmoymConfig.db['db1'],
+  marmoymConfig.db['default'] = {
+    ...marmoymConfig.db['default'],
     local: {
-      ..._localDBConfig,
+      ...localDBConfig,
     },
     'local-container': {
-      ..._localDBConfig,
+      ...localDBConfig,
       host: 'docker.for.mac.host.internal',
     }
   };
