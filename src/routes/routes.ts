@@ -5,6 +5,7 @@ import {
   Response,
   Router,
 } from 'express';
+import routeMapping from 'route-mapping';
 
 import ApiResult from '@models/ApiResult';
 import { API } from '@models/ApiURL';
@@ -15,7 +16,6 @@ import HttpStatus from '@constants/HttpStatus';
 import { expressLog } from '@modules/Log';
 import ResponseType from '@models/ResponseType';
 import routeMapDefault from './default/routeMap.default';
-import routeMapper from '@externalModules/routeMapper/routeMapper';
 // import routeMap1 from './v1/routeMap.v1';
 
 const routeDefinitions = [
@@ -29,7 +29,7 @@ const routeDefinitions = [
 ];
 
 export default function routes(app: Application) {
-  routeMapper(app, routeDefinitions);
+  routeMapping(app, routeDefinitions);
   return app;
 }
 

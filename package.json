@@ -57,6 +57,7 @@
     "ms": "^2.1.1",
     "node-logger": "git+https://github.com/eldeni/node-logger.git",
     "pg": "^7.4.3",
+    "route-mapping": "git+https://github.com/node-starter-kit/route-mapping.git",
     "sequelize": "^4.38.0",
     "typeorm": "^0.2.5",
     "winston": "3.0.0-rc4"
