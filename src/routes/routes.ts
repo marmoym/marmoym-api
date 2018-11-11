@@ -11,18 +11,26 @@ import ApiResult from '@models/ApiResult';
 import { API } from '@models/ApiURL';
 import AppError from '@models/AppError';
 import Cookie from '@models/Cookie';
-import Crypt from '@modules/Crypt';
 import HttpStatus from '@constants/HttpStatus';
 import { expressLog } from '@modules/Log';
 import ResponseType from '@models/ResponseType';
 import routeMapDefault from './default/routeMap.default';
-// import routeMap1 from './v1/routeMap.v1';
+import routeMap1 from './v1/routeMap.v1';
 
 const routeDefinitions = [
   {
     map: routeMapDefault,
     mapPath: API.DEFAULT,
     postAsyncHandlers: [
+      respond,
+    ],
+  },
+  {
+    map: routeMap1,
+    mapPath: API.V1,
+    postAsyncHandlers: [
+      validatePayload,
+      setCookie,
       respond,
     ],
   },
@@ -80,4 +88,12 @@ function respond(req: Request, res: Response, next: NextFunction) {
 
     return apiResult;
   }
+}
+
+export interface Route {
+  action: (x: object | null) => Promise<ApiResult<any>>;
+  beforeware?: Array<(Request: any, res: Response, next: NextFunction) => void>;
+  createParam?: (req: Request) => object;
+  method: 'get' | 'post' | 'put' | 'delete';
+  path: string;
 }

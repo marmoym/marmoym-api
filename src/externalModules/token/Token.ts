@@ -1,10 +1,8 @@
+import chalk from 'chalk';
 import * as jwt from 'jsonwebtoken';
 import * as ms from 'ms';
 
-export const AUTH_TOKEN = 'auth-token';
-export const VERSION = '__version';
-
-const TOKEN_ERROR = {
+const TokenError = {
   TOKEN_CREATE_ERROR: 'TOKEN_CREATE_ERROR',
   TOKEN_DECODE_ERROR: 'TOKEN_DECODE_ERROR',
   TOKEN_NOT_INITIALIZED: 'TOKEN_NOT_INITIALIZED',
@@ -21,8 +19,6 @@ const state: {
 };
 
 export default class Token {
-  static [VERSION] = '0.0.3';
-
   static initialize({
     privateKey,
     tokenDuration = '1d',
@@ -33,16 +29,17 @@ export default class Token {
       state.initialized = true;
       return true;
     } else {
-      throw Error('Token should be initialized with `private key` and `token duration`');
+      console.error(`[Token] 'privateKey', 'tokenDuration' undefined. Possibly ${chalk.yellow('not initialized')}.`);
+      return false;
     }
   }
 
-  static create({
+  static create<T> ({
     payload,
-  }): Promise<string> {
+  }: CreateParams<T>): Promise<string> {
     return new Promise<string>((resolve, reject) => {
       if (!state.initialized) {
-        reject({ error: TOKEN_ERROR.TOKEN_NOT_INITIALIZED });
+        reject({ error: TokenError.TOKEN_NOT_INITIALIZED });
       }
 
       jwt.sign(
@@ -54,7 +51,7 @@ export default class Token {
         (err, token: string) => {
           if (err) {
             console.error(err);
-            reject({ error: TOKEN_ERROR.TOKEN_CREATE_ERROR });
+            reject({ error: TokenError.TOKEN_CREATE_ERROR });
           } else {
             console.debug(`Token is generated: %s`, token);
             resolve(token);
@@ -63,25 +60,33 @@ export default class Token {
     });
   }
 
-  static decode({
+  static decode<T> ({
     token,
-  }): Promise<object> {
-    return new Promise<object>((resolve, reject) => {
+  }: DecodeParams): Promise<T> {
+    return new Promise<T>((resolve, reject) => {
       if (!state.initialized) {
-        reject({ error: TOKEN_ERROR.TOKEN_NOT_INITIALIZED });
+        reject({ error: TokenError.TOKEN_NOT_INITIALIZED });
       }
 
       jwt.verify(
         token, 
         state.privateKey, 
-        (err, decoded: object) => {
+        (err, decoded: T) => {
           if (err) {
-            reject({ error: TOKEN_ERROR.TOKEN_DECODE_ERROR });
+            reject({ error: TokenError.TOKEN_DECODE_ERROR });
           } else {
             resolve(decoded);
           }
-        }
+        },
       );
     });
   }
-};
+}
+
+interface CreateParams<T> {
+  payload: T,
+}
+
+interface DecodeParams {
+  token: string;
+}

@@ -4,10 +4,10 @@ import AppError from "@models/AppError";
 import { expressLog } from '@modules/Log';
 import marmoymConfig from '@config/marmoymConfig';
 import ResponseType from '@models/ResponseType';
-import Token, { AUTH_TOKEN } from '@modules/Token';
+import Token from '@externalModules/token/Token';
 
 export default function tokenAuthHandler(req: Request, res: Response, next: NextFunction) {
-  const token = req.cookies[AUTH_TOKEN];
+  const token = req.cookies['auth-token'];
   expressLog.info(`Token auth handle: %s`, token);
 
   if (token) {

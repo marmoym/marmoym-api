@@ -1,6 +1,6 @@
 import * as bcrypt from 'bcrypt';
 
-export default class Crypt {
+class Crypt {
   static async compare({
     src,
     hash,
@@ -25,6 +25,8 @@ export default class Crypt {
     });
   }
 };
+
+export default Crypt;
 
 export interface HashParam {
   data: string,

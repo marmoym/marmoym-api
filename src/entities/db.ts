@@ -62,7 +62,7 @@ export async function initializeDB(): Promise<boolean> {
     dbLog.info('authenticate() success, db is connectable');
 
     await db.sequelize.sync({
-      force: true,
+      // force: true,
     });
     dbLog.info('sync() success');
 
