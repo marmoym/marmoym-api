@@ -1,3 +1,4 @@
+import chalk from 'chalk';
 import { format } from 'util';
 
 import HttpStatus from '@constants/HttpStatus';
@@ -7,23 +8,30 @@ import { PROD_ENV } from '@utils/envUtils';
 import ResponseType from '@models/ResponseType';
 
 export default function errorHandler(err, req, res, next) {
-  if (!(err instanceof Error)) {
-    err = AppError.of({
-      type: ResponseType.NOT_ERROR_OBJECT,
-    });
+  try {
+    expressLog.error('Error at %s, Original cause:\n%o', req.url, err);
+
+    if (!(err instanceof Error)) {
+      err = AppError.of({
+        type: ResponseType.NOT_ERROR_OBJECT,
+      });
+    }
+
+    if (!(err instanceof AppError)) {
+      err = ResponseType.RESPONSE_TYPE_NOT_API_RESULT;
+    }
+
+    expressLog.error(chalk`Processed API Error {red [%s]} %s`, err.code, err.label);
+
+    res.status(HttpStatus.ERROR)
+      .send({
+        code: err.code,
+        ...!PROD_ENV ? { message: err.desc }: {},
+      });
+  } catch (err) {
+    res.status(HttpStatus.ERROR)
+      .send({
+        code: ResponseType.SERVER_INTERNAL_ERROR,
+      });
   }
-
-  if (!(err instanceof AppError)) {
-    const _err = err;
-    err = ResponseType.RESPONSE_TYPE_NOT_API_RESULT;
-    err.stack = format('Error original object: %j', _err);
-  }
-
-  expressLog.error('[%s] %s\n%s', err.code, err.label, err.stack);
-
-  res.status(HttpStatus.ERROR)
-    .send({
-      code: err.code,
-      ...!PROD_ENV ? { message: err.desc }: {},
-    });
-};
+}

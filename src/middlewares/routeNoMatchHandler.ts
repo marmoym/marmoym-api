@@ -8,4 +8,4 @@ export default function routeNoMatchHandlerr(req: Request, res: Response, next: 
   next(AppError.of({
     type: ResponseType.ROUTE_NOT_DEFINED,
   }));
-};
+}

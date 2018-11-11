@@ -7,6 +7,7 @@ module.exports = {
           "@constants": "./src/constants",
           "@daos": "./src/daos",
           "@entities": "./src/entities",
+          "@externalModules": "./src/externalModules",
           "@middlewares": "./src/middlewares",
           "@models": "./src/models",
           "@modules": "./src/modules",

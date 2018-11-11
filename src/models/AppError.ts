@@ -1,7 +1,7 @@
 import { format } from 'util';
 
-import ResponseType, { 
-  ResponseTypeEntry,
+import Response, { 
+  ResponseEntry,
 } from '@models/ResponseType';
 
 export const VERSION = Symbol('version');
@@ -24,7 +24,7 @@ export default class AppError extends Error {
   }: {
     args?: any[],
     error?: Error,
-    type: ResponseTypeEntry,
+    type: ResponseEntry,
   }) {
     const apiError = new AppError();
     apiError.code = type.code;

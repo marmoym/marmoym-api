@@ -6,6 +6,8 @@ import { expressLog } from '@modules/Log';
 import ResponseType from '@models/ResponseType';
 
 export default function corsHandler() {
+  expressLog.info('corsHandler() wtih: %o, ', appConfig.cors);
+
   return [
     // https://github.com/expressjs/cors/issues/71#issuecomment-279661081
     (req, res, next) => {

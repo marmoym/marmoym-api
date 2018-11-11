@@ -26,6 +26,6 @@ export default class ApiURL {
 };
 
 export const API = {
-  DEFAULT: '',
+  DEFAULT: '/',
   V1: '/api/v1',
 };

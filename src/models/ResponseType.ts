@@ -1,10 +1,4 @@
-export interface ResponseTypeEntry {
-  code: number;
-  desc: string;
-  label: string;
-};
-
-const ResponseType = {
+const Response = {
   EMAIL_ALREADY_USED: {
     code: 401005,
     desc: 'email already used',
@@ -44,6 +38,11 @@ const ResponseType = {
     code: 404003,
     desc: 'Route is not defined',
     label: 'ROUTE_NOT_DEFINED',
+  },
+  SERVER_INTERNAL_ERROR: {
+    code: 500001,
+    desc: 'Internal Server error',
+    label: 'SERVER_INTERNAL_ERROR',
   },
   SUCCESS: {
     code: 200000,
@@ -107,5 +106,14 @@ const ResponseType = {
   },
 };
 
-export default ResponseType;
+export default Response;
 
+export interface ResponseType {
+  [label: string]: ResponseEntry
+}
+
+export interface ResponseEntry {
+  code: number;
+  desc: string;
+  label: string;
+}

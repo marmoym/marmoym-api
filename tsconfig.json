@@ -21,6 +21,9 @@
       "@entities/*": [
         "src/entities/*"
       ],
+      "@externalModules/*": [
+        "src/externalModules/*"
+      ],
       "@middlewares/*": [
         "src/middlewares/*"
       ],
