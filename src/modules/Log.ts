@@ -1,5 +1,6 @@
-import * as NodeLogger from 'node-logger';
+import * as NodeLogger from '@nodekit/node-logger';
 
+import chalk from 'chalk';
 import * as paths from '@src/paths';
 
 const nodeLogger = NodeLogger.createLogger({
@@ -9,31 +10,31 @@ const nodeLogger = NodeLogger.createLogger({
 export default nodeLogger;
 
 export const gulpLog = nodeLogger.with({
-  color: 'gray',
+  colorFunction: chalk.gray,
   tag: 'gulp',
 });
 
 export const httpLog = nodeLogger.with({
-  color: 'black',
+  colorFunction: chalk.black,
   tag: 'http',
 });
 
 export const launchLog = nodeLogger.with({
-  color: 'gray',
+  colorFunction: chalk.gray,
   tag: 'launch',
 });
 
 export const dbLog = nodeLogger.with({
-  color: 'magentaBright',
+  colorFunction: chalk.magentaBright,
   tag: 'db',
 });
 
 export const stateLog = nodeLogger.with({
-  color: 'yellowBright',
+  colorFunction: chalk.yellowBright,
   tag: 'server-state',
 });
 
 export const expressLog = nodeLogger.with({
-  color: 'blue',
+  colorFunction: chalk.blue,
   tag: 'express',
 });

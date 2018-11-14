@@ -23,11 +23,12 @@ const apiPostAsyncHandlers = [
   respond,
 ];
 
-export default function routes(app: Application) {
-  app.use(API.DEFAULT, createRouter(routesDefault, [ respond ]));
-  app.use(API.V1, createRouter(routesV1, apiPostAsyncHandlers));
-  return app;
-}
+const routers = {
+  default: createRouter(routesDefault, [ respond ]),
+  v1: createRouter(routesV1, apiPostAsyncHandlers),
+};
+
+export default routers;
 
 function validatePayload(req: Request, res: Response, next: NextFunction) {
   return function (apiResult: ApiResult<any>) {

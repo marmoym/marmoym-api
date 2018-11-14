@@ -9,7 +9,7 @@ import ResponseType from '@models/ResponseType';
 
 export default function errorHandler(err, req, res, next) {
   try {
-    expressLog.error('Error at %s, Original cause:\n%o', req.url, err);
+    expressLog.error('[errorHandler] Error at %s, Original cause:\n%o', req.url, err);
 
     if (!(err instanceof Error)) {
       err = AppError.of({
@@ -21,7 +21,7 @@ export default function errorHandler(err, req, res, next) {
       err = ResponseType.RESPONSE_TYPE_NOT_API_RESULT;
     }
 
-    expressLog.error(chalk`Processed API Error {red [%s]} %s`, err.code, err.label);
+    expressLog.error(`[errorHandler] Error determined as ${chalk.red('[%s]')} %s`, err.code, err.label);
 
     res.status(HttpStatus.ERROR)
       .send({

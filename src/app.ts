@@ -3,37 +3,21 @@
  */
 import "reflect-metadata";
 
-import * as bodyParser from 'body-parser';
-import cookieParser from 'cookie-parser';
 import * as express from 'express';
 
-import corsHandler from '@middlewares/corsHandler';
-import db, { initializeDB } from '@entities/db';
-import errorHandler from './middlewares/errorHandler';
-import httpLogger from '@middlewares/httpLogger';
+import { initializeDB } from '@entities/db';
 import LaunchStatus from '@constants/LaunchStatus';
-import launchStatusChecker from '@middlewares/launchStatusChecker';
-import { dbLog, expressLog, stateLog } from '@modules/Log';
+import { expressLog } from '@modules/Log';
 import marmoymConfig from '@config/marmoymConfig';
-import routeNoMatchHandler from '@middlewares/routeNoMatchHandler';
-import routes from '@routes/routes';
-import Token from '@modules/Token';
+import state from '@src/state';
+import Token from '@externalModules/token/Token';
+
+import attach from '@externalModules/middleware-attach';
+import middlewares from './app.middlewares';
 
 expressLog.info('App is running in NODE_ENV: %s, LOCAL: %s', process.env.NODE_ENV, process.env.LOCAL);
 
 const app: express.Application = express['default']();
-
-const state: State = {
-  launchStatus: LaunchStatus.NOT_YET_INTIALIZED,
-  update(obj = {}) {
-    stateLog.info('state will update with: %o', obj);
-    for (let key in this) {
-      if (obj[key]) {
-        this[key] = obj[key];
-      }
-    }
-  },
-};
 
 (async function prepareModules() {
   Token.initialize({
@@ -48,23 +32,7 @@ const state: State = {
 })();
 
 (function defineApp() {
-  app.use(bodyParser.urlencoded({ extended: true }));
-
-  app.use(bodyParser.json());
-
-  app.use(httpLogger);
-
-  app.use(corsHandler());
-
-  app.use(cookieParser());
-
-  app.use(launchStatusChecker(state));
-
-  routes(app);
-
-  app.use(routeNoMatchHandler);
-
-  app.use(errorHandler);
+  attach(app, middlewares);
   
   app.listen(marmoymConfig.app.port, function(err) {
     if (err) {
@@ -77,8 +45,3 @@ const state: State = {
 })();
 
 export default app;
-
-export interface State {
-  launchStatus: string,
-  update: (obj: {}) => void,
-}
