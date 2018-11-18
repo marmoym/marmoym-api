@@ -5,7 +5,7 @@ import {
   Response,
   Router,
 } from 'express';
-import routeMapping from 'route-mapping';
+import { createRouter } from '@nodekit/route-mapper';
 
 import ApiResult from '@models/ApiResult';
 import { API } from '@models/ApiURL';
@@ -14,30 +14,18 @@ import Cookie from '@models/Cookie';
 import HttpStatus from '@constants/HttpStatus';
 import { expressLog } from '@modules/Log';
 import ResponseType from '@models/ResponseType';
-import routeMapDefault from './default/routeMap.default';
-import routeMap1 from './v1/routeMap.v1';
+import routesDefault from './default/routes.default';
+import routesV1 from './v1/routes.v1';
 
-const routeDefinitions = [
-  {
-    map: routeMapDefault,
-    mapPath: API.DEFAULT,
-    postAsyncHandlers: [
-      respond,
-    ],
-  },
-  {
-    map: routeMap1,
-    mapPath: API.V1,
-    postAsyncHandlers: [
-      validatePayload,
-      setCookie,
-      respond,
-    ],
-  },
+const apiPostAsyncHandlers = [
+  validatePayload,
+  setCookie,
+  respond,
 ];
 
 export default function routes(app: Application) {
-  routeMapping(app, routeDefinitions);
+  app.use(API.DEFAULT, createRouter(routesDefault, [ respond ]));
+  app.use(API.V1, createRouter(routesV1, apiPostAsyncHandlers));
   return app;
 }
 
