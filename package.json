@@ -44,11 +44,12 @@
     "mocha": "^3.4.2",
     "reflect-metadata": "^0.1.12",
     "tslint": "^5.11.0",
-    "typescript": "^3.1.3"
+    "typescript": "^3.1.6"
   },
   "dependencies": {
-    "@nodekit/node-logger": "git+https://github.com/nodekit-org/node-logger.git",
-    "@nodekit/route-mapper": "git+https://github.com/nodekit-org/route-mapper.git",
+    "@nodekit/express-middleware-attach": "git+https://github.com/nodekit-org/express-middleware-attach.git",
+    "@nodekit/node-logger": "git+https://github.com/nodekit-org/node-logger.git#v0.0.3",
+    "@nodekit/express-route-mapper": "git+https://github.com/nodekit-org/express-route-mapper.git#v0.0.3",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.17.1",
     "chalk": "^2.4.1",

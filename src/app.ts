@@ -3,21 +3,20 @@
  */
 import "reflect-metadata";
 
-import * as express from 'express';
+import attach from '@nodekit/express-middleware-attach';
+import express from "express";
 
 import { initializeDB } from '@entities/db';
-import LaunchStatus from '@constants/LaunchStatus';
 import { expressLog } from '@modules/Log';
+import LaunchStatus from '@constants/LaunchStatus';
 import marmoymConfig from '@config/marmoymConfig';
+import middlewares from './app.middlewares';
 import state from '@src/state';
 import Token from '@externalModules/token/Token';
 
-import attach from '@externalModules/middleware-attach';
-import middlewares from './app.middlewares';
-
 expressLog.info('App is running in NODE_ENV: %s, LOCAL: %s', process.env.NODE_ENV, process.env.LOCAL);
 
-const app: express.Application = express['default']();
+const app = express();
 
 (async function prepareModules() {
   Token.initialize({
@@ -26,15 +25,14 @@ const app: express.Application = express['default']();
   });
 
   const dbIsInitialized = await initializeDB();
+  
   state.update({
     launchStatus: dbIsInitialized ? LaunchStatus.INIT_SUCCESS : LaunchStatus.INIT_ERROR,
   });
-})();
 
-(function defineApp() {
   attach(app, middlewares);
   
-  app.listen(marmoymConfig.app.port, function(err) {
+  app.listen(marmoymConfig.app.port, (err) => {
     if (err) {
       console.error(err);
     }

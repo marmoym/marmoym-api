@@ -5,7 +5,7 @@ import {
   Response,
   Router,
 } from 'express';
-import { createRouter } from '@nodekit/route-mapper';
+import { createRouter } from '@nodekit/express-route-mapper';
 
 import ApiResult from '@models/ApiResult';
 import { API } from '@models/ApiURL';
