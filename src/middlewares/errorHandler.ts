@@ -1,37 +1,44 @@
 import chalk from 'chalk';
 import { format } from 'util';
 
-import HttpStatus from '@constants/HttpStatus';
-import { expressLog } from '@modules/Log';
 import AppError from '@models/AppError';
-import { PROD_ENV } from '@utils/envUtils';
+import { expressLog } from '@modules/Log';
+import HttpStatus from '@constants/HttpStatus';
+import { isProduction } from '@src/env';
 import ResponseType from '@models/ResponseType';
 
-export default function errorHandler(err, req, res, next) {
+export default function errorHandler(err: Error, req, res, next) {
   try {
-    expressLog.error('[errorHandler] Error at %s, Original cause:\n%o', req.url, err);
-
     if (!(err instanceof Error)) {
       err = AppError.of({
-        type: ResponseType.NOT_ERROR_OBJECT,
+        responseType: ResponseType.NOT_ERROR_OBJECT,
       });
     }
 
-    if (!(err instanceof AppError)) {
-      err = ResponseType.RESPONSE_TYPE_NOT_API_RESULT;
-    }
-
-    expressLog.error(`[errorHandler] Error determined as ${chalk.red('[%s]')} %s`, err.code, err.label);
+    expressLog.error(
+      errorMsg,
+      req.url,
+      err.constructor.name,
+      err['label'],
+      err['desc'],
+      err.stack,
+    );
 
     res.status(HttpStatus.ERROR)
       .send({
-        code: err.code,
-        ...!PROD_ENV ? { message: err.desc }: {},
+        code: err['code'],
+        ...!isProduction && { message: err['desc'] },
       });
   } catch (err) {
     res.status(HttpStatus.ERROR)
       .send({
         code: ResponseType.SERVER_INTERNAL_ERROR,
+        desc: 'Error while processing error that has happened before',
       });
   }
 }
+
+const errorMsg =
+`[errorHandler] Error handling %s
+Error instance: %s, label: ${chalk.yellow('%s')}, desc: %s
+Error stack: %s`;

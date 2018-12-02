@@ -1,15 +1,15 @@
 import * as bodyParser from "body-parser";
 import cookieParser from 'cookie-parser';
+import { MiddlewareDefinition } from '@nodekit/express-middleware-attach';
 
 import { API } from '@models/ApiURL';
 import corsHandler from '@middlewares/corsHandler';
-import errorHandler from './middlewares/errorHandler';
+import errorHandler from '@middlewares/errorHandler';
 import httpLogger from "@middlewares/httpLogger";
 import launchStatusChecker from '@middlewares/launchStatusChecker';
-import { MiddlewareDefinition } from '@externalModules/middleware-attach'
 import routeNoMatchHandler from '@middlewares/routeNoMatchHandler';
 import routers from '@routes/routers';
-import state from '@src/state';
+import state from '@models/state';
 
 const middlewareDefinitions: MiddlewareDefinition[] = [
   {
@@ -22,7 +22,7 @@ const middlewareDefinitions: MiddlewareDefinition[] = [
     middlewares: [ httpLogger ],
   },
   {
-    middlewares: corsHandler(),
+    middlewares: [ corsHandler() ],
   },
   {
     middlewares: [ errorHandler ],

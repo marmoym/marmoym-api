@@ -1,13 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 
 import ApiURL from '@models/ApiURL';
-// import definitionService, { 
-//   AddDefinitionParam,
-// } from '@services/Definition/definitionService';
+import definitionService, { 
+} from '@services/definitionService';
 import HttpMethod from '@constants/HttpMethod';
 // import * as migrateService from '@services/migrateService';
 import { optional, requireNonEmpty } from '@src/utils/objectUtils';
-import { Route } from '@routes/routes';
+import { Route } from '@routes/routers';
 import * as userService from '@services/userService';
 import tokenAuthHandler from '@middlewares/tokenHandler';
 
@@ -51,20 +50,20 @@ const pathOrderedRouteMap: Route[] = [
   //   method: HttpMethod.POST,
   //   path: ApiURL.DEFINITIONS_$DEFINITIONID,
   // },
-  // {
-  //   action: definitionService.addDefinition,
-  //   before: [
-  //     tokenAuthHandler,
-  //   ],
-  //   createParam: (req: Request) => {
-  //     return {
-  //       definition: req.body.definition,
-  //       term: req.body.definition,
-  //     };
-  //   },
-  //   method: HttpMethod.POST,
-  //   path: ApiURL.DEFINITION_NEW,
-  // },
+  {
+    action: definitionService.addDefinition,
+    beforeware: [
+      tokenAuthHandler,
+    ],
+    createParam: (req: Request) => {
+      return {
+        definition: req.body.definition,
+        term: req.body.definition,
+      };
+    },
+    method: HttpMethod.POST,
+    path: ApiURL.DEFINITION_NEW,
+  },
   {
     action: userService.signUpUser,
     createParam: (req: Request) => {

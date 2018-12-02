@@ -1,23 +1,25 @@
 import cors from 'cors';
+import {
+  NextFunction,
+  Request,
+  Response,
+  RequestHandler
+ } from 'express';
 
-import appConfig from '@config/marmoymConfig';
-import AppError from '@models/AppError';
+import marmoymConfig from '@config/marmoymConfig';
 import { expressLog } from '@modules/Log';
-import ResponseType from '@models/ResponseType';
 
-export default function corsHandler() {
-  expressLog.info('corsHandler() wtih: %o, ', appConfig.cors);
+export default function corsHandlerWrapper(): RequestHandler {
+  expressLog.info('corsHandler() with: %o', marmoymConfig.cors);
 
-  return [
+  return function corsHandler(req: Request, res: Response, next: NextFunction) {
     // https://github.com/expressjs/cors/issues/71#issuecomment-279661081
-    (req, res, next) => {
-      req.headers.origin = req.headers.origin || req.headers.host;
-      next();
-    },
+    req.headers.origin = req.headers.origin || req.headers.host;
+
     cors({
       credentials: true,
       origin: function (origin, callback) {
-        if (appConfig.cors.whitelist['indexOf'](origin) !== -1) {
+        if (marmoymConfig.cors.whitelist['indexOf'](origin) !== -1) {
           callback(null, true);
         } else {
           expressLog.warn('Request origin not listed in whitelist: %s', origin);
@@ -27,6 +29,6 @@ export default function corsHandler() {
           //   : callback(AppError.ofType(ResponseType.REQUEST_ORIGIN_INVALID, origin));
         }
       },
-    }),
-  ];
-};
+    })(req, res, next);
+  };
+}

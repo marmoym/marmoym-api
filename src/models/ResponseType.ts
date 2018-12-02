@@ -1,4 +1,4 @@
-const Response = {
+const ResponseType: ResponseType = {
   EMAIL_ALREADY_USED: {
     code: 401005,
     desc: 'email already used',
@@ -106,13 +106,13 @@ const Response = {
   },
 };
 
-export default Response;
+export default ResponseType;
 
-export interface ResponseType {
-  [label: string]: ResponseEntry
+interface ResponseType {
+  [label: string]: ResponseTypeEntry;
 }
 
-export interface ResponseEntry {
+export interface ResponseTypeEntry {
   code: number;
   desc: string;
   label: string;

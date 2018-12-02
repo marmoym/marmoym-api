@@ -1,14 +1,10 @@
 import { format } from 'util';
 
-import Response, { 
-  ResponseEntry,
+import { 
+  ResponseTypeEntry,
 } from '@models/ResponseType';
 
-export const VERSION = Symbol('version');
-
 export default class AppError extends Error {
-  static [VERSION] = '0.0.2';
-
   public code: number;
   public desc: string;
   public label: string;
@@ -20,16 +16,18 @@ export default class AppError extends Error {
   static of({
     args,
     error,
-    type,
-  }: {
-    args?: any[],
-    error?: Error,
-    type: ResponseEntry,
-  }) {
+    responseType,
+  }: OfParams) {
     const apiError = new AppError();
-    apiError.code = type.code;
-    apiError.label = type.label;
-    apiError.desc = args ? format(type.desc, ...args) : type.desc;
+    apiError.code = responseType.code;
+    apiError.desc = args ? format(responseType.desc, ...args) : responseType.desc;
+    apiError.label = responseType.label;
     return apiError;
   }
 };
+
+interface OfParams {
+  args?: any[];
+  error?: Error;
+  responseType: ResponseTypeEntry;
+}

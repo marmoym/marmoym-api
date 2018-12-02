@@ -1,19 +1,19 @@
 import { 
   NextFunction,
-  Handler, 
   Request, 
+  RequestHandler,
   Response, 
 } from 'express';
 
 import { expressLog } from '@modules/Log';
 import LaunchStatus from '@constants/LaunchStatus';
 import ResponseType from '@models/ResponseType';
-import { State } from '@src/state';
+import { State } from '@models/state';
 
-const launchStatusChecker = (state: State) => {
+export default function launchStatusCheckerWrapper(state: State): RequestHandler {
   expressLog.info('[launchStatusChecker] create checker with state: %o', state);
 
-  return (req: Request, res: Response, next: NextFunction) => {
+  return function launchStatusChecker(req: Request, res: Response, next: NextFunction) {
     if (state.launchStatus === LaunchStatus.NOT_YET_INTIALIZED) {
       res.send({
         message: 'App is launching. Reload after a few seconds.',
@@ -29,5 +29,3 @@ const launchStatusChecker = (state: State) => {
     }
   };
 };
-
-export default launchStatusChecker;

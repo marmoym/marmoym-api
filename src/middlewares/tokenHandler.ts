@@ -4,7 +4,7 @@ import AppError from "@models/AppError";
 import { expressLog } from '@modules/Log';
 import marmoymConfig from '@config/marmoymConfig';
 import ResponseType from '@models/ResponseType';
-import Token from '@externalModules/token/Token';
+import Token from '@modules/Token';
 
 export default function tokenAuthHandler(req: Request, res: Response, next: NextFunction) {
   const token = req.cookies['auth-token'];
@@ -21,13 +21,13 @@ export default function tokenAuthHandler(req: Request, res: Response, next: Next
       .catch((err) => {
         throw AppError.of({
           args: [],
-          type: ResponseType.TOKEN_INVALID,
+          responseType: ResponseType.TOKEN_INVALID,
         });  
       });
   } else {
     throw AppError.of({
       args: [ req.cookies ],
-      type: ResponseType.TOKEN_VOID,
+      responseType: ResponseType.TOKEN_VOID,
     });
   }
 };

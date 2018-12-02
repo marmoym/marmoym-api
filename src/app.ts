@@ -10,20 +10,14 @@ import { initializeDB } from '@entities/db';
 import { expressLog } from '@modules/Log';
 import LaunchStatus from '@constants/LaunchStatus';
 import marmoymConfig from '@config/marmoymConfig';
-import middlewares from './app.middlewares';
-import state from '@src/state';
-import Token from '@externalModules/token/Token';
+import middlewares from '@middlewares/app.middlewares';
+import state from '@models/state';
 
 expressLog.info('App is running in NODE_ENV: %s, LOCAL: %s', process.env.NODE_ENV, process.env.LOCAL);
 
 const app = express();
 
 (async function prepareModules() {
-  Token.initialize({
-    privateKey: marmoymConfig.auth.privateKey,
-    tokenDuration: marmoymConfig.auth.tokenDuration,
-  });
-
   const dbIsInitialized = await initializeDB();
   
   state.update({

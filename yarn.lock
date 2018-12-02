@@ -742,9 +742,9 @@
   dependencies:
     "@types/express" "^4.16.0"
 
-"@nodekit/express-route-mapper@git+https://github.com/nodekit-org/express-route-mapper.git#v0.0.3":
-  version "0.0.3"
-  resolved "git+https://github.com/nodekit-org/express-route-mapper.git#d8c9c6361bdb92cdb0057981d2f292df5875984b"
+"@nodekit/express-route-mapper@git+https://github.com/nodekit-org/express-route-mapper.git#v0.0.4":
+  version "0.0.4"
+  resolved "git+https://github.com/nodekit-org/express-route-mapper.git#f40295a42818829e6ece87819d4811b189cfd3ac"
   dependencies:
     "@types/express" "^4.16.0"
     typescript "^3.1.6"
