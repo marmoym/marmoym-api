@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 
-import AppError from "@models/AppError";
-import { expressLog } from '@modules/Log';
-import marmoymConfig from '@config/marmoymConfig';
-import ResponseType from '@models/ResponseType';
-import Token from '@modules/Token';
+import AppError from '@@models/AppError';
+import { expressLog } from '@@modules/Log';
+import marmoymConfig from '@@config/marmoymConfig';
+import ResponseType from '@@models/ResponseType';
+import Token from '@@modules/Token';
 
 export default function tokenAuthHandler(req: Request, res: Response, next: NextFunction) {
   const token = req.cookies['auth-token'];

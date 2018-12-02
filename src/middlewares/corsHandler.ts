@@ -6,8 +6,8 @@ import {
   RequestHandler
  } from 'express';
 
-import marmoymConfig from '@config/marmoymConfig';
-import { expressLog } from '@modules/Log';
+import marmoymConfig from '@@config/marmoymConfig';
+import { expressLog } from '@@modules/Log';
 
 export default function corsHandlerWrapper(): RequestHandler {
   expressLog.info('corsHandler() with: %o', marmoymConfig.cors);

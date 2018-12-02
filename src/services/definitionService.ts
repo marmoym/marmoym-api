@@ -1,4 +1,4 @@
-import ApiResult from '@models/ApiResult';
+import ApiResult from '@@models/ApiResult';
 
 const definitionService = {
   async addDefinition(param: {

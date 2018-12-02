@@ -1,11 +1,11 @@
 import chalk from 'chalk';
 import { format } from 'util';
 
-import AppError from '@models/AppError';
-import { expressLog } from '@modules/Log';
-import HttpStatus from '@constants/HttpStatus';
-import { isProduction } from '@src/env';
-import ResponseType from '@models/ResponseType';
+import AppError from '@@models/AppError';
+import { expressLog } from '@@modules/Log';
+import HttpStatus from '@@constants/HttpStatus';
+import { isProduction } from '@@src/env';
+import ResponseType from '@@models/ResponseType';
 
 export default function errorHandler(err: Error, req, res, next) {
   try {

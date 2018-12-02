@@ -1,4 +1,4 @@
-import db from '@entities/db';
+import db from '@@entities/db';
 
 const { User } = db;
 

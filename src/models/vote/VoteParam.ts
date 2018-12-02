@@ -1,4 +1,4 @@
-// import ApiParam from '@models/ApiParam';
+// import ApiParam from '@@models/ApiParam';
 
 // /**
 //  * @deprecated

@@ -1,6 +1,6 @@
-import token from '@externalModules/token';
+import token from '@@externalModules/token';
 
-import marmoymConfig from '@config/marmoymConfig';
+import marmoymConfig from '@@config/marmoymConfig';
 
 const Token = new token({
   privateKey: marmoymConfig.auth.privateKey,

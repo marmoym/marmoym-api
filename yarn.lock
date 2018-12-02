@@ -736,9 +736,9 @@
     normalize-path "^2.0.1"
     through2 "^2.0.3"
 
-"@nodekit/express-middleware-attach@git+https://github.com/nodekit-org/express-middleware-attach.git":
-  version "0.0.1"
-  resolved "git+https://github.com/nodekit-org/express-middleware-attach.git#ce49a5f59d91cea75532a7bc9501aec59c7e5598"
+"@nodekit/express-middleware-attach@git+https://github.com/nodekit-org/express-middleware-attach.git#v0.0.2":
+  version "0.0.2"
+  resolved "git+https://github.com/nodekit-org/express-middleware-attach.git#4d5244cf914dc995be68ca019a9a7b530d8c91e5"
   dependencies:
     "@types/express" "^4.16.0"
 

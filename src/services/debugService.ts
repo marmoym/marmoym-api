@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import ApiResult from '@models/ApiResult';
+import ApiResult from '@@models/ApiResult';
 
 export async function getDebug() {
   return new ApiResult({

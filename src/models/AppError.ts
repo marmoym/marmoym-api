@@ -2,7 +2,7 @@ import { format } from 'util';
 
 import { 
   ResponseTypeEntry,
-} from '@models/ResponseType';
+} from '@@models/ResponseType';
 
 export default class AppError extends Error {
   public code: number;

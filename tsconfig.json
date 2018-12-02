@@ -9,40 +9,40 @@
     "moduleResolution": "node",
     "noEmit": true,
     "paths": {
-      "@config/*": [
+      "@@config/*": [
         "src/config/*" 
       ],
-      "@constants/*": [
+      "@@constants/*": [
         "src/constants/*"
       ],
-      "@daos/*": [
+      "@@daos/*": [
         "src/daos/*"
       ],
-      "@entities/*": [
+      "@@entities/*": [
         "src/entities/*"
       ],
-      "@externalModules/*": [
+      "@@externalModules/*": [
         "src/externalModules/*"
       ],
-      "@middlewares/*": [
+      "@@middlewares/*": [
         "src/middlewares/*"
       ],
-      "@models/*": [
+      "@@models/*": [
         "src/models/*"
       ],
-      "@modules/*": [
+      "@@modules/*": [
         "src/modules/*"
       ],
-      "@routes/*": [
+      "@@routes/*": [
         "src/routes/*"
       ],
-      "@services/*": [
+      "@@services/*": [
         "src/services/*"
       ],
-      "@src/*": [
+      "@@src/*": [
         "src/*"
       ],
-      "@utils/*": [
+      "@@utils/*": [
         "src/utils/*"
       ]
     },

@@ -1,14 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
 
-import ApiURL from '@models/ApiURL';
+import ApiURL from '@@models/ApiURL';
 import definitionService, { 
-} from '@services/definitionService';
-import HttpMethod from '@constants/HttpMethod';
-// import * as migrateService from '@services/migrateService';
-import { optional, requireNonEmpty } from '@src/utils/objectUtils';
-import { Route } from '@routes/routers';
-import * as userService from '@services/userService';
-import tokenAuthHandler from '@middlewares/tokenHandler';
+} from '@@services/definitionService';
+import HttpMethod from '@@constants/HttpMethod';
+// import * as migrateService from '@@services/migrateService';
+import { optional, requireNonEmpty } from '@@src/utils/objectUtils';
+import { Route } from '@@routes/routers';
+import * as userService from '@@services/userService';
+import tokenAuthHandler from '@@middlewares/tokenHandler';
 
 const pathOrderedRouteMap: Route[] = [
   // {

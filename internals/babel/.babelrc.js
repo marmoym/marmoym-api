@@ -3,18 +3,18 @@ module.exports = {
     [
       "module-resolver", {
         "alias": {
-          "@config": "./src/config",
-          "@constants": "./src/constants",
-          "@daos": "./src/daos",
-          "@entities": "./src/entities",
-          "@externalModules": "./src/externalModules",
-          "@middlewares": "./src/middlewares",
-          "@models": "./src/models",
-          "@modules": "./src/modules",
-          "@routes": "./src/routes",
-          "@services": "./src/services",
-          "@src": "./src",
-          "@utils": "./src/utils"
+          "@@config": "./src/config",
+          "@@constants": "./src/constants",
+          "@@daos": "./src/daos",
+          "@@entities": "./src/entities",
+          "@@externalModules": "./src/externalModules",
+          "@@middlewares": "./src/middlewares",
+          "@@models": "./src/models",
+          "@@modules": "./src/modules",
+          "@@routes": "./src/routes",
+          "@@services": "./src/services",
+          "@@src": "./src",
+          "@@utils": "./src/utils"
         }
       }
     ],

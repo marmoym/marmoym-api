@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
-import { httpLog } from '@modules/Log';
+import { httpLog } from '@@modules/Log';
 
 const FORMAT = '%s - params: %j, body: %j, user-agent: %j';
 

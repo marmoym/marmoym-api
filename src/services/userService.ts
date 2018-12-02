@@ -1,6 +1,6 @@
-import ApiResult from '@models/ApiResult';
-import Token from '@modules/Token';
-import * as UserDAO from '@daos/UserDAO';
+import ApiResult from '@@models/ApiResult';
+import Token from '@@modules/Token';
+import * as UserDAO from '@@daos/UserDAO';
 
 export const signUpUser: SignInUser = async function ({
   password,

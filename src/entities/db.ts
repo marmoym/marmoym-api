@@ -2,9 +2,9 @@ import * as fs from 'fs';
 import * as path from 'path';
 import Sequelize from 'sequelize';
 
-import { dbLog } from '@modules/Log';
-import marmoymConfig from '@config/marmoymConfig';
-import * as paths from '@src/paths';
+import { dbLog } from '@@modules/Log';
+import marmoymConfig from '@@config/marmoymConfig';
+import * as paths from '@@src/paths';
 
 const basename = path.basename(__filename);
 const db: DB = {

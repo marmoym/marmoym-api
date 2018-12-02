@@ -6,12 +6,12 @@ import "reflect-metadata";
 import attach from '@nodekit/express-middleware-attach';
 import express from "express";
 
-import { initializeDB } from '@entities/db';
-import { expressLog } from '@modules/Log';
-import LaunchStatus from '@constants/LaunchStatus';
-import marmoymConfig from '@config/marmoymConfig';
-import middlewares from '@middlewares/app.middlewares';
-import state from '@models/state';
+import { initializeDB } from '@@entities/db';
+import { expressLog } from '@@modules/Log';
+import LaunchStatus from '@@constants/LaunchStatus';
+import marmoymConfig from '@@config/marmoymConfig';
+import middlewares from '@@middlewares/app.middlewares';
+import state from '@@models/state';
 
 expressLog.info('App is running in NODE_ENV: %s, LOCAL: %s', process.env.NODE_ENV, process.env.LOCAL);
 

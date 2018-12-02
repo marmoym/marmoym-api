@@ -1,7 +1,7 @@
 import * as NodeLogger from '@nodekit/node-logger';
 
 import chalk from 'chalk';
-import * as paths from '@src/paths';
+import * as paths from '@@src/paths';
 
 const nodeLogger = NodeLogger.createLogger({
   logPath: paths.logs,

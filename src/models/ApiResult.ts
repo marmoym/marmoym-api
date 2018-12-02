@@ -1,4 +1,4 @@
-import Cookie from '@models/Cookie';
+import Cookie from '@@models/Cookie';
 
 const COOKIES = Symbol('cookies');
 

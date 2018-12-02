@@ -7,13 +7,13 @@ import {
 } from 'express';
 import { createRouter } from '@nodekit/express-route-mapper';
 
-import ApiResult from '@models/ApiResult';
-import { API } from '@models/ApiURL';
-import AppError from '@models/AppError';
-import Cookie from '@models/Cookie';
-import HttpStatus from '@constants/HttpStatus';
-import { expressLog } from '@modules/Log';
-import ResponseType from '@models/ResponseType';
+import ApiResult from '@@models/ApiResult';
+import { API } from '@@models/ApiURL';
+import AppError from '@@models/AppError';
+import Cookie from '@@models/Cookie';
+import HttpStatus from '@@constants/HttpStatus';
+import { expressLog } from '@@modules/Log';
+import ResponseType from '@@models/ResponseType';
 import routesDefault from './default/routes.default';
 import routesV1 from './v1/routes.v1';
 

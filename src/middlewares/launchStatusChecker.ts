@@ -5,10 +5,10 @@ import {
   Response, 
 } from 'express';
 
-import { expressLog } from '@modules/Log';
-import LaunchStatus from '@constants/LaunchStatus';
-import ResponseType from '@models/ResponseType';
-import { State } from '@models/state';
+import { expressLog } from '@@modules/Log';
+import LaunchStatus from '@@constants/LaunchStatus';
+import ResponseType from '@@models/ResponseType';
+import { State } from '@@models/state';
 
 export default function launchStatusCheckerWrapper(state: State): RequestHandler {
   expressLog.info('[launchStatusChecker] create checker with state: %o', state);

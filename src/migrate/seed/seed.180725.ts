@@ -1,7 +1,7 @@
-// import Definition from '@entities/Definition';
-// import Term from '@entities/Term';
-// import User from '@entities/User';
-// import Vote from '@entities/Vote';
+// import Definition from '@@entities/Definition';
+// import Term from '@@entities/Term';
+// import User from '@@entities/User';
+// import Vote from '@@entities/Vote';
 
 // const term1 = new Term({
 //   label: 'term0',

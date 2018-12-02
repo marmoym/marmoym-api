@@ -1,5 +1,5 @@
-import LaunchStatus from '@constants/LaunchStatus';
-import { stateLog } from '@modules/Log';
+import LaunchStatus from '@@constants/LaunchStatus';
+import { stateLog } from '@@modules/Log';
 
 const state: State = {
   launchStatus: LaunchStatus.NOT_YET_INTIALIZED,
