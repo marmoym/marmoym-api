@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
+import ApiResult from '@@models/ApiResult';
 import ApiURL from '@@models/ApiURL';
 import definitionService, { 
 } from '@@services/definitionService';
@@ -8,9 +9,10 @@ import HttpMethod from '@@constants/HttpMethod';
 import { optional, requireNonEmpty } from '@@src/utils/objectUtils';
 import { Route } from '@@routes/routers';
 import * as userService from '@@services/userService';
+import UserSignUpParam from '@@models/params/UserSignUpParam';
 import tokenAuthHandler from '@@middlewares/tokenHandler';
 
-const pathOrderedRouteMap: Route[] = [
+const pathOrderedRouteMap: Route<any>[] = [
   // {
   //   action: migrateService.seed,
   //   method: HttpMethod.GET,
@@ -64,7 +66,7 @@ const pathOrderedRouteMap: Route[] = [
     method: HttpMethod.POST,
     path: ApiURL.DEFINITION_NEW,
   },
-  {
+  <Route<UserSignUpParam>>{
     action: userService.signUpUser,
     createParam: (req: Request) => {
       return {

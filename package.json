@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "@nodekit/express-middleware-attach": "git+https://github.com/nodekit-org/express-middleware-attach.git#v0.0.2",
-    "@nodekit/express-route-mapper": "git+https://github.com/nodekit-org/express-route-mapper.git#v0.0.4",
+    "@nodekit/express-route-mapper": "git+https://github.com/nodekit-org/express-route-mapper.git#v0.0.5",
     "@nodekit/node-logger": "git+https://github.com/nodekit-org/node-logger.git#v0.0.3",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.17.1",

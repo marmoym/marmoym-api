@@ -34,14 +34,14 @@ function validatePayload(req: Request, res: Response, next: NextFunction) {
   return function (apiResult: ApiResult<any>) {
     if (apiResult === undefined) {
       throw AppError.of({
-        type: ResponseType.RESPONSE_NOT_PROVIDED,
+        responseType: ResponseType.RESPONSE_NOT_PROVIDED,
       });
     }
 
     if (!(apiResult instanceof ApiResult)) {
       throw AppError.of({
         args: [ apiResult ],
-        type: ResponseType.RESPONSE_TYPE_NOT_API_RESULT,
+        responseType: ResponseType.RESPONSE_TYPE_NOT_API_RESULT,
       });
     }
 
@@ -79,10 +79,10 @@ function respond(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-export interface Route {
-  action: (x: object | null) => Promise<ApiResult<any>>;
+export interface Route<P> {
+  action: (param: P) => Promise<ApiResult<any>>;
   beforeware?: Array<(Request: any, res: Response, next: NextFunction) => void>;
-  createParam?: (req: Request) => object;
+  createParam?: (req: Request) => P;
   method: 'get' | 'post' | 'put' | 'delete';
   path: string;
 }

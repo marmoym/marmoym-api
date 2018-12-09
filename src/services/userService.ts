@@ -27,5 +27,5 @@ interface SignInUser {
   (param: {
     password: string;
     userId: string;
-  }): Promise<ApiResult<any | undefined>>;
+  }): Promise<ApiResult<any>>;
 }
