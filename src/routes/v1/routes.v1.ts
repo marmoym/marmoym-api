@@ -10,7 +10,7 @@ import { optional, requireNonEmpty } from '@@src/utils/objectUtils';
 import { Route } from '@@routes/routers';
 import * as userService from '@@services/userService';
 import UserSignUpParam from '@@models/params/UserSignUpParam';
-import tokenAuthHandler from '@@middlewares/tokenHandler';
+import tokenAuthHandler from '@@middlewares/tokenAuthHandler';
 
 const pathOrderedRouteMap: Route<any>[] = [
   // {
