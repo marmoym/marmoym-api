@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
-import ApiResponse from '@@models/ApiResponse';
+import ApiResult from '@@models/ApiResult';
 import ApiURL from '@@models/ApiURL';
 import DefinitionAddParam from '@@models/params/DefinitionAddParam';
 import * as definitionService from '@@services/definitionService';

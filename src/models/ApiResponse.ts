@@ -1,26 +1,19 @@
-import ApiError from '@@models/ApiError';
-import Cookie from '@@models/Cookie';
+import ApiError from "./ApiError";
 
-const COOKIES = Symbol('cookies');
-
-export default class ApiResponse<T> {
-  [COOKIES]: Cookie[] = [];
+class ApiResponse<T> {
+  code: number;
   error?: ApiError;
-  payload: T
+  payload: T;
 
-  constructor(payload: T, error?: ApiError) {
+  constructor(
+    code: number,
+    payload: T,
+    error?: ApiError,
+  ) {
+    this.code = code;
     this.payload = payload;
-    if (error) {
-      this.error = error;
-    }
+    this.error = error;
   }
+}
 
-  public getCookies() {
-    return this[COOKIES];
-  }
-
-  public setCookie(cookie: Cookie) {
-    this[COOKIES].push(cookie);
-    return this;
-  }
-};
+export default ApiResponse;

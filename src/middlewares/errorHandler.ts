@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import { format } from 'util';
 
 import ApiError from '@@models/ApiError';
-import ApiResponse from '@@models/ApiResponse';
+import ApiResult from '@@models/ApiResult';
 import { expressLog } from '@@modules/Log';
 import HttpStatus from '@@constants/HttpStatus';
 import { isProduction } from '@@src/env';
@@ -27,7 +27,7 @@ export default function errorHandler(err: Error, req, res, next) {
     );
 
     res.status(HttpStatus.ERROR)
-      .send(new ApiResponse(null, err as ApiError));
+      .send(new ApiResult(null, err as ApiError));
 
   } catch (err) {
     const error = ApiError.of({
@@ -35,7 +35,7 @@ export default function errorHandler(err: Error, req, res, next) {
     });
 
     res.status(HttpStatus.ERROR)
-      .send(new ApiResponse(null, error));
+      .send(new ApiResult(null, error));
   }
 }
 
