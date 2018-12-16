@@ -1,4 +1,18 @@
-let marmoymConfig: MarmoymConfig = {
+import merge from 'webpack-merge';
+
+import { expressLog } from '@@modules/Log';
+
+let importedConfig = {};
+try {
+  importedConfig = require('./marmoym-config/config') as MarmoymConfig;
+} catch (err) {
+  console.error(`
+'marmoym-config' is not present. The repo is accessible with the previlege.
+It is possible, however, to setup a local configuration to launch the app. You are advised to modify
+marmoymConfig in whichever you want.`);
+}
+
+const defaultConfig: MarmoymConfig = {
   app: {
     port: 4001,
   },
@@ -12,42 +26,34 @@ let marmoymConfig: MarmoymConfig = {
       'http://localhost',
     ],
   },
-  db: {},
-};
-
-try {
-  const importedConfig = require('./marmoym-config/config');
-  marmoymConfig = importedConfig;
-} catch (err) {
-  console.error(`
-'marmoym-config' is not present. The repo is accessible with the previlege.
-It is possible, however, to setup a local configuration to launch the app. You are advised to modify
-marmoymConfig in whichever you want.`);
-}
-
-const localDBConfig = {
-  database: 'marmoym-local',
-  host: "localhost",
-  password: "marmoym-local",
-  poolMax: 5,
-  poolMin: 0,
-  port: 5432,
-  type: "postgres",
-  username: "marmoym-local",
-};
-
-(function assignLocalDBSettings() {
-  marmoymConfig.db['default'] = {
-    ...marmoymConfig.db['default'],
-    local: {
-      ...localDBConfig,
-    },
-    'local-container': {
-      ...localDBConfig,
-      host: 'docker.for.mac.host.internal',
+  db: {
+    default: {
+      local: {
+        database: 'marmoym-local',
+        host: "localhost",
+        password: "marmoym-local",
+        poolMax: 5,
+        poolMin: 0,
+        port: 5432,
+        type: "postgres",
+        username: "marmoym-local",
+      },
+      'local-container': {
+        database: 'marmoym-local',
+        host: 'docker.for.mac.host.internal',
+        password: "marmoym-local",
+        poolMax: 5,
+        poolMin: 0,
+        port: 5432,
+        type: "postgres",
+        username: "marmoym-local",
+      },
     }
-  };
-})();
+  },
+};
+
+const marmoymConfig = merge(defaultConfig, importedConfig);
+expressLog.info('marmoymConfig: %o', marmoymConfig);
 
 export default marmoymConfig;
 
