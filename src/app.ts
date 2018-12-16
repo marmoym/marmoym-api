@@ -10,14 +10,14 @@ import { initializeDB } from '@@entities/db';
 import { expressLog } from '@@modules/Log';
 import LaunchStatus from '@@constants/LaunchStatus';
 import marmoymConfig from '@@config/marmoymConfig';
-import middlewares from '@@middlewares/app.middlewares';
+import middlewares from '@@middlewares/middlewares';
 import state from '@@models/state';
 
 expressLog.info('App is running in NODE_ENV: %s, LOCAL: %s', process.env.NODE_ENV, process.env.LOCAL);
 
 const app = express();
 
-(async function prepareModules() {
+(async function setupAndLaunch() {
   const dbIsInitialized = await initializeDB();
   
   state.update({

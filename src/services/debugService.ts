@@ -1,14 +1,14 @@
 import { Request, Response } from 'express';
 
-import ApiResult from '@@models/ApiResult';
+import ApiResponse from '@@models/ApiResponse';
 
 export async function getDebug() {
-  return new ApiResult({
+  return new ApiResponse({
     status: 'ok',
   });
 };
 
-// class DebugResult extends ApiResult {
+// class DebugResult extends ApiResponse {
 //   status: string;
 
 //   constructor({

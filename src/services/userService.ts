@@ -1,11 +1,12 @@
-import ApiResult from '@@models/ApiResult';
+import ApiResponse from '@@models/ApiResponse';
 import Token from '@@modules/Token';
 import * as UserDAO from '@@daos/UserDAO';
+import UserSignUpParam from '@@models/params/UserSignUpParam';
 
-export const signUpUser: SignInUser = async function ({
+export async function signUpUser({
   password,
   userId,
-}) {
+}: UserSignUpParam): Promise<ApiResponse<any>> {
   try {
     const token = await Token.create({
       payload: {
@@ -14,18 +15,11 @@ export const signUpUser: SignInUser = async function ({
     });
     
     const result = await UserDAO.insert(userId, password);
-    return new ApiResult({
+    return new ApiResponse({
       result,
       token,
     });
   } catch (err) {
-    return new ApiResult({});
+    return new ApiResponse(null, err);
   }
-}
-
-interface SignInUser {
-  (param: {
-    password: string;
-    userId: string;
-  }): Promise<ApiResult<any>>;
 }

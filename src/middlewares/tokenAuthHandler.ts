@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-import AppError from '@@models/AppError';
+import ApiError from '@@models/ApiError';
 import { expressLog } from '@@modules/Log';
 import marmoymConfig from '@@config/marmoymConfig';
 import ResponseType from '@@models/ResponseType';
@@ -19,13 +19,13 @@ export default function tokenAuthHandler(req: Request, res: Response, next: Next
         next();
       })
       .catch((err) => {
-        throw AppError.of({
+        throw ApiError.of({
           args: [],
           responseType: ResponseType.TOKEN_INVALID,
         });  
       });
   } else {
-    throw AppError.of({
+    throw ApiError.of({
       args: [ req.cookies ],
       responseType: ResponseType.TOKEN_VOID,
     });

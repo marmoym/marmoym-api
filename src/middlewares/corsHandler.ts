@@ -26,7 +26,7 @@ export default function corsHandlerWrapper(): RequestHandler {
           callback(null, true);
           // process.env.NODE_ENV === 'development'
           //   ? callback(null, true)
-          //   : callback(AppError.ofType(ResponseType.REQUEST_ORIGIN_INVALID, origin));
+          //   : callback(ApiError.ofType(ResponseType.REQUEST_ORIGIN_INVALID, origin));
         }
       },
     })(req, res, next);

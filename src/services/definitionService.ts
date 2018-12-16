@@ -1,13 +1,11 @@
-import ApiResult from '@@models/ApiResult';
+import ApiResponse from '@@models/ApiResponse';
+import DefinitionAddParam from '@@models/params/DefinitionAddParam';
 
-const definitionService = {
-  async addDefinition(param: {
-    definition: string;
-    label: string;
-  }) {
-    console.log(123, param.definition, param.label);
-    return new ApiResult({});
-  },
-};
-
-export default definitionService;
+export async function addDefinition({
+  definition,
+  term,
+}: DefinitionAddParam): Promise<ApiResponse<any>> {
+  // todo: this will be refactored soon
+  // console.log(123, definition, term);
+  return new ApiResponse({});
+}

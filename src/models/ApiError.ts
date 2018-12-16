@@ -4,7 +4,7 @@ import {
   ResponseTypeEntry,
 } from '@@models/ResponseType';
 
-export default class AppError extends Error {
+export default class ApiError extends Error {
   public code: number;
   public desc: string;
   public label: string;
@@ -18,7 +18,7 @@ export default class AppError extends Error {
     error,
     responseType,
   }: OfParams) {
-    const apiError = new AppError();
+    const apiError = new ApiError();
     apiError.code = responseType.code;
     apiError.desc = args ? format(responseType.desc, ...args) : responseType.desc;
     apiError.label = responseType.label;

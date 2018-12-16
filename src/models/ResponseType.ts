@@ -4,6 +4,11 @@ const ResponseType: ResponseType = {
     desc: 'email already used',
     label: 'EMAIL_ALREADY_USED',
   },
+  ERROR_WHILE_PROCESSING_ERROR: {
+    code: 501001,
+    desc: 'error has occurred while processing error',
+    label: 'ERROR_WHILE_PROCESSING_ERROR',
+  },
   INITIALIZATION_ERROR: {
     code: 500000,
     desc: 'App is not initialized',
@@ -14,15 +19,15 @@ const ResponseType: ResponseType = {
     desc: 'Not error object',
     label: 'NOT_ERROR_OBJECT',
   },
-  REQUEST_TYPE_UNKNOWN: {
-    code: 999001,
-    desc: 'Neither validator is defined or incorrect request',
-    label: 'REQUEST_TYPE_UNKNOWN',
-  },
   REQUEST_PARAMETER_INSUFFICIENT: {
     code: 999002,
     desc: 'Parameter is not sufficiently provided',
     label: 'REQUEST_PARAMETER_INSUFFICIENT',
+  },
+  REQUEST_TYPE_UNKNOWN: {
+    code: 999001,
+    desc: 'Neither validator is defined or incorrect request',
+    label: 'REQUEST_TYPE_UNKNOWN',
   },
   RESOURCE_NOT_FOUND: {
     code: 404001,
@@ -33,6 +38,11 @@ const ResponseType: ResponseType = {
     code: 404002,
     desc: 'Request is routed but did not get the response',
     label: 'RESPONSE_NOT_PROVIDED',
+  },
+  RESPONSE_TYPE_NOT_API_RESPONSE: {
+    code: 400001,
+    desc: 'Response type is not api response',
+    label: 'RESPONSE_TYPE_NOT_API_RESPONESE',
   },
   ROUTE_NOT_DEFINED: {
     code: 404003,
@@ -63,11 +73,6 @@ const ResponseType: ResponseType = {
     code: 402002,
     desc: 'Token is not present',
     label: 'TOKEN_VOID',
-  },
-  RESPONSE_TYPE_NOT_API_RESULT: {
-    code: 400001,
-    desc: 'Internal Error has occurred',
-    label: 'RESPONSE_TYPE_NOT_API_RESULT',
   },
   USER_CREDENTIAL_INVALID: {
     code: 401001,

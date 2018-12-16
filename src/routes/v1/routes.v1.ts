@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 
-import ApiResult from '@@models/ApiResult';
+import ApiResponse from '@@models/ApiResponse';
 import ApiURL from '@@models/ApiURL';
-import definitionService, { 
-} from '@@services/definitionService';
+import DefinitionAddParam from '@@models/params/DefinitionAddParam';
+import * as definitionService from '@@services/definitionService';
 import HttpMethod from '@@constants/HttpMethod';
 // import * as migrateService from '@@services/migrateService';
 import { optional, requireNonEmpty } from '@@src/utils/objectUtils';
@@ -52,7 +52,7 @@ const pathOrderedRouteMap: Route<any>[] = [
   //   method: HttpMethod.POST,
   //   path: ApiURL.DEFINITIONS_$DEFINITIONID,
   // },
-  {
+  <Route<DefinitionAddParam>>{
     action: definitionService.addDefinition,
     beforeware: [
       tokenAuthHandler,

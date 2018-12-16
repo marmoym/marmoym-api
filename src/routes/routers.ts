@@ -7,12 +7,12 @@ import {
 } from 'express';
 import { createRouter } from '@nodekit/express-route-mapper';
 
-import ApiResult from '@@models/ApiResult';
 import { API } from '@@models/ApiURL';
-import AppError from '@@models/AppError';
+import ApiError from '@@models/ApiError';
+import ApiResponse from '@@models/ApiResponse';
 import Cookie from '@@models/Cookie';
-import HttpStatus from '@@constants/HttpStatus';
 import { expressLog } from '@@modules/Log';
+import HttpStatus from '@@constants/HttpStatus';
 import ResponseType from '@@models/ResponseType';
 import routesDefault from './default/routes.default';
 import routesV1 from './v1/routes.v1';
@@ -31,31 +31,31 @@ const routers = {
 export default routers;
 
 function validatePayload(req: Request, res: Response, next: NextFunction) {
-  return function (apiResult: ApiResult<any>) {
-    if (apiResult === undefined) {
-      throw AppError.of({
+  return function (apiResponse: ApiResponse<any>) {
+    if (apiResponse === undefined) {
+      throw ApiError.of({
         responseType: ResponseType.RESPONSE_NOT_PROVIDED,
       });
     }
 
-    if (!(apiResult instanceof ApiResult)) {
-      throw AppError.of({
-        args: [ apiResult ],
-        responseType: ResponseType.RESPONSE_TYPE_NOT_API_RESULT,
+    if (!(apiResponse instanceof ApiResponse)) {
+      throw ApiError.of({
+        args: [ ApiResponse ],
+        responseType: ResponseType.RESPONSE_TYPE_NOT_API_RESPONSE,
       });
     }
 
-    return apiResult;
+    return apiResponse;
   }
 }
 
 function setCookie(req: Request, res: Response, next: NextFunction) {
-  return function (apiResult: ApiResult<any>) {
-    const cookies = apiResult.getCookies();
+  return function (ApiResponse: ApiResponse<any>) {
+    const cookies = ApiResponse.getCookies();
     if (cookies.length > 0) {
       expressLog.debug('Cookies (%s) are set: %j', cookies.length, cookies);
 
-      apiResult.getCookies()
+      ApiResponse.getCookies()
         .map((cookie: Cookie) => {
           res.cookie(cookie.key, cookie.value, {
             httpOnly: true,
@@ -63,24 +63,24 @@ function setCookie(req: Request, res: Response, next: NextFunction) {
           });
       });
     }
-    return apiResult;
+    return ApiResponse;
   }
 }
 
 function respond(req: Request, res: Response, next: NextFunction) {
-  return function (apiResult: ApiResult<any>) {
+  return function (ApiResponse: ApiResponse<any>) {
     res.status(HttpStatus.SUCCESS)
       .send({
         code: ResponseType.SUCCESS.code,
-        payload: apiResult,
+        payload: ApiResponse,
       });
 
-    return apiResult;
+    return ApiResponse;
   }
 }
 
 export interface Route<P> {
-  action: (param: P) => Promise<ApiResult<any>>;
+  action: (param: P) => Promise<ApiResponse<any>>;
   beforeware?: Array<(Request: any, res: Response, next: NextFunction) => void>;
   createParam?: (req: Request) => P;
   method: 'get' | 'post' | 'put' | 'delete';
